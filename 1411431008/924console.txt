@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+float main()
+{
+    printf("今天你好嗎?\n");
+    printf("今天上了%d堂課", 3);
+    printf("天氣%.2f度",38.44);
+
+    return 0;
+}
