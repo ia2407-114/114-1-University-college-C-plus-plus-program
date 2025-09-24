@@ -6,3 +6,10 @@ int main()
     printf("張詳彬你好嗎?\n");
     printf("張詳彬你好嗎?\n");
     printf("張詳彬你好嗎?\n");
+
+    
+
+
+
+
+}
