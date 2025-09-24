@@ -1,0 +1,11 @@
+//0924
+#include <iostream>
+
+int main()
+{
+	printf("你好\n");
+	printf("你好\n");
+	printf("你好\n");
+	printf("你好,現在 %d 點 %0.2f 分\n",11,59.59);
+	return 0;
+}
