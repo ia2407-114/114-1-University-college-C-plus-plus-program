@@ -42,7 +42,6 @@ float main()
 //副程式
 int myFunc()
 {
-    printf("今天我共上了%d堂課\n");
     printf("Hi! how are you today ?");
     printf("Hi! how are you today ?");
     printf("Hi! how are you today ?");
