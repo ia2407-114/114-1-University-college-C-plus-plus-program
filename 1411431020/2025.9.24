@@ -35,6 +35,7 @@ float main()
     printf("Hi! how are you today ?\n");
     printf("Hi! how are you today ?\n");
     printf("今天我共上了 %d 堂課，共 %.1f 小時\n" ,3, 2.5);
+	return 0;
 }
 //fioat=浮點數=小數
 //int=整數
