@@ -8,3 +8,12 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
+//Visual Studio
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+print("How are you today ? ");
+return 0;
+}
