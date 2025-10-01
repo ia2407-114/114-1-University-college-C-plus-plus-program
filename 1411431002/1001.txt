@@ -1,0 +1,56 @@
+// Fig. 2.5: fig02_05.c
+ // Addition program.
+#include <stdio.h>
+
+// function main begins program execution 
+int main(void)
+{
+
+	//int integer1, integer2, sum;
+	//定義三個變數(int1,int2為輸入值)
+
+	//printf("Enter first integer\n"); // prompt
+	//scanf_s("%d", &integer1);
+	//"scanf_s"輸入
+	//"&"取得變數所在的記憶體位置
+	//printf("Enter second integer\n"); // prompt
+	//scanf_s("%d", &integer2);
+
+	//sum = integer1 + integer2; // assign total to sum
+
+	//printf("%d plus %d and the sum is %d\n", integer1, integer2, sum);
+
+	
+	//題目1. 利用輸入輸出函數，輸入以上變數，並且印出所有變數與結果
+	
+	int z, p, r, q, w, x, y;
+	printf("輸入第一個整數\n"); // prompt
+	scanf_s("%d", &p);
+	printf("輸入第二個整數\n"); // prompt
+	scanf_s("%d", &r);
+	printf("輸入第三個整數\n"); // prompt
+	scanf_s("%d", &q);
+	printf("輸入第四個整數\n"); // prompt
+	scanf_s("%d", &w);
+	printf("輸入第五個整數\n"); // prompt
+	scanf_s("%d", &x);
+	printf("輸入第六個整數\n"); // prompt
+	scanf_s("%d", &y);
+	
+	z = p * r % q + w / x - y;
+
+	printf("%d = %d * %d %% %d + %d / %d - %d\n", z, p, r, q, w, x, y);
+	
+	
+	//題目2(max. 70)	輸入一個整數成績，如果大於等於60則印出"恭喜通過!"，否則印出"再加油!"
+
+	int score;
+	printf("請輸入成績:");
+	scanf_s("%d",&score);
+	if (score >= 60) {
+		printf("恭喜通過!");
+	}
+	printf("再加油!");
+	
+	return 1;
+}
