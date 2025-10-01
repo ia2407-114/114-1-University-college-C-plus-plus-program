@@ -5,23 +5,16 @@
 //fuction main begins program execution
 int main(void)
 {
-	int z, p, r, q, w, x, y;
+	printf("Enter one integer score\n");
 
-	printf("Enter p\n");
-	scanf_s("%d", &p);
-	printf("Enter r\n");
-	scanf_s("%d", &r);
-	printf("Enter q\n");
-	scanf_s("%d", &q);
-	printf("Enter w\n");
-	scanf_s("%d", &w);
-	printf("Enter x\n");
-	scanf_s("%d", &x);
-	printf("Enter y\n");
-	scanf_s("%d", &y);
+	int y;
+	scanf("%d", &y);
 
-	z = p * r % q + w / x - y;
-
-	printf("%d * %d % %d + %d / %d - %d are the %d\n", p, r, q, w, x, y, z);
-	return 1;
+	if (y >= 60) {
+		printf("恭喜通過");
+	}
+	if (y < 60) {
+		printf("再加油");
+	}
+	return 0;
 }
