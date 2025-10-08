@@ -27,15 +27,15 @@ return 0;
 #include<stdio.h>
 // #include <iostream>
 //主程式
-float main()
+int main()
 {
     printf("Hi! how are you today ?\n");
     printf("Hi! how are you today ?\n");
     printf("Hi! how are you today ?\n");
     printf("Hi! how are you today ?\n");
     printf("Hi! how are you today ?\n");
-    printf("今天我共上了 %d 堂課，共 %.1f 小時\n" ,3, 2.5);
-	return 0;
+    printf("今天我共上了 %d 堂課，共 %.1f 小時\n", 3, 2.5);
+    return 0;
 }
 //fioat=浮點數=小數
 //int=整數
@@ -46,6 +46,7 @@ int myFunc()
     printf("Hi! how are you today ?");
     printf("Hi! how are you today ?");
     printf("Hi! how are you today ?");
+    return 0;
 }
 // 執行程式: Ctrl + F5 或 [偵錯] > [啟動但不偵錯] 功能表
 // 偵錯程式: F5 或 [偵錯] > [啟動偵錯] 功能表
