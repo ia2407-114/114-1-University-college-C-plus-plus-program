@@ -1,0 +1,48 @@
+#include<stdio.h>
+
+int main(void)
+{
+	int a, b, c;
+	printf("Enter three different integers: \n");
+	scanf_s("%d %d %d", &a, &b, &c);
+
+	printf("Sum is %d\n", a + b + c);
+	printf("Average is %.2f\n", ((float)(a + b + c) / 3));
+	printf("The Product is %d\n", a * b * c);
+	int largest = a;
+
+	if (b > largest)
+		largest = b;
+	if (c > largest)
+		largest = c;
+
+	printf("Largest is %d\n", largest);
+
+	return 0;
+}
+
+#include<stdio.h>
+
+int main(void)
+{
+	int a, b, c;
+	printf("Enter three different integers: \n");
+	scanf_s("%d %d %d", &a, &b, &c);
+	printf("Sum is %d\n"
+		, a + b + c);
+	printf("Average is %fln", ((float)a + b + c) / 3);
+	printf("The Product is %d\n", a * b * c);
+	if (a >= 90)
+		puts("a got a grade A!!");
+	else if (a >= 80)
+		puts("a got a grade B!!");
+	else if (a >= 70)
+		puts("a got a grade C!!");
+	else if (a >= 60)
+		puts("a got a grade D!!");
+	else
+		puts("a Failed!!!!");
+
+	printf_s(b >= 60 ? "b Passed!!" : "b is Failed!!!");
+	return 0;
+}
