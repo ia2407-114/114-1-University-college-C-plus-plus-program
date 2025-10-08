@@ -1,0 +1,16 @@
+int main(void)
+{
+	int x;
+	printf("輸入成績\n");
+	scanf_s("%d", &x);
+	if (x >= 60) {
+		printf("恭喜通過");
+
+	}
+	if (x <= 59) {
+		printf("再加油!");
+	}
+
+
+}
+
