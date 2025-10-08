@@ -7,9 +7,10 @@ int main(void)
 		printf("恭喜通過");
 
 	}
-	if (x <= 60) {
+	if (x <= 59) {
 		printf("再加油!");
 	}
 
 
 }
+
