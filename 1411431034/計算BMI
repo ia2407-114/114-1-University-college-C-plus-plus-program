@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main(void)
+{
+	int w, h,BMI=0;
+	printf("輸入身高\n");
+	scanf_s("%d", &h);
+	printf("輸入體重\n");
+	scanf_s("%d", &w);
+	BMI = w / ((h / 100)*(h / 100));
+	if (BMI < 18.5) {
+		printf("BMI VALUES %d\n", BMI);
+		printf("Underweight\n");
+	}
+	else if (18.5 <= BMI <= 24.9) {
+		printf("BMI VALUES %d\n", BMI);
+		printf("Normal\n");
+	}
+	else if (25 <= BMI <= 29.9) {
+		printf("BMI VALUES %d\n", BMI);
+		printf("Overweight\n");
+	}
+	else {
+		printf("BMI VALUES %d\n", BMI);
+		printf("Obese\n");
+	}
+	return 0;
+
+}
