@@ -35,6 +35,49 @@ int main(void)
 }
 
 
+#include<stdio.h>
+
+int main(void)
+{
+    int a, b, c;
+    printf("Enter three different integers:\n");
+    scanf_s("%d %d %d", &a, &b, &c);
+    printf("Sum is %d\n", a + b + c);
+    printf("Average is %1.f\n", ((float)a + b + c) / 3);
+    printf("The Product is %d\n", a * b * c);
+    if (a > b ){
+       if (a > c) 
+        printf("Largest is %d\n", a);
+    }
+    if (c > b ){
+        if(c > a) 
+        printf("Largest is %d\n", c);
+    }
+    if (b > a ) {
+        if(b > c)
+        printf("Largest is %d\n", b);
+    }
+    if (a < b )
+        if( a < c) {
+        printf("smallest is %d\n", a);
+    }
+    if (c < b ) {
+        if( c < a)
+        printf("smallest is %d\n", c);
+    }
+    if (b < a ){
+        if(b < c) 
+        printf("smallest is %d\n", b);
+    }
+
+
+
+
+
+    return 0;
+}
+
+
 
 
 
