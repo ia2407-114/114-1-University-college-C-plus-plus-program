@@ -21,6 +21,16 @@ int main(void)
 	return 0;
 }
 
+
+
+
+
+
+
+
+
+
+
 #include<stdio.h>
 
 int main(void)
@@ -46,3 +56,51 @@ int main(void)
 	printf_s(b >= 60 ? "b Passed!!" : "b is Failed!!!");
 	return 0;
 }
+
+
+
+
+
+
+
+
+#include <stdio.h>
+
+int main(void)
+{
+	int grade; 
+	int total = 0; 
+	int count = 0; 
+	int max = -1; 
+	int min = 101; 
+	float average; 
+
+	printf("Enter grade, negative number to end: ");
+	scanf_s("%d", &grade);
+
+	while (grade >= 0) { 
+		total += grade;
+		count++;
+
+		if (grade > max)
+			max = grade;
+		if (grade < min)
+			min = grade;
+
+		printf("Enter grade, negative number to end: ");
+		scanf_s("%d", &grade);
+	}
+
+	if (count > 0) { 
+		average = (float)total / count;
+		printf("\nAverage = %.2f\n", average);
+		printf("Highest = %d\n", max);
+		printf("Lowest = %d\n", min);
+	}
+	else {
+		printf("No grades were entered.\n");
+	}
+
+	return 0;
+}
+
