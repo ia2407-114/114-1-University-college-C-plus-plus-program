@@ -29,31 +29,37 @@ int main(void)
 
 
 
-
-
-#include<stdio.h>
+#include <stdio.h>
 
 int main(void)
 {
-	int a, b, c;
-	printf("Enter three different integers: \n");
-	scanf_s("%d %d %d", &a, &b, &c);
-	printf("Sum is %d\n"
-		, a + b + c);
-	printf("Average is %fln", ((float)a + b + c) / 3);
-	printf("The Product is %d\n", a * b * c);
-	if (a >= 90)
-		puts("a got a grade A!!");
-	else if (a >= 80)
-		puts("a got a grade B!!");
-	else if (a >= 70)
-		puts("a got a grade C!!");
-	else if (a >= 60)
-		puts("a got a grade D!!");
-	else
-		puts("a Failed!!!!");
+	float weight, height, bmi;
 
-	printf_s(b >= 60 ? "b Passed!!" : "b is Failed!!!");
+	printf("Enter your weight in kilograms: ");
+	scanf_s("%f", &weight);
+
+	printf("Enter your height in meters: ");
+	scanf_s("%f", &height);
+
+	bmi = weight / (height * height);
+
+	printf("\nYour BMI is: %.2f\n", bmi);
+
+	printf("BMI Categories (TEXTBOOK p.99):\n");
+	printf("Underweight: less than 18.5\n");
+	printf("Normal: between 18.5 and 24.9\n");
+	printf("Overweight: between 25 and 29.9\n");
+	printf("Obese: 30 or greater\n\n");
+
+	if (bmi < 18.5)
+		printf("underweight.\n");
+	else if (bmi < 25.0)
+		printf("normal .\n");
+	else if (bmi < 30.0)
+		printf("overweight.\n");
+	else
+		printf("obese.\n");
+
 	return 0;
 }
 
