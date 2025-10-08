@@ -33,3 +33,37 @@ int main(void)
 
     return 0;
 }
+
+
+
+
+
+
+
+
+#include<stdio.h>
+
+int main(void)
+{
+	int BMI, weight_In_Kilograms, height_In_Meters;
+	printf("Enter your weight in Kilograms and height in Meters :\n");
+	scanf_s("%d", &weight_In_Kilograms);
+    scanf_s("%f", &height_In_Meters);
+	BMI=weight_In_Kilograms / height_In_Meters / height_In_Meters
+	printf("BMI is %f\n", (float)BMI);
+    if (BMI < 18.5) {
+            printf("Your BMI is Underweight\n");
+    }
+     eles if(BMI < 24.9 && BMI >= 18.5) {
+            printf("Your BMI is Underweight\n");
+    }
+     eles if (BMI < 25 && BMI >= 18.5) {
+            printf("Your BMI is Underweight\n");
+    }
+    if (BMI > 30) {
+            printf("Your BMI is Underweight\n");
+    }
+
+
+	return 1;
+}
