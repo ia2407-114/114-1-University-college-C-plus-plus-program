@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main(void)
+{
+	int num1;
+	printf("輸入您的成績\n");
+	scanf_s("%d", &num1);
+
+
+	if (num1 >= 60)
+	{
+		printf("恭喜通過!");
+	}
+	else
+	{
+		printf("再加油!");
+	}
+	return 0;
+}
