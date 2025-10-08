@@ -4,9 +4,9 @@ int main(void)
 {
 	int w, h,BMI=0;
 	printf("輸入身高\n");
-	scanf_s("%d", &h);
+	scanf_s("%f", &h);
 	printf("輸入體重\n");
-	scanf_s("%d", &w);
+	scanf_s("%f", &w);
 	BMI = w / ((h / 100)*(h / 100));
 	if (BMI < 18.5) {
 		printf("BMI VALUES %d\n", BMI);
