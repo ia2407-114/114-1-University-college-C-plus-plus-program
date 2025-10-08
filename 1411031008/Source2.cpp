@@ -1,20 +1,24 @@
-//Fig .2.5:fig02_05.c
-//Addition program.
-#include <stdio.h>
-
-//fuction main begins program execution
-int main(void)
+#include<stdio.h>
+int main()
 {
-	printf("Enter one integer score\n");
+	int num1;
 
-	int y;
-	scanf("%d", &y);
+	printf("輸入您的成績\n");
+	scanf_s("%d", &num1);
 
-	if (y >= 60) {
-		printf("���߳q�L");
+
+	if(num1>=60)
+	{
+		printf("恭喜通過\n");
+			
 	}
-	if (y < 60) {
-		printf("�A�[�o");
+
+	else
+	{
+		printf("再加油\n");
+
 	}
+
 	return 0;
+
 }
