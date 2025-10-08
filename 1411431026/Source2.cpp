@@ -1,18 +1,19 @@
 #include<stdio.h>
 
 
-int mymain(void)
+int main(void)
 {
 	int x;
 
-	printf("½Ğ¿é¤J§Aªº¦¨ÁZ:\n");
+	printf("è«‹è¼¸å…¥ä½ çš„æˆç¸¾:\n");
 	scanf_s("%d", &x);
 
 	if (x >= 60) {
-		printf("®¥³ß³q¹L!");
+		printf("æ­å–œé€šé!");
 	}
 	if (x < 60) {
-		printf("¦A¥[ªo!");
+		printf("å†åŠ æ²¹!");
 	}
 	return 0;
 }
+
