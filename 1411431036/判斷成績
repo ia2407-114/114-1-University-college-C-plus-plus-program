@@ -11,6 +11,6 @@ if (a <= 59) {
     printf("再加油!");
 }
 
-return 0
+return 0;
 
 }
