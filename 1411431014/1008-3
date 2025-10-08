@@ -1,0 +1,13 @@
+#include<stdio.h>
+int main()
+{
+	float height, weight, BMI;
+	printf("請輸入您的身高(公尺)\n");
+	scanf_s("%f", &height);
+	printf("請輸入您的體重(公斤)\n");
+	scanf_s("%f", &weight);
+	BMI = weight / (height * height);
+	printf("您的BMI是 %.1f\n", BMI);
+
+	return 0;
+}
