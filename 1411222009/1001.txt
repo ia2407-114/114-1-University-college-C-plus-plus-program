@@ -18,9 +18,8 @@ int main(void)
 	*/
 
 	int p, r, q, w, x, y, z;
-	//z = p * r % q + w / x - y;
 	
-	printf("Enter p integer\n"); // prompt
+	printf("Enter p integer\n"); // prompt 提示
 	scanf_s("%d", &p);
 	printf("Enter r integer\n"); // prompt
 	scanf_s("%d", &r);
@@ -33,7 +32,9 @@ int main(void)
 	printf("Enter y integer\n"); // prompt
 	scanf_s("%d", &y);
 
-	printf("%d * %d % %d + %d / %d - %d  are the %d", p, r, q, w, x, y, z);
+	z = p * r % q + w / x - y;
+
+	printf("%d * %d %% %d + %d / %d - %d  are the %d", p, r, q, w, x, y, z);
 
 
 	//printf("%d plus %d and the sum is %d\n", integer1, integer2, integer1 + integer2);
