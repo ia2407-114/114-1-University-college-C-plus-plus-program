@@ -1,39 +1,4 @@
-#include<stdio.h>
-
-int main(void)
-{
-    int a, b, c;
-    printf("Enter three different integers:\n");
-    scanf_s("%d %d %d", &a, &b, &c);
-    printf("Sum is %d\n", a+b+c);
-    printf("Average is %f\n",((float)a+b+c)/3);
-    printf("The Product is %d\n",a*b*c);
-    if (a > b && a > c) {
-            printf("Largest is %d\n", a );
-    }
-    if (c > b && c > a) {
-            printf("Largest is %d\n", c);
-    }
-    if(b > a && b > c) {
-            printf("Largest is %d\n", b);
-    }
-    if (a < b && a < c) {
-            printf("smalles is %d\n", a);
-    }
-    if (c < b && c < a) {
-            printf("smalles is %d\n", c);
-    }
-    if (b < a && b < c) {
-            printf("smalles is %d\n", b);
-    }
-        
-
-
-
-
-    return 0;
-}
-
+//第一題
 
 #include<stdio.h>
 
@@ -44,11 +9,14 @@ int main(void)
     scanf_s("%d %d %d", &a, &b, &c);
     printf("Sum is %d\n", a + b + c);
     printf("Average is %1.f\n", ((float)a + b + c) / 3);
+	//%1.f表示保留至小數點後一位
     printf("The Product is %d\n", a * b * c);
     if (a > b ){
        if (a > c) 
         printf("Largest is %d\n", a);
     }
+	//如果第一個條件成立就會執行{}中的動作(進行另一項IF條件判別)
+	//如果IF要執行的動作只有一行，可以不用加{}
     if (c > b ){
         if(c > a) 
         printf("Largest is %d\n", c);
@@ -82,31 +50,40 @@ int main(void)
 
 
 
-
+//第二題
 
 #include<stdio.h>
 
 int main(void)
 {
-	int BMI, weight_In_Kilograms, height_In_Meters;
+	float BMI, weight_In_Kilograms, height_In_Meters;
 	printf("Enter your weight in Kilograms and height in Meters :\n");
 	scanf_s("%d", &weight_In_Kilograms);
     scanf_s("%f", &height_In_Meters);
-	BMI=weight_In_Kilograms / height_In_Meters / height_In_Meters
+	BMI=(float) weight_In_Kilograms/ (height_In_Meters * height_In_Meters)
 	printf("BMI is %f\n", (float)BMI);
     if (BMI < 18.5) {
             printf("Your BMI is Underweight\n");
     }
-     eles if(BMI < 24.9 && BMI >= 18.5) {
-            printf("Your BMI is Underweight\n");
+	//BMI如果不符合<18.5則繼續下一則條，能繼續就表示表示數值>=18.5
+    else if(BMI < 25) {
+            printf("Your BMI is Normal\n");
     }
-     eles if (BMI < 25 && BMI >= 18.5) {
-            printf("Your BMI is Underweight\n");
+	//BMI=介於18.5及24.9(含)。而數值<25不包含25,能進行此else IF條件判別就表示數值不符合上一個判斷，所以數值>=18.5，結合本次的條件 <25就能得出範圍
+    else if (BMI < 30) {
+            printf("Your BMI is Overweight\n");
     }
-    if (BMI > 30) {
-            printf("Your BMI is Underweight\n");
+    else  {
+            printf("Your BMI is Obese\n");
     }
+
 
 
 	return 1;
 }
+
+
+
+
+
+//第三題
