@@ -1,0 +1,43 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+
+
+int main()
+{
+	printf("輸入學生成績（負數結束）:\n");
+	int grade;//宣告變數
+	scanf_s("%d", &grade);
+	int sum = 0;
+	int Max = -1;
+	int min = 101;
+	int count = 0;//成績個數
+
+	while (grade >= 0){
+	sum = sum + grade; //"sum + grade"加到"sum"裡
+	count = count + 1;
+
+	if (grade > Max) {
+	Max = grade; //更新最高分
+	}
+	if (grade < min) {
+	min = grade; //更新最低分
+	}
+	printf("輸入學生成績（負數結束）:\n");
+	scanf_s("%d", &grade);
+	}
+	if (count > 0) {
+		printf("the average grade is %.1f\n",(float)sum / count);
+		printf("the highest grade is %d\n", Max);
+		printf("the lowest grade is %d\n", min);
+	}
+	else {
+		printf("沒有輸入任何成績\n");
+	}
+    return 0;
+}
+//題目3: 輸入學生成績，直到輸入負數即停止，並且印出學生的平均成績(浮點數)、最高成績、最低成績。
+//count++;//累計輸入次數
