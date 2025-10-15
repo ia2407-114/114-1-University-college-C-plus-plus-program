@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int fact, i;
+    unsigned long long factorial = 1;  // 使用較大範圍避免溢位
+
+    printf("請輸入一個整數 fact < 13: ");
+    scanf_s("%d", &fact);
+
+    if (fact < 0) {
+        printf("輸入錯誤，fact 不可為負數。\n");
+    }
+    else if (fact >= 13) {
+        printf("輸入錯誤，fact 必須小於 13。\n");
+    }
+    else {
+        for (i = 1; i <= fact; i++) {
+            factorial *= i;
+        }
+        printf("%d! = %llu\n", fact, factorial);
+    }
+
+    return 0;
+}
