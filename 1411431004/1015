@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int main() {
+    int score;
+    int pass_count = 0, fail_count = 0;
+    int total_count = 0;
+    float sum = 0.0;
+
+    printf("請輸入學生成績 (輸入負數結束):\n");
+
+    while (1) {
+        printf("成績 %d: ", total_count + 1);
+        scanf_s("%d", &score);  
+
+        if (score < 0) {
+            break;
+        }
+
+        sum += score;
+        total_count++;
+
+        if (score >= 60) {
+            pass_count++;
+        }
+        else {
+            fail_count++;
+        }
+    }
+
+    if (total_count == 0) {
+        printf("沒有輸入任何成績。\n");
+        return 0;
+    }
+
+    float average = sum / total_count;
+
+    printf("\n--- 結果 ---\n");
+    printf("及格人數: %d\n", pass_count);
+    printf("不及格人數: %d\n", fail_count);
+    printf("平均成績: %.2f\n", average);
+
+    if ((float)pass_count / total_count >= 0.5) {
+        printf("Bouns to the Teacher!\n");
+    }
+
+    return 0;
+}
