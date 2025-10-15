@@ -12,5 +12,6 @@ int main(void)
 		}
 	}
 	
-	printf_s("%dªº¶¥¼hµ²ªG¬°:%d", fact, result);
+	printf_s("%dçš„éšå±¤çµæœç‚º:%d", fact, result);
+
 }
