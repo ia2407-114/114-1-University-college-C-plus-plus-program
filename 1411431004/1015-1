@@ -1,0 +1,50 @@
+printf("\n題目1\n");
+	int grade, pass = 0, fail = 0, total = 0, count = 0;
+	
+	printf("輸入成績，輸入負數便停止:");
+	scanf_s("%d", &grade);
+
+	while (grade >= 0) {
+		total = total + grade; //total += grade
+
+		if (grade >= 60) {
+			printf("分數及格!!\n");
+			pass = pass + 1;
+		}
+		else {
+			printf("分數不及格!!\n");
+			fail = fail + 1;
+		}
+
+		printf("輸入成績，輸入負數便停止:");
+		scanf_s("%d", &grade);
+	}
+
+	/*do {
+		printf("輸入成績，輸入負數便停止:");
+		scanf_s("%d", &grade);
+
+		total = total + grade;
+
+		if (grade >= 60) {
+			printf("分數及格!!\n");
+			pass = pass + 1;			
+		}
+		else {
+			printf("分數不及格!!\n");
+			fail = fail + 1;			
+		}
+
+	} while (grade >= 0);*/
+
+	count = pass + fail;
+	
+	if (((float)pass / count) >= 0.5) {
+		printf("Bouns to the Teacher!\n");
+	}
+
+	printf("及格人數:%d\n",pass);
+	printf("不及格人數:%d\n", fail);
+	printf("平均分數:%.2f\n", ((float)total / count));
+
+	printf("\n\n題目2\n");
