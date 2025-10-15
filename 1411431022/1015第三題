@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+    int term, i, j;
+    double e = 0.0;
+    double factorial;
+
+    printf("請輸入項目數量 term < 13: ");
+    scanf_s("%d", &term);
+
+    if (term < 1 || term >= 13) {
+        printf("輸入錯誤，term 必須介於 1 到 12 之間。\n");
+    } else {
+        for (i = 0; i < term; i++) {
+            factorial = 1.0;
+            for (j = 1; j <= i; j++) {
+                factorial *= j;
+            }
+            e += 1.0 / factorial;
+        }
+        printf("e 的近似值為: %.10f\n", e);
+    }
+
+    return 0;
+}
+
