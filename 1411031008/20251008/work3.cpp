@@ -24,9 +24,9 @@ int main(void)
 		total = total + grade;
 		counter = counter + 1;
 
-		if (grade > maxgrade) {
+		if (grade > maxgrade) 
 			maxgrade = grade;
-		}
+
 		if (grade < mingrade)
 			mingrade = grade;
 
@@ -38,11 +38,12 @@ int main(void)
 
 		average = (float)total / counter;
 		printf("Class average is %.2f\n", average);
-		printf("³Ì°ª¦¨ÁZ:%d\n", maxgrade);
-		printf("³Ì§C¦¨ÁZ:%d\n", mingrade);
+		printf("æœ€é«˜æˆç¸¾:%d\n", maxgrade);
+		printf("æœ€ä½Žæˆç¸¾:%d\n", mingrade);
 	}
 	else
 	{
 		puts("No grades were entered");
 	}
+
 }
