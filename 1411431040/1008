@@ -35,7 +35,7 @@ int main(void)
 {
 	float weight, height, bmi;
 
-	printf("Enter your weight in kilograms: ");
+	printf("Enter your weight: ");
 	scanf_s("%f", &weight);
 
 	printf("Enter your height in meters: ");
@@ -44,13 +44,6 @@ int main(void)
 	bmi = weight / (height * height);
 
 	printf("\nYour BMI is: %.2f\n", bmi);
-
-	printf("BMI Categories (TEXTBOOK p.99):\n");
-	printf("Underweight: less than 18.5\n");
-	printf("Normal: between 18.5 and 24.9\n");
-	printf("Overweight: between 25 and 29.9\n");
-	printf("Obese: 30 or greater\n\n");
-
 	if (bmi < 18.5)
 		printf("underweight.\n");
 	else if (bmi < 25.0)
@@ -70,43 +63,5 @@ int main(void)
 
 
 
-#include <stdio.h>
 
-int main(void)
-{
-	int grade; 
-	int total = 0; 
-	int count = 0; 
-	int max = -1; 
-	int min = 101; 
-	float average; 
-
-	printf("Enter grade, negative number to end: ");
-	scanf_s("%d", &grade);
-
-	while (grade >= 0) { 
-		total += grade;
-		count++;
-
-		if (grade > max)
-			max = grade;
-		if (grade < min)
-			min = grade;
-
-		printf("Enter grade, negative number to end: ");
-		scanf_s("%d", &grade);
-	}
-
-	if (count > 0) { 
-		average = (float)total / count;
-		printf("\nAverage = %.2f\n", average);
-		printf("Highest = %d\n", max);
-		printf("Lowest = %d\n", min);
-	}
-	else {
-		printf("No grades were entered.\n");
-	}
-
-	return 0;
-}
 
