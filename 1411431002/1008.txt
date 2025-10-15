@@ -16,19 +16,22 @@ int main(void) {
 
 	//最大值
 	if (b > max) {
-		printf("Largest is %d\n", b);
+		max = b;
 	}
 	if (c > max) {
-		printf("Largest is %d\n", c);
+		max = c;
 	}
 
 	//最小值
 	if (b < min) {
-		printf("Smallest is %d\n", b);
+		min = b;
 	}
 	if (c < min) {
-		printf("Smallest is %d\n", c);
+		min = c;
 	}
+	
+	printf("Largest is %d\n", max);
+	printf("Smallest is %d\n", min);
 	
 
 	/*if (a > b) {
@@ -128,3 +131,4 @@ int main(void) {
 	return 0;
 
 }
+
