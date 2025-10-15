@@ -98,7 +98,7 @@ int main(void) {
 	int grade, total=0, coun=0, max1=0, mix1=0;
 	float avg; 
 
-	printf("Enter grade, -1 to end: ");
+	printf("Enter grade, negative to end: ");
 	scanf_s("%d", &grade);
 	mix1 = grade;
 		
@@ -112,7 +112,7 @@ int main(void) {
 		total = total + grade; 
 		coun = coun + 1; //計數器
 
-		printf("Enter grade, -1 to end:"); 
+		printf("Enter grade, negative to end:"); 
 		scanf_s("%d", &grade);                 
 	} 
 		
@@ -131,4 +131,5 @@ int main(void) {
 	return 0;
 
 }
+
 
