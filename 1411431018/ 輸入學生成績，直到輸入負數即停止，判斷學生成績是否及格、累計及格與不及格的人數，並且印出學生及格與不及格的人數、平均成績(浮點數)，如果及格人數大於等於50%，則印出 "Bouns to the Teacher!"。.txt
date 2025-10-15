@@ -32,7 +32,7 @@ int main()
 	if (count > 0)
 		printf("the average grade is %f\n", (float)sum / count);
 	else
-		printf("未輸入成績");
+		printf("未輸入正確成績");
 
 
 	if (((float)pass /count) >= 0.5)
@@ -40,3 +40,4 @@ int main()
 
 	return 0;
 }
+
