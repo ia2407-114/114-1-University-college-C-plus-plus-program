@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+
+    int tern;//輸入要幾的n//
+    int factorial_result = 1;
+    double approximate= 1;
+
+    printf("請輸入一個正整數來計算階乘：");
+    scanf_s("%d", &tern);
+
+
+    for (int i = 1; i <= tern; i++) {
+        factorial_result *= i; // factorial_result=factorial_result*i//
+        approximate += (1.0 / factorial_result);
+    }
+
+    printf("%d 個項次計算e的近似值為:%f\n",tern, approximate);
+
+    return 0;
+}
