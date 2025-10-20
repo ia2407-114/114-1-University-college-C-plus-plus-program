@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+
+int main(void)
+{
+	int n;
+	float e = 1;
+	int i = 1;
+	int result = 1;
+	printf("輸入階乘");
+	scanf_s("%d", &n);
+	for (i = 1;i <= n;i++)
+		result *= i;
+	printf("%d的階乘為%d\n", n, result);
+}
