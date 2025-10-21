@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int main(void)
+{
+	int counter = 0;
+	int grade;
+	int total = 0;
+	int pass_counter = 0;
+	int fail_counter = 0;
+	float average;
+
+	printf("%s", "Enter grade, -1 to end: ");
+	scanf_s("%d", &grade);
+
+
+	while (grade >= 0) {
+		total = total + grade;
+		counter = counter + 1;
+		if (grade >= 60) {
+			pass_counter = pass_counter + 1;
+		}
+		else {
+			fail_counter = fail_counter + 1;
+		}
+		printf("%s", "Enter grade, -1 to end: ");
+		scanf_s("%d", &grade);
+	}
+
+	if (counter > 0) {
+		average = (float)total / counter;
+
+		printf("及格人數: %d\n", pass_counter);
+		printf("不及格人數: %d\n", fail_counter);
+		printf("平均成績: %.1f\n", average);
+
+		if ((float)pass_counter / counter >= 0.5) {
+			printf("Bouns to the Teacher!\n");
+		}
+	}
+
+	else {
+		puts("No grades were entered");
+	}
+	return 0;
+}

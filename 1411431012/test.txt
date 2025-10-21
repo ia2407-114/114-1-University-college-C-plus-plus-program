@@ -1,0 +1,14 @@
+int main()
+
+{
+	printf("欸\n");
+	printf("今天有 %d堂課 %0.1f小時\n",3,2.1);
+	printf("你好\n");
+	printf("你好\n");
+	printf("你好\n");
+
+	return 0;
+
+
+
+}

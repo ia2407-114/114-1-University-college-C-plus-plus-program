@@ -1,0 +1,2 @@
+﻿  KellySource.cpp
+C:\Users\User\Desktop\KellyProject\KellyProject\KellySource.cpp(5,1): error C4430: 遺漏類型規範 - 假設為 int。注意: C++ 不支援 default-int

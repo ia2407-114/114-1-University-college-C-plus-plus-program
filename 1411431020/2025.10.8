@@ -1,0 +1,135 @@
+//第一題
+
+#include<stdio.h>
+
+int main(void)
+{
+    int a, b, c;
+    printf("Enter three different integers:\n");
+    scanf_s("%d %d %d", &a, &b, &c);
+    printf("Sum is %d\n", a + b + c);
+    printf("Average is %.1f\n", ((float)a + b + c) / 3);
+	//%.1f表示保留至小數點後一位
+    printf("The Product is %d\n", a * b * c);
+    if (a > b ){
+       if (a > c) 
+        printf("Largest is %d\n", a);
+    }
+	//如果第一個條件成立就會執行{}中的動作(進行另一項IF條件判別)
+	//如果IF要執行的動作只有一行，可以不用加{}
+    if (c > b ){
+        if(c > a) 
+        printf("Largest is %d\n", c);
+    }
+    if (b > a ) {
+        if(b > c)
+        printf("Largest is %d\n", b);
+    }
+    if (a < b )
+        if( a < c) {
+        printf("smallest is %d\n", a);
+    }
+    if (c < b ) {
+        if( c < a)
+        printf("smallest is %d\n", c);
+    }
+    if (b < a ){
+        if(b < c) 
+        printf("smallest is %d\n", b);
+    }
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+//第二題
+
+#include<stdio.h>
+
+int main(void)
+{
+	float BMI, weight_In_Kilograms, height_In_Meters;
+	printf("Enter your weight in Kilograms and height in Meters :\n");
+	scanf_s("%d", &weight_In_Kilograms);
+    scanf_s("%f", &height_In_Meters);
+	BMI=(float) weight_In_Kilograms/ (height_In_Meters * height_In_Meters);
+	printf("BMI is %f\n", (float)BMI);
+    if (BMI < 18.5) {
+            printf("Your BMI is Underweight\n");
+    }
+	//BMI如果不符合<18.5則繼續下一則條，能繼續就表示表示數值>=18.5
+    else if(BMI < 25) {
+            printf("Your BMI is Normal\n");
+    }
+	//BMI=介於18.5及24.9(含)。而數值<25不包含25,能進行此else IF條件判別就表示數值不符合上一個判斷，所以數值>=18.5，結合本次的條件 <25就能得出範圍
+    else if (BMI < 30) {
+            printf("Your BMI is Overweight\n");
+    }
+    else  {
+            printf("Your BMI is Obese\n");
+    }
+
+
+
+	return 1;
+}
+
+
+
+
+
+//第三題(未完成)
+// Fig. 3.8: fig03_08.c
+// Class average program with sentinel-controlled iteration
+#include <stdio.h>
+
+// function main begins program execution
+int main( void )
+{
+   unsigned int counter; // number of grades entered
+   int grade; // grade value
+   int total; // sum of grades
+
+   float average; // number with decimal point for average
+   
+   // initialization phase
+   total = 0; // initialize total
+   counter = 0; // initialize loop counter
+   
+   // processing phase
+   // get first grade from user
+   printf( "%s", "Enter grade, -1 to end: " ); // prompt for input
+   scanf_s( "%d", &grade ); // read grade from user
+   
+   // loop while sentinel value not yet read from user
+   while ( grade != -1 ) {
+      total = total + grade; // add grade to total
+      counter = counter + 1; // increment counter
+      
+      // get next grade from user
+      printf( "%s", "Enter grade, -1 to end: " ); // prompt for input
+      scanf_s("%d", &grade); // read next grade                  
+   } // end while
+
+   // termination phase
+   // if user entered at least one grade
+   if ( counter != 0 ) {
+
+      // calculate average of all grades entered
+      average = ( float ) total / counter; // avoid truncation
+
+      // display average with two digits of precision
+      printf( "Class average is %.2f\n", average );   
+   } // end if   
+   else { // if no grades were entered, output message
+      puts( "No grades were entered" );
+   } // end else
+} // end function main

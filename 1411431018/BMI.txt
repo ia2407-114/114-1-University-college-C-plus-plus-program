@@ -1,0 +1,28 @@
+//#include <stdio.h>
+//#include <stdlib.h>
+
+
+//int main() {
+	//float kg, m, BMI;
+	//printf("輸入公斤和公尺:");
+	//scanf_s("%f %f", &kg, &m);
+
+	//BMI = kg / (m * m);
+	//printf("Your BMI is %f\n", BMI);
+	//if (BMI < 18.5) {
+		//printf("Underweight\n");
+	//}
+	//else if (BMI >= 18.5 && BMI <= 24.9){
+		//printf("Normal\n");
+	//}
+	//else if (BMI >= 25 && BMI <= 29.9) {
+		//printf("Overweight\n");
+	//}
+	//else {
+		//printf("Obese\n");
+
+	//}
+
+//return 0;
+
+//}

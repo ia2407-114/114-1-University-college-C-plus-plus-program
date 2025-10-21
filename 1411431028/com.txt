@@ -1,0 +1,36 @@
+
+#include<stdio.h>
+
+int main(void) {
+	int a, b, c;
+	printf("Enter three different integers:");
+	scanf_s("%d %d %d", &a, &b, &c);
+	printf("Sun is %d\n", a + b + c);
+	printf("Average is %.1f\n", (float)a + b + c) / 3;
+	printf("Product is  %d\n", a * b * c);
+
+	int max, min;
+	max = a;
+	min = a;
+
+	if (b > max)
+	{
+		max = b;
+	}
+	if (b < min)
+	{
+		min = b;
+	}
+
+	if (c > max)
+	{
+		max = c;
+	}
+	if (c < min)
+	{
+		min = c;
+	}
+	printf("Largest is：%d\n", max);
+	printf("Smallest is：%d\n", min);
+	return 0;
+}

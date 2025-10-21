@@ -1,0 +1,3 @@
+C:\Users\User\Desktop\222\週三Project1\Debug\週三Project1.exe.lastcodeanalysissucceeded
+C:\Users\User\Desktop\222\週三Project1\Debug\NativeCodeAnalysis.read.1.tlog
+C:\Users\User\Desktop\222\週三Project1\Debug\週三Project1.exe

@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+int main(void) {
+ 
+    int grade;      
+    int total = 0;    
+    int max_grade; 
+    int min_grade;  
+    unsigned int counter = 0; 
+    float average;  
+
+    
+    printf("請輸入學生成績 (輸入負數即可結束): ");
+    scanf_s("%d", &grade);
+
+    if(grade >= 0) {
+       max_grade = grade;
+       min_grade = grade;
+    }
+    while(grade >= 0) {
+
+         total = total + grade;
+         counter = counter + 1;
+
+        if (grade > max_grade) 
+           {max_grade = grade; 
+           }
+
+        if (grade < min_grade) 
+           {min_grade = grade; 
+           }
+
+
+        printf("請輸入學生成績 (輸入負數即可結束): ");
+        scanf_s("%d", &grade);
+    }
+
+
+    if(counter != 0) {
+       average = (float)total / counter;
+
+        printf("成績統計結果 \n");
+        printf("班級平均成績是: %.2f\n", average); 
+        printf("最高成績是: %d\n", max_grade);
+        printf("最低成績是: %d\n", min_grade);
+    }
+
+    else{
+        puts("沒有輸入任何有效成績。\n");
+    }
+
+    return 0;
+}

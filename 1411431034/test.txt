@@ -1,0 +1,12 @@
+#include <iostream>
+
+int main()
+{
+   
+    printf("哈囉!\n");
+    printf("今天有%d堂課,%.1f小時\n" ,3,2.9);
+    printf("哈囉!\n");
+    printf("哈囉!\n");
+    printf("哈囉!\n");
+    printf("哈囉!\n");
+}

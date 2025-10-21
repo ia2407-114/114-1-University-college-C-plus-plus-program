@@ -1,0 +1,14 @@
+int term, n = 1, ans=1;
+	float answ=0, exp = 1.0;
+	printf("請輸入所需的項目數量term,且term<13:");
+	scanf_s("%d", &term);
+
+	for (n = 1;n <= term;n++) {
+		ans = ans * n;
+		answ =( 1 / (float)ans);
+		exp = exp + answ;
+	}
+
+	printf("項目數量為%d,e=%.4f", term, exp);
+
+	return 0;

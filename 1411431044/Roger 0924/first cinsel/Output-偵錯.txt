@@ -1,0 +1,12 @@
+﻿first cinsel.exe' (Win32): 已載入 'C:\Users\User\Desktop\Roger 0924\first cinsel\Debug\first cinsel.exe'。已載入符號。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\ntdll.dll'。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\kernel32.dll'。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\KernelBase.dll'。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\vcruntime140d.dll'。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\ucrtbased.dll'。
+0x589c 執行緒以返回碼 0 (0x0) 結束。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\kernel.appcore.dll'。
+first cinsel.exe' (Win32): 已載入 'C:\Windows\SysWOW64\msvcrt.dll'。
+0xe9c 執行緒以返回碼 0 (0x0) 結束。
+0x4148 執行緒以返回碼 0 (0x0) 結束。
+'[24500] first cinsel.exe' 程式以返回碼 0 (0x0) 結束。

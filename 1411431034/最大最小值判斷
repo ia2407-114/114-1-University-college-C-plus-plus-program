@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main(void)
+{
+	int x, y, z;
+	printf("Enter three diffent integers:\n");
+	scanf_s("%d %d %d", &x, &y, &z);
+	printf("Sum is %d\n", x + y + z);
+	printf("Average is %f\n",((float)x+y+z)/3 );
+	printf("Product is %d\n", x * y * z);
+	if (x < y) {
+		if (x < z)
+			printf("smallest is %d\n", x);
+	}
+	if (y < x) {
+		if (y < z)
+			printf("smallest is %d\n", y);
+	}
+	if (z < y) {
+		if (z < x)
+			printf("smallest is %d\n", z);
+	}
+	if (x > y) {
+		if (x > z)
+			printf("Largest is %d\n", x);
+	}
+	if (y > x) {
+		if (y > z)
+			printf("Largest is %d\n", y);
+	}
+	if (z > y) {
+		if (z > x)
+			printf("Largest is %d\n", z);
+	}
+	return 0;
+}

@@ -1,0 +1,11 @@
+int fact, i=1, result=1;
+	printf("請輸入一個整數fact,且fact<13:");
+	scanf_s("%d", &fact);
+
+	for (i = 1;i <= fact;i++) {
+		result = result * i;
+	}
+
+	printf("%d階乘結果為:%d\n", fact, result);
+
+
