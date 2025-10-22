@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+
+int main(void)
+{
+	unsigned int i=1,fact=0;
+	int result = 1;
+	printf("輸入階乘:");
+	scanf_s("%d", &fact);
+	    for (i = 1;i <= fact;i++)
+	    	result *= i;
+	printf("%d的階乘為%d\n", fact, result);
+}
