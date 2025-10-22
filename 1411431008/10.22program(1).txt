@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    double p, r, aims;
+    int years;
+
+    printf("請輸入您的本金:\n");
+    scanf_s("%lf", &p);
+    
+    printf("請輸入年利率 :\n");
+    scanf_s("%lf", &r);
+   
+    printf("請輸入您的存款目標:\n");
+    scanf_s("%lf", &aims);
+    
+    if (p >= aims) {
+        printf("\n您的初始本金已經達成或超過存款目標了！\n");
+        printf("初始本金: %.2f\n", p);
+        printf("存款目標: %.2f\n\n", aims);
+    }
+ 
+    for (years = 1; p < aims; years++) {
+         p *= (1.0 + r);
+         printf("第 %d 年底本利合: %.2f\n", years, p);
+    }
+
+    printf("在第 %d 年，就可以達成或超越存款目標了。\n", years - 1);
+    printf("最終本利合為: %.2f\n", p);
+
+    return 0;
+}
+

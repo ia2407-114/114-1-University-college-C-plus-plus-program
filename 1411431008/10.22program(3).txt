@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+
+    int tern; 
+    double x;
+    long long factorial_result = 1;
+    double x_power = 1.0;
+    double approximate = 1.0;
+   
+    printf("輸入 x 的值: ");
+    scanf_s("%lf", &x);
+    printf("輸入要計算的項次 n : ");
+    scanf_s("%d", &tern);
+
+    
+    for (int i = 1; i <= tern; i++) {
+        x_power *= x;
+        factorial_result *= i;
+        approximate += (x_power / factorial_result);
+    }
+
+    printf("計算 %d 個項次後, e^%.2f 的近似值為: %f\n", tern, x, approximate);
+
+    return 0;
+}
