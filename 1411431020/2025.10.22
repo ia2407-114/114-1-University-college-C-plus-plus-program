@@ -1,0 +1,106 @@
+//第一題
+
+// Fig. 4.6: fig04_06.c
+// Calculating compound interest
+#include <stdio.h>
+
+
+int main(void)
+{
+    double principal; // starting principal 本金
+    double rate; // annual interest rate 利率
+    double aims=0;      // 存款目標 
+    double amount=0;    // 每年底的本利合 (a)
+    unsigned int year;//年分計數器
+    
+    //本金資料輸入
+    printf("請輸入本金金額: \n");
+    scanf_s("%lf", &principal); 
+    //年利率資料輸入
+    printf("請輸入年利率: \n");
+    scanf_s("%lf", &rate); 
+    //存款目標資料輸入
+    printf("請輸入存款目標 (Aims): \n");
+    scanf_s("%lf", &aims);
+    
+    if (amount >= aims) {
+        printf("\n您已達成存款目標 %.2f 元!\n", aims);
+        printf("初始本金為 %.2f 元\n", principal);
+        }
+    amount = principal;
+    printf("\n%4s%21s\n", "年份", "期末本利合");
+    for (year = 1;principal < aims; ++year) {
+
+        if (amount >= aims) {
+            break;
+        }
+        // calculate new amount for specified year
+        amount = amount * (1.0 + rate);
+
+        // output one table row
+        printf("%4u%21.2f\n", year, amount);
+        
+    }
+    printf("您在第 %d 年能達成目標\n", year - 1);
+    printf("最終本利合為: %.2f\n", amount);
+    return 0;
+}
+
+
+
+
+
+
+
+//第二題
+
+// Fig. 4.6: fig04_06.c
+// Calculating compound interest 
+#include <stdio.h>
+
+
+int main(void)
+{
+    double principal; // starting principal 本金
+    double rate; // annual interest rate 利率
+    double aims = 0;      // 存款目標 
+    double amount = 0;    // 本利合 (a)
+    double accumulated_amount = 0; // A: 每年底的本利合
+    unsigned int year;//年分計數器
+
+    //本金資料輸入
+    printf("請輸入本金金額: \n");
+    scanf_s("%lf", &principal);
+    //年利率資料輸入
+    printf("請輸入年利率: \n");
+    scanf_s("%lf", &rate);
+    //存款目標資料輸入
+    printf("請輸入存款目標 (Aims): \n");
+    scanf_s("%lf", &aims);
+
+    printf("請輸入每年要定存的金額: \n");
+    scanf_s("%1f", &accumulated_amount);
+
+    if (amount >= aims) {
+        printf("\n您已達成存款目標 %.2f 元!\n", aims);
+        printf("初始本金為 %.2f 元\n", principal);
+        printf("您的每年加存為 %.2f 元\n", accumulated_amount);
+    }
+    amount = principal;
+    printf("\n%4s%21s\n", "年份", "期末本利合");
+    for (year = 1;principal < aims; ++year) {
+
+        if (amount >= aims) {
+            break;
+        }
+        // calculate new amount for specified year
+        amount = amount * (1.0 + rate);
+        amount += accumulated_amount;
+        // output one table row
+        printf("%4u%21.2f\n", year, amount);
+
+    }
+    printf("您在第 %d 年能達成目標\n", year - 1);
+    printf("最終本利合為: %.2f\n", amount);
+    return 0;
+}
