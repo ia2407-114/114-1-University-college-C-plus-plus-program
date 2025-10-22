@@ -63,47 +63,56 @@ int main(void)
 
 #include <stdio.h>
 
+int main() {
+    int grade;
+    int pass_count = 0;
+    int fail_count = 0;
+    int students = 0;
+    float score = 0;
+    float average = 0;
 
-int main(void)
-{
-	unsigned int student = 0;
-	unsigned int passes = 0; // number of passes
-	unsigned int failures = 0;
-	float average = 0;
-	int grade;
-	int total;
+    printf("請開始輸入學生成績，輸入負數即可停止。\n");
 
-	do
-	{
-		printf("Enter grade, -1 to end: ");
-		scanf_s("%d", &grade);
-		total = total + grade;
-		if (grade >=60) {
-			passes = passes + 1;
-		}
-		else {
-			failures = failures + 1;
-		}
-		student = student + 1;
-	} while (grade >= 0);
-	
-	if (student != 0) {
+    do {
+        printf("請輸入成績：");
+        scanf_s("%d", &grade);
 
+        
+        if (grade >= 0) {
+            students++;
+            score += grade;
+        if (grade >= 60) {
+                pass_count++; // 及格人數 +1
+            }
+            else {
+                fail_count++; // 不及格人數 +1
+            }
+        }
 
-		average = (float)total / student;
+    } while (grade >= 0);
 
+    printf("輸入結束。\n");
 
-		printf("Class average is %.2f\n", average);
-		printf("Passed %u\n", passes);
-		printf("Failed %u\n", failures);
-		if (passes > student/2)
-		{
-	puts("Bonus to instructor!");
-		}  
-		else 
-		{
-		puts("No grades were entered");
-		}
+    
+    if (students > 0) {
+        // 平均成績
+        average = score / students;
+
+        // 統計結果
+        printf("統計結果\n");
+        printf("及格人數：%d\n", pass_count);
+        printf("不及格人數：%d\n", fail_count);
+        printf("平均成績：%.2f\n", average); 
+
+        if ((float)pass_count/ students >= 0.5) {
+            printf("Bouns to the Teacher!\n");
+        }
+
+    }
+    else {
+          printf("未輸入任何有效成績，無法計算。\n");
+    }
+
+    return 0;
 }
-	
 
