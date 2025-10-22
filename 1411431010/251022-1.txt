@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <math.h>  
+
+int main(void)
+{
+    double principal = 10000;
+    double rate = .05;
+
+    printf("Year Amount on deposit\n");
+
+    for (unsigned int year = 1; year <= 12; ++year) {
+
+        double base = 1 + rate;
+        double factor = 1.0;
+        for (int i = 0; i < year; ++i) {
+            factor *= base;
+        }
+        double amount = principal * factor;
+
+        printf("%4u%21.2f\n", year, amount);
+    }
+}
