@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+
+int main(void)
+{
+	double principal;
+	double rate;
+	double goal;
+
+	printf("請輸入本金:\n");
+	scanf_s("%lf", &principal);
+	printf("請輸入年利率:\n");
+	scanf_s("%lf", &rate);
+	printf("請輸入存款目標:\n");
+	scanf_s("%lf", &goal);
+
+	double amount = principal;
+	unsigned int year = 0;
+
+	printf("年	年底本利合\n");
+	while (amount < goal)
+	{
+		year = year + 1;
+		amount = amount * (1+ rate);
+
+		printf("%d	%.2f\n", year, amount);
+	}
+
+	printf("第%d年達成了存款目標\n", year);
+
+	return 0;
+}
