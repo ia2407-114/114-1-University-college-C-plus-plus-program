@@ -10,7 +10,7 @@ int main(void)
     double principal; // starting principal 本金
     double rate; // annual interest rate 利率
     double aims=0;      // 存款目標 
-    double amount=0;    // 每年底的本利合 (a)
+    double amount=0;    // 本利合 (a)
     unsigned int year;//年分計數器
     
     //本金資料輸入
@@ -65,7 +65,7 @@ int main(void)
     double rate; // annual interest rate 利率
     double aims = 0;      // 存款目標 
     double amount = 0;    // 本利合 (a)
-    double accumulated_amount = 0; // A: 每年底的本利合
+    double accumulated_amount = 0; // A: 每年底加存
     unsigned int year;//年分計數器
 
     //本金資料輸入
