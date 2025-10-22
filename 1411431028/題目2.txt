@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main() {
+	int term, i, j;
+	double e = 1.0, fact;
+	printf("請輸入項目數量 term < 13: ");
+	scanf_s("%d", &term);
+	for (i = 1; i < term; i++) {
+		fact = 1;
+		for (j = 1; j <= i; j++) {
+			fact *= j;
+		}
+		e += 1.0 / fact;
+	}
+	printf("e 的近似值為: %lf\n", e);
+	return 0;
+}
