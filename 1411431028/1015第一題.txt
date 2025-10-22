@@ -1,0 +1,30 @@
+#include <stdio.h>
+int main() {
+	int score;
+	int pass = 0, fail = 0, count = 0;
+	double sum = 0.0;
+	printf("請輸入學生成績 (輸入負數結束): ");
+	while (1) {
+		scanf("%d", &score);
+		if (score < 0) // 輸入負數時停止
+			break;
+		sum += score; // 累計總分
+		count++; // 計算總人數
+		if (score >= 60)
+			pass++;
+		else
+			fail++;
+	}
+	if (count > 0) {
+		double avg = sum / count;
+		printf("及格人數: %d\n", pass);
+		printf("不及格人數: %d\n", fail);
+		printf("平均成績: %.2f\n", avg);
+		if ((double)pass / count >= 0.5)
+			printf("Bonus to the Teacher!\n");
+	}
+	else {
+		printf("沒有輸入任何成績。\n");
+	}
+	return 0;
+}
