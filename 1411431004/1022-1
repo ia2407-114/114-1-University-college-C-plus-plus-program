@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    double p, r, aims;
+    int year = 0;
+    double total, temp;
+
+    printf("請輸入本金 p: ");
+    scanf_s("%lf", &p);
+    printf("請輸入年利率 r: ");
+    scanf_s("%lf", &r);
+    printf("請輸入存款目標 aims: ");
+    scanf_s("%lf", &aims);
+
+    total = p;
+
+    while (total < aims) {
+        year++;
+        temp = p;
+
+        // 用 for 迴圈自己算 (1 + r)^year
+        for (int i = 0; i < year; i++) {
+            temp = temp * (1 + r);
+        }
+
+        total = temp;
+        printf("第 %d 年末，本利和 = %.2f\n", year, total);
+    }
+
+    printf("\n達成目標需 %d 年\n", year);
+    return 0;
+}
