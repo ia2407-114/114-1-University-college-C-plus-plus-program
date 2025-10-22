@@ -1,0 +1,15 @@
+#include <stdio.h>
+int main() {
+
+    int fact;
+    int factorial_result = 1;
+
+    printf("請輸入一個正整數來計算階乘：");
+    scanf_s("%d",& fact);
+
+    for (int i = 1; i <= fact; i++) {
+        factorial_result *= i;
+        }
+    printf("%d的階乘結果為%d", fact, factorial_result);
+    return 0;
+}
