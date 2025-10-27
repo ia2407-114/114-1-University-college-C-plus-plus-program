@@ -2,7 +2,7 @@
 int main(void) { 
 	int n,i,a=1; 
 	float sum=0; 
-	printf("¿é¤J¶µ¥Øn\n"); 
+	printf("è«‹è¼¸å…¥é …æ•¸\n"); 
 	scanf_s("%d", &n); 
 	for (i = 1; i <= n; i++) { 
 		if (i % 2 != 0) 
@@ -13,4 +13,5 @@ int main(void) {
 	} 
 	printf("%f", sum);
 	return 0; 
+
 }
