@@ -5,12 +5,12 @@ int main(void)
 unsigned int i = 1, fact = 0;
 
 int result = 1;
-
-scanf_s("%d", &fact);
+ printf("請輸入項數:\n");
+scanf("%d", &fact);
 
 for (i = 1;i <= fact;i++)
 
 result *= i;
 
-printf_s("%d的階乘結果為:%d", fact, result);
+printf("%d的階乘結果為:%d", fact, result);
 }
