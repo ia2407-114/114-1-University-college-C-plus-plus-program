@@ -5,8 +5,8 @@ int main(void)
 unsigned int i, term;
 
 float result = 1.0, fact = 1.0;
-
-scanf_s("%d", &term);
+ printf("請輸入項數:\n");
+scanf("%d", &term);
 
 for (i = 1;i <= term;i++)
 {
@@ -15,5 +15,5 @@ fact *= i;
 result += (float)1 / fact;
 }
 
-printf_s("%d的e結果為:%.5f\n", term, result);
+printf("%d的e結果為:%.5f\n", term, result);
 }
