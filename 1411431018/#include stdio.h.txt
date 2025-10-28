@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main() {
+  int fact; //factorial=fact=階乘
+  int i; //i=次數
+  int result=1;
+  printf("輸入一個整數(fact<13):"); 
+  scanf("%d",&fact);
+
+  for(i=1;i<=fact;i++){
+    result=result*i; //result*=i
+}
+printf("階乘值是%d",result);
+return 0;
+}
+
+
+//題目2:請輸入一個整數fact<13，印出fact的階乘值。
