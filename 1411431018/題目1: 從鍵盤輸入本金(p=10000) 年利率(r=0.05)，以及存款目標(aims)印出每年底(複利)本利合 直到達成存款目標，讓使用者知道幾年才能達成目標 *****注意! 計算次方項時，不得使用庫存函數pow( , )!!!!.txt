@@ -20,4 +20,5 @@ int main()
 	printf("需要%d年達成目標", year - 1);
 
 	return 0;
+
 }
