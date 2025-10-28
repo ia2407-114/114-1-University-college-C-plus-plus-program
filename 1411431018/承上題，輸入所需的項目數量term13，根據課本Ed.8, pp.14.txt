@@ -1,0 +1,19 @@
+//承上題，輸入所需的項目數量term<13，根據課本Ed.8, pp.143第3.45題(b)的公式，求出e的近似值
+
+#include <stdio.h>
+
+int main() {
+  float result=1.0;
+  int term;
+  int i;
+  float e=1.0;
+  printf("輸入一個整數(term<13):"); 
+  scanf("%d",&term);
+
+  for(i=1;i<=term;i++){
+    result=result*i; //result*=i
+    e=e+(1.0/result);
+}
+printf("e的近似值是%.10f",e);
+return 0;
+}
