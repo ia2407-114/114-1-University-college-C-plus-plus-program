@@ -3,20 +3,28 @@
 
 int main(void)
 {
-    double principal = 10000;
-    double rate = .05;
+    float principal = 0;
+    float rate = 0;
+    float total=0;
+    int aims, year;
 
-    printf("Year Amount on deposit\n");
+    printf("請輸入本金:\n");
+    scanf("%f", &principal);
+    printf("請輸入利率:\n");
+    scanf("%f", &rate);
+    printf("請輸入目標:\n");
+    scanf("%d", &aims);
+total=principal;
 
-    for (unsigned int year = 1; year <= 12; ++year) {
+    for ( year = 1; total <= aims; year++) {
 
-        double base = 1 + rate;
-        double factor = 1.0;
-        for (int i = 0; i < year; ++i) {
-            factor *= base;
-        }
-        double amount = principal * factor;
 
-        printf("%4u%21.2f\n", year, amount);
+        total = total * (1 + rate);
+
+        printf("第%d年的本利和為%.2f\n", year, total);
+
+       
     }
+     printf("需%d年達成目標", year-1);
+    return 0;
 }
