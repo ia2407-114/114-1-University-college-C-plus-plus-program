@@ -5,14 +5,14 @@ int main(void)
 	double principal = 0;
 	double rate = .05;
 	double aims = 50000, A = 0;
-	printf("¿é¤J¥»ª÷");
+	printf("è¼¸å…¥æœ¬é‡‘");
 	scanf_s("%lf", &principal);
-	printf("¿é¤J¦~©³¦s¤Jª÷ÃB");
+	printf("è¼¸å…¥å¹´åº•å­˜å…¥é‡‘é¡");
 	scanf_s("%lf", &A);
 	for (; principal <= aims;) {
 		principal = principal + (principal * rate) + A;
 		year++;
 		printf("%d    %lf\n", year, principal);
 	}
-	printf("¦s¨ì¤­¸U­n%d¦~\n", year);
+	printf("å­˜åˆ°äº”è¬è¦%då¹´\n", year);
 }
