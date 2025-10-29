@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <math.h>
+
+// 1. 函數原型宣告
+float calculateBMI(float weight_kg, float height_m);
+
+int main(void)
+{
+    float weight, height;
+    float bmi_value;
+
+    printf("--- BMI ---\n");
+
+    
+    printf("請輸入您的體重 (公斤, 例如: 70.5): ");    
+    scanf_s("%f", &weight);
+
+    printf("請輸入您的身高 (公尺, 例如: 1.75): ");
+    scanf_s("%f", &height);
+
+    // 3. 函式呼叫
+    bmi_value = calculateBMI(weight, height);
+
+    
+    printf("\n您的體重: %.2f 公斤\n", weight);
+    printf("您的身高: %.2f 公尺\n", height);
+    printf("計算得出的 BMI 值為: %.2f\n", bmi_value);
+
+    return 0;
+}
+
+// 2. 函式定義
+float calculateBMI(float weight_kg, float height_m)
+{
+    float bmi = weight_kg / (height_m * height_m);
+    return bmi;
+}
