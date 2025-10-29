@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\Users\User\Desktop\10-29\十月二十九問題二\十月二十九問題二\Source.cpp(34,12): warning C4566: 由通用字元名稱 '\u2264' 表示的字元，無法在目前的字碼頁中表示 (950)
+C:\Users\User\Desktop\10-29\十月二十九問題二\十月二十九問題二\Source.cpp(35,12): warning C4566: 由通用字元名稱 '\u2264' 表示的字元，無法在目前的字碼頁中表示 (950)
+C:\Users\User\Desktop\10-29\十月二十九問題二\十月二十九問題二\Source.cpp(36,12): warning C4566: 由通用字元名稱 '\u2265' 表示的字元，無法在目前的字碼頁中表示 (950)
+  十月二十九問題二.vcxproj -> C:\Users\User\Desktop\10-29\十月二十九問題二\x64\Debug\十月二十九問題二.exe
