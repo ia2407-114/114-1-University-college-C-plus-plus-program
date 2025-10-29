@@ -1,0 +1,30 @@
+#include<stdio.h>
+
+float calculate_bmi(float height_m, float weight_kg);
+
+int main()
+{
+	float height, weight, BMI;
+	printf("請輸入您的身高(公尺)\n");
+	scanf_s("%f", &height);
+	printf("請輸入您的體重(公斤)\n");
+	scanf_s("%f", &weight);
+	BMI = calculate_bmi(height, weight);
+	printf("您的BMI是 %.2f\n", BMI);
+
+	
+	return 0;
+}
+
+float calculate_bmi(float height_m, float weight_kg) {
+	float bmi_value;
+
+	if (height_m <= 0) {
+		printf("計算錯誤：身高必須是正數。\n");
+		return 0.0f;
+	}
+
+	bmi_value = weight_kg / (height_m * height_m);
+
+	return bmi_value;
+}
