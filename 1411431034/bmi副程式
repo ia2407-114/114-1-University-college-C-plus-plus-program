@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <math.h>
+
+float bmi1(float, float);
+int main(void)
+{
+	float w,h;
+	
+	printf("輸入身高體重\n");
+	scanf_s("%f %f", &h, &w);
+	printf("Your height is %.2f\n",h);
+	printf("Your weight value is %.2f\n",w);
+	printf("Your BMI value is %.2f\n", bmi1(w,h));
+
+		
+}
+float bmi1(float w, float h){
+	float bmi = 0;
+    bmi = w / ((h / 100) * (h / 100));
+	return bmi;
+}
