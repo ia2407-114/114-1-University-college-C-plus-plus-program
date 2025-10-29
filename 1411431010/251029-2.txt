@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+
+float bmi(float h, float w)
+{
+    return w / ((h / 100.0f) * (h / 100.0f));
+}
+
+int main(void)
+{
+    float h, w, b;
+
+    printf("輸入身高(cm) 體重(kg): ");
+    scanf_s("%f %f", &h, &w);
+
+    b = bmi(h, w);  
+
+    printf("BMI = %.2f\n", b);
+
+    if (b < 18.5f)
+        puts("underweight");
+    else if (b <= 24.9f)
+        puts("normal");
+    else if (b <= 29.9f)
+        puts("overweight");
+    else
+        puts("obese");
+
+    return 0;
+}
