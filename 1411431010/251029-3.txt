@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <math.h>
+
+
+float E(float x, int n) {
+    float s = 1.0f;  
+    float f = 1.0f;  
+    float p = 1.0f;  
+
+    for (int i = 1; i <= n; i++) {
+        f *= i;     
+        p *= x;      
+        s += p / f; 
+    }
+    return s;      
+}
+
+int main(void) {
+    float x;
+    int n;
+    float s;       
+    float e;  
+    float err;   
+
+    printf("輸入 x 的值: ");
+    scanf_s("%f", &x);
+
+    printf("輸入展開項數 n: ");
+    scanf_s("%d", &n);
+
+    
+    s = E( x , n );
+
+   
+    e = exp(x);
+    err = e - s;
+
+    printf("\n級數算得的 e^x = %.6f\n", s);
+    printf("exp(x) = %.6f\n", e);
+    printf("誤差 = %.6f\n", err);
+
+    return 0;
+}
