@@ -102,9 +102,6 @@ int main(void)
     return 0;
 }
 
-
-
-
 // 題目四、輸入計算的項目總數n，利用迴圈計算下列級數的結果去近似pi值
 
 #include <stdio.h>
