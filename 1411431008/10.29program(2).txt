@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+float BMI(float height, float weight);
+
+//主
+int main(void) { 
+	float weight, height, BMI_result;
+
+	printf("請輸入身高(公尺):\n");
+	scanf_s("%f", &height);
+
+	printf("請輸入體重(公斤):\n");
+	scanf_s("%f", &weight);
+
+	BMI_result = BMI(height, weight);
+
+	
+	printf("你的BMI是 %.2f\n", BMI_result);
+
+	
+	if (BMI_result < 18.5) {
+		puts("體重 Under weight\n");
+	}
+	else if (BMI_result >= 18.5 && BMI_result <= 24.9) {
+		puts("體重 Normal\n");
+	}
+	else if (BMI_result >= 25 && BMI_result <= 29.9) {
+		puts("體重 Over weight\n");
+	}
+	else {
+		puts("體重 Obese\n");
+	}
+	return 0;
+}
+
+//副
+float BMI(float height, float weight)
+{
+	return (weight / (height * height));
+}
