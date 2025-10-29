@@ -1,0 +1,105 @@
+//第一題
+
+/*#include<stdio.h>
+#include<math.h>
+
+int main(void)
+{
+    int tern;
+    double x;
+    long long factorial_result = 1;
+    double x_power = 1.0;
+    double approximate = 1.0;
+
+    printf("輸入 x 值:\n");
+    scanf_s("%1f", &x);
+
+    printf("輸入要計算的n:\n");
+    scanf_s("%d", &tern);
+
+    for (int i = 1; i <= 10; ++i) {
+        x_power *= x;
+        factorial_result *= i;
+        approximate += (x_power / factorial_result);
+    }
+    printf("計算 %d 個項次後****.2f 的近似值為: %f \n ", tern, x, approximate);
+}
+*/
+
+//第二題
+#include<stdio.h>
+
+float BMI(float weight_In_Kilograms, float height_In_Meters);
+
+int main(void)
+{
+	float BMI_result, weight_In_Kilograms, height_In_Meters;
+
+	printf("Enter your weight in Kilograms :\n");
+	scanf_s("%f", &weight_In_Kilograms);
+	printf("Enter your height in Meters :\n");
+	scanf_s("%f", &height_In_Meters);
+
+	BMI_result = BMI(weight_In_Kilograms, height_In_Meters);
+
+	printf("Your BMI is %.1f\n", BMI_result);
+
+	if (BMI_result < 18.5) {
+		printf("You are Underweight\n");
+	}
+	//BMI如果不符合<18.5則繼續下一則條，能繼續就表示表示數值>=18.5
+	else if (BMI_result < 25) {
+		printf("You are Normal\n");
+	}
+	//BMI=介於18.5及24.9(含)。而數值<25不包含25,能進行此else IF條件判別就表示數值不符合上一個判斷，所以數值>=18.5，結合本次的條件 <25就能得出範圍
+	else if (BMI_result < 30) {
+		printf("You are Overweight\n");
+	}
+	else {
+		printf("Your are Obese\n");
+	}
+	return 0;
+}
+
+float BMI(float weight_In_Kilograms, float height_In_Meters) {
+	return (weight_In_Kilograms / (height_In_Meters * height_In_Meters));
+}
+
+
+
+//第三題
+
+#include <stdio.h>
+
+double approximate_pi(int n);
+
+int main()
+{
+	int n;
+	double pi_result;
+
+	printf("輸入要計算的項目總數n:");
+	scanf_s("%d", &n);
+
+	pi_result = approximate_pi(n);
+	printf("使用 %d 個項次計算出的近似值為:%.15f\n", n, pi_result);
+
+	return 0;
+}
+
+
+double approximate_pi(int n)
+{
+	int i;
+	double pi_approx = 0.0;
+	double sign = 1.0;
+
+	for (i = 0; i < n; i++)
+	{
+		double denominator = 2.0 * i + 1.0;
+		pi_approx += sign * (4.0 / denominator);
+		sign * -1.0;
+	}
+
+	return pi_approx;
+}
