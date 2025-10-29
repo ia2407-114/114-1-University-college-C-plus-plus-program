@@ -74,3 +74,56 @@ int main(void)
 
     return 0;
 }
+
+// 題目三、利用上一週的第2題，新增一參數x，計算出課本習題3.45(c)的數列值的結果，其中x的次方(冪)項不能用庫存函數pow( )。
+// ( E的X次方=1+1!x​+2!x2​+3!x3​+⋯ )
+
+#include <stdio.h>
+
+int main(void)
+{
+    double x;
+    double term = 1.0;
+    double sum = 1.0;
+    int n, terms;
+
+    printf("請輸入 x 的值: ");
+    scanf_s("%lf", &x);
+    printf("請輸入要計算的項數: ");
+    scanf_s("%d", &terms);
+
+    for (n = 1; n <= terms; n++) {
+        term = term * x / n;
+        sum = sum + term;
+    }
+
+    printf("e 的 %.2lf 次方近似值為: %.10lf\n", x, sum);
+
+    return 0;
+}
+
+
+
+
+// 題目四、輸入計算的項目總數n，利用迴圈計算下列級數的結果去近似pi值
+
+#include <stdio.h>
+
+int main(void)
+{
+    int n, i;             
+    double pi = 0.0;      
+    double sign = 1.0;  
+
+    printf("請輸入要計算的項數 n: ");
+    scanf_s("%d", &n);     
+
+    for (i = 0; i < n; i++) {
+        pi += sign * 4.0 / (2 * i + 1); 
+        sign = -sign;                  
+    }
+
+    printf("近似的 π 值為: %.10lf\n", pi);
+
+    return 0;
+}
