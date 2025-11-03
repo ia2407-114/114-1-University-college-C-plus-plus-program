@@ -25,3 +25,4 @@ int main(void)
 	printf("%d * %d %% %d + %d / %d - %d are the %d", p , r , q , w , x , y , z);
 	return 1;
 }
+//利用輸入輸出函數，輸入以上變數，並且印出所有變數與結果
