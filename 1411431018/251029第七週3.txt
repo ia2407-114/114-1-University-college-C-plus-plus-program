@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+float pi_1(int y);
+
+int main() {
+	int n;
+	float result;
+	printf("輸入總項數:");
+	scanf_s("%d", &n);
+
+	result = pi_1(n); //把宣告變數int n的值丟入int y裡
+
+	printf("近似pi值是%f", result);
+
+	return 0;
+}
+float pi_1(int y) {
+	float pi = 4.0;
+	int i;
+
+	for (i = 1;i < y;i++) {
+		if (i % 2 == 0)
+			pi = pi + 4.0 / (i * 2 + 1);
+		else if (i % 2 != 0)
+			pi = pi - 4.0 / (i * 2 + 1);
+
+	}
+	return pi;
+}

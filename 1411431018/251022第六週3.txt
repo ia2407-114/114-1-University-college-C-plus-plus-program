@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main()
+{
+	float x;
+	printf("輸入x值(可以是小數):");
+	scanf("%f", &x);
+	int term;
+	printf("輸入項數(term<13):",&term);
+	scanf("%d", &term);
+	float power = 1.0; //power=次方 //用float好計算
+	float e = 1.0; //加第一項就是1
+	float fact = 1.0; //用float好計算
+	int i;
+
+	for (i = 1;i < term;i++) {
+      power=power*x;
+      fact=fact*i;
+      e=e+power/fact;
+
+	}
+
+    printf("e^x=%f",e);
+
+
+
+	return 0;
+}
+
+
+
+//利用上一週的第2題，新增一參數x，計算出課本習題3.45(c)的數列值的結果，其中x的次方(冪)項不能用庫存函數pow( )。
+
