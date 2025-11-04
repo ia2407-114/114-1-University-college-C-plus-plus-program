@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<math.h>
+
+float square(float w,float h);
+
+int main(void) {
+
+	//題目2:請根據第三週的題目，將BMI的計算過程寫成一個副程式，要傳入浮點數的身高與體重，並且傳回BMI值為浮點數，最後由主程式印出結果
+
+	printf("\n\n題目二\n\n");
+
+	float wei, hei, bmi;
+	printf("Enter weightInKilograms:\n");
+	scanf_s("%f", &wei);
+	printf("Enter heightInMeters:\n");
+	scanf_s("%f", &hei);
+
+	bmi = square(wei,hei);
+
+	printf("BMI is %.2f \n", bmi);
+
+	if (bmi < 18.5) {
+		printf("Underweight\n");
+	}
+	else if (18.5 <= bmi and bmi <= 24.9) {
+		printf("Normal\n");
+	}
+	else if (25 <= bmi and bmi <= 29.9) {
+		printf("Overweight\n");
+	}
+	else {
+		printf("Obese\n");
+	}
+
+	return 0;
+}
+
+float square(float w, float h) {
+
+	return w / (h * h);
+
+}
+
