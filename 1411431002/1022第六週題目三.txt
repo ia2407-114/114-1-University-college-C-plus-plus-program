@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main(void) {
+    
+    	//題目3，利用上一週的第2題，新增一參數x，計算出課本習題3.45(c)的數列值的結果，其中x的次方(冪)項不能用庫存函數pow()。
+    
+    	printf("\n\n題目3\n\n");
+
+	int term, n3 = 1, ans = 1, x = 1.0, count=1;
+	float answ = 0, exp = 1.0;
+
+	printf("請輸入所需的參數x與項目數量term,且term<13:");
+	scanf_s("%d %d", &x, &term);
+
+	for (count = 1;count <= term;count++) {
+		n3 = n3 * x;
+		ans = ans * count;
+		answ = (n3 / (float)ans);
+		exp = exp + answ;
+	}
+
+	printf("項目數量為%d,e=%.4f\n", term, exp);
+
+	
+	return 0;
+}

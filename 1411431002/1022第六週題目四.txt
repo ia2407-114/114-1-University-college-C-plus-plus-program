@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main(void) {
+    
+   	//題目4. 輸入計算的項目總數n，利用迴圈計算下列級數的結果去近似pi值
+
+	printf("\n\n題目4\n\n");
+
+	int n4, coun4 = 2, a1 = 1; //n4為項目總數,coun4為計數器,a1為分母計數器(等差用)
+	float pi=4.0, answ1, a = -1.0; //pi為結果,a為分母
+	
+	printf("請輸入項目總數n:");
+	scanf_s("%d", &n4);
+
+	for (coun4 = 2;coun4 <= n4;coun4++) {
+		a = coun4 + a1 ;  //分母
+		answ1 = 4 * (1 / a) ;
+
+		if ( coun4 % 2 ==0 ){
+		    pi = pi + answ1*-1;
+		}
+		else{
+		    pi = pi + answ1;
+		}
+
+		a1++ ; // a1 = a1 + 1
+	}
+	
+	printf("項目數量為%d,結果為%.8f(取到小數點後八位)", n4, pi);
+	
+	return 0;
+}
