@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <math.h>
+int main(void) {
+
+
+	int x, n, i;
+	float num = 1, den = 1, e = 1, dis;
+	printf("請輸入x、n\n");
+	scanf_s("%d %d", &x, &n);
+	for (i = 1; i <= n; i++) {
+		num = num * x;
+		den = den * i;
+		e = e + num / den;
+	}
+
+
+	printf("e的x次方是 %f\n", e);
+	printf("庫存函數算的e的x次方是 %f\n", exp(x));
+	dis = e - exp(x);
+	printf("誤差是%f", dis);
+
+}
