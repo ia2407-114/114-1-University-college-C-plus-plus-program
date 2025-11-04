@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <math.h>
+
+float value(int);//函數宣告
+
+int n;
+int main(void) {
+	printf("enter n\n");
+	scanf_s("%d", &n);
+	printf("%d的pi近似值為 %f\n", n,value(n));//函數呼叫
+
+
+}
+float value(int n) {//函數定義
+	int i;
+	float total = 0, x = 1;
+	for (i = 1; i <= n; i++) {
+		if (i % 2 == 0)
+			total = total - 4 / x;
+		else
+			total = total + 4 / x;
+		x = x + 2;
+
+
+	}
+
+	return total;
+}
