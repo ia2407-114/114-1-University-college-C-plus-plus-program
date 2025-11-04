@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+	double x;
+	printf("輸入x值(可以是小數):");
+	scanf_s("%lf", &x);
+	int term;
+	printf("輸入項數(term<13):");
+	scanf_s("%d", &term);
+	double power = 1.0; //power=次方 //都轉才好用double計算
+	double e = 1.0; //加第一項就是1
+	double fact = 1.0; //都轉才好用double計算
+	int i;
+
+	for (i = 1;i < term;i++) {
+		power = power * x;
+		fact = fact * i;
+		e = e + power / fact;
+
+	}
+	double E = exp(x); //呼叫庫存函數 exp(x)
+
+	double error = e - E;
+
+	printf("無窮級數的結果是%lf\n", e);
+	printf("庫存函數 exp(x)的結果是%lf\n",E);
+	printf("誤差是%lf", error);
+
+	return 0;
+}
+
+//承上一週題目3，先利用這個無窮級數算出你的e^x(也就是e的x次方)，再呼叫庫存函數 exp(x)，印出這兩個計算的結果，並得到誤差(無窮級數的結果- exp(x))
