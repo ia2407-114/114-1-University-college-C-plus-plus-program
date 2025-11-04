@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main(void) {
+	int i = 1, fact = 0;
+	int result = 1;
+	scanf_s("%d", &fact);
+	for (i = 1; i <= fact; i++)
+		result *= i;
+	printf("%d的階乘值為%d", fact, result);
+}
