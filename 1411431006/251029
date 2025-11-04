@@ -1,0 +1,95 @@
+// 題目一、承上一週題目3，先利用這個無窮級數算出你的e^ x(也就是e的x次方)，
+// 再呼叫庫存函數 exp(x)，印出這兩個計算的結果，並得到誤差(無窮級數的結果 - exp(x))
+
+#include <stdio.h>
+#include <math.h>
+
+int main(void)
+{
+	double x;
+	double term;
+	double sum = 1;
+	int n, terms;
+
+	printf("請輸入x的值:");
+	scanf_s("%lf", &x);
+	printf("請輸入項數:");
+	scanf_s("%d", &terms);
+
+	for (n = 1;n <= terms;n++)
+	{
+		term = terms * x / n;
+		sum = sum + term;
+	}
+	double exp_result = exp(x);
+	
+	double error = sum - exp_result;
+	printf("無窮級數計算的e^%.2lf近似值:%.10lf\n", x, sum);
+	printf("庫存函數exp(%.2lf)的值:%10lf\n", x, exp_result);
+	printf("誤差(無窮級數-exp)=%.10lf\n", error);
+
+	return 0;
+}
+
+// 題目二、請根據第三周的題目，將BMI的計算過程寫成一個副程式，要傳入浮點數的身高與體重，
+// 並且傳回BMI值為浮點數，最後由主程式印出結果
+
+#include <stdio.h>
+
+float calcBMI(float weight, float height);
+
+int main(void) {
+	float weight, height, bmi;
+
+	printf("請輸入體重(kg):");
+	scanf_s("%f", &weight);
+
+	printf("請輸入身高(m):");
+	scanf_s("%f", &height);
+
+	bmi = calcBMI(weight, height);
+
+	printf("你的BMI為: %.2f\n", bmi);
+
+	return 0;
+}
+
+float calcBMI(float weight, float height) {
+	float bmi;
+	bmi = weight / (height * height);
+	return bmi;
+}
+
+// 題目三、請根據第六周的題目，寫一個副程式，傳入計算的項目總數n，
+// 計算下列級數的結果去近似pi值，並且傳回近似值為浮點數，最後由主程式印出結果
+
+#include <stdio.h>
+double calcpi(int n);
+
+int main(void)
+{
+	int n;
+	double pi;
+
+	printf("請輸入要計算的項數 n:");
+	scanf_s("%d", &n);
+
+	pi = calcpi(n);
+	printf("近似的π值為:%.10lf\n", pi);
+	return 0;
+}
+
+double calcpi(int n)
+{
+	int i;
+	double pi=0;
+	double sign = 1;
+
+	for (i = 0;i < n;i++)
+	{
+		pi += sign * 4 / (2 * i + 1);
+		sign = -sign;
+	}
+	return pi;
+}
+
