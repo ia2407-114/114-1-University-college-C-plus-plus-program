@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+float pi_1(int y);
+float ball_V(float pi,float r);
+float ball_S(float pi, float r);
+float ball_V1(float pi,float r,float h);
+float ball_S1(float pi, float r, float h);
+
+int main() {
+	int n;
+	float result;
+	float result2;
+	float result3;
+	float result4;
+	float result5;
+	printf("輸入總項數:");
+	scanf_s("%d", &n);
+	float r;
+	printf("輸入半徑:");
+	scanf_s("%f",&r);
+	float h;
+	printf("輸入高度:");
+	scanf_s("%f",&h);
+
+
+
+	result = pi_1(n); 
+	result2 = ball_V(result, r);
+	result3 = ball_S(result, r);
+	result4 = ball_V1(result, r, h);
+	result5 = ball_S1(result, r, h);
+
+	
+	printf("球體積的近似值是%f\n", result2);
+	printf("球表面積的近似值是%f\n",result3);
+	printf("圓柱體積的近似值是%f\n",result4);
+	printf("圓柱表面積的近似值是%f",result5);
+
+
+	return 0;
+}
+
+
+
+//承繼上週題目3，建立五個副程式，其中一個利用傳入整數n求出pi的近似值，剩下四個函數利用第一個函數傳回的pi值分別計算出: 球體積、球表面積、圓柱體積、圓柱表面積，並將個別結果傳回主程式並且印出

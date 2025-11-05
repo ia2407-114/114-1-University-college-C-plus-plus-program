@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+
+float ball_V(float pi,float r) {
+	float V;
+
+	V = (4.0 / 3) * pi * r * r * r;
+
+	return V;
+
+}

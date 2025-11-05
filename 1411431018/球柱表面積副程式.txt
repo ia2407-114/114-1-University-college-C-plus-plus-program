@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+
+float ball_S1(float pi, float r, float h) {
+	float S1;
+
+	S1 = (2.0 * pi * r * r) + (2.0 * pi * r * h);
+
+	return S1;
+}
