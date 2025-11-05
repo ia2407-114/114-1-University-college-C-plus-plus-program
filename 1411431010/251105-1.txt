@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+    double pii(int n);
+    double bvv(double pi, int r);
+    double baa(double pi, int r);
+    double cvv (double pi, int r, int h);
+    double caa (double pi, int r, int h);
+    int main()
+    {
+        double pi = 0.0;
+        double s = 1.0;
+        double bv, ba, cv, ca;
+        int n, r, h = 0;
+    printf("請輸入項數:\n");
+    scanf_s("%d", &n);
+    printf("請輸入半徑:\n");
+    scanf_s("%d", &r);
+    printf("請輸入圓柱高:\n");
+    scanf_s("%d", &h);
+
+    pi = pii(n);
+    bv = bvv(pi, r);
+    ba = baa(pi, r);
+    cv = cvv(pi, r, h);
+    ca = caa(pi, r, h);
+   
+    printf("近似pi的值=%.6f\n", pi);
+    printf("球體積=%.2f\n", bv);
+    printf("球表面積=%.2f\n", ba);
+    printf("圓柱體積=%.2f\n", cv);
+    printf("圓柱表面積=%.2f\n", ca);
+
+    return 0;
+}
