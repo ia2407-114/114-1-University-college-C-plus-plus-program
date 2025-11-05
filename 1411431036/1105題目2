@@ -1,0 +1,26 @@
+#include<stdio.h>
+int calcyears(float p, float r, float s, float aim);
+
+int main(void) {
+	float p, r, s, aim;
+	int year;
+	printf("本金\n");
+	scanf_s("%f", &p);
+	printf("年利率\n");
+	scanf_s("%f", &r);
+	printf("每年存入\n");
+	scanf_s("%f", &s);
+	printf("目標\n");
+	scanf_s("%f", &aim);
+	year = calcyears(p, r, s, aim);
+	printf("需要%d年", year);
+}
+int calcyears(float p, float r, float s, float aim) {
+	float total = p;
+	int year = 0;
+	while (total < aim) {
+		total = total * (1 + r) + s;
+		year++;
+	}
+	return year;
+}
