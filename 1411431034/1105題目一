@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <math.h>
+
+double approximate_pi(int);
+double ball(double,double);
+double bs(double, double);
+double cylinder(double, double, double);
+double suface(double, double, double);
+
+int main(void) {
+	double r;
+	double n=0.0;
+	double pi;
+	pi = approximate_pi(n);
+	double h;
+	printf("請輸入項目數量\n");
+	scanf_s("%lf", &n);
+	printf("請輸入半徑\n");
+	scanf_s("%lf", &r);
+	printf("請輸入高\n");
+	scanf_s("%lf", &h);
+	printf("pi近似值為%lf\n", approximate_pi(n));
+	printf("球體積近似值為%lf\n", ball(r, approximate_pi(n)));
+	printf("球表面積近似值為%lf\n", bs(r, approximate_pi(n)));
+	printf("圓柱體積近似值為%lf\n", cylinder(r, approximate_pi(n),h));
+	printf("圓柱表面積近似值為%lf\n", suface(r, approximate_pi(n), h));
+}
+double ball(double r,double pi){
+	return 4.0 / 3 * pi * r * r * r;
+}
+double approximate_pi(int n) {
+	int i;
+	double pi_approx = 0.0;
+	double sign = 1.0;
+
+	for (i = 0; i < n; i++) {
+		double denominator = 2.0 * i + 1.0;
+		pi_approx += sign * (4.0 / denominator);
+		sign *= -1.0;
+	}
+
+	return pi_approx;
+}
+double cylinder(double r, double pi, double h) {
+	return pi * r * r * h;
+}
+double bs(double r, double pi) {
+	return 4.0 * pi * r * r;
+}
+double suface(double r, double pi, double h) {
+	return 2 * pi * r * r + 2 * pi * r * h;
+}
+
