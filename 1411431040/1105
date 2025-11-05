@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int years_to_goal(double p, double r, double deposit, double aims);
+int main(void)
+{
+    double p, r, deposit, aims;
+    int year;
+
+    printf("輸入本金: ");
+    scanf_s("%lf", &p);
+    printf("輸入利率(.05): ");
+    scanf_s("%lf", &r);
+    printf("輸入每年存款: ");
+    scanf_s("%lf", &deposit);
+    printf("輸入存款目標: ");
+    scanf_s("%lf", &aims);
+
+    year = years_to_goal(p, r, deposit, aims);
+
+    printf("需要 %d 年才能達到目標 %.2f\n", year, aims);
+
+    return 0;
+}
+
+int years_to_goal(double p, double r, double deposit, double aims)
+{
+    double amount = p;
+    int year = 0;
+
+    while (amount < aims) {
+        year++;
+        amount = amount * (1.0 + r) + deposit; 
+    }
+
+    return year; 
+}
