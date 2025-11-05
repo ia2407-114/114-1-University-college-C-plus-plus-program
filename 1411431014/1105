@@ -1,0 +1,55 @@
+//主程式
+#include <stdio.h>
+double calcpi(int);
+double ballVolume(double,double);
+double ballArea(double, double);
+double roundVolume(double, double, double);
+double roundArea(double, double, double);
+
+int main() {
+	int num;
+	double r, h;
+	printf("請輸入項目數量:");
+	scanf_s("%d", &num);
+	printf("請輸入半徑:");
+	scanf_s("%lf", &r);
+	printf("請輸入圓柱高度:");
+	scanf_s("%lf", &h);
+
+	printf("pi的近似值為:%lf\n", calcpi(num));
+	printf("球體積的近似值為:%lf\n", ballVolume(calcpi(num),r));
+	printf("球表面積的近似值為:%lf\n", ballArea(calcpi(num), r));
+	printf("圓柱體積的近似值為:%lf\n", roundVolume(calcpi(num), r, h));
+	printf("圓柱表面積的近似值為:%lf\n", roundArea(calcpi(num), r,h));
+
+	return 0;
+}
+//π的副程式
+double calcpi(int n) {
+    double pi = 0.0;
+    int i;
+    for (i = 0; i < n; i++) {
+        if (i % 2 == 0)
+            pi += 1.0 / (2 * i + 1);
+        else
+            pi -= 1.0 / (2 * i + 1);
+    }
+    pi *= 4;
+    return pi;
+}
+//球體積的副程式
+double ballVolume(double pi, double r) {
+	return (4.0 / 3) * pi * r * r * r;
+}
+//球表面積的副程式
+double ballArea(double pi, double r) {
+    return 4 * pi * r * r;
+}
+//圓柱體積的副程式
+double roundVolume(double pi, double r, double h) {
+    return pi * r * r * h;
+}
+//圓柱表面積的副程式
+double roundArea(double pi, double r, double h) {
+    return 2 * pi * r * (h + r);
+}
