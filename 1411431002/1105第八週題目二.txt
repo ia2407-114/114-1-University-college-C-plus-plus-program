@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<math.h>
+
+int compound(int, float, int, int);
+
+int main() {
+	
+	printf("\n\n題目2\n\n");
+
+	int p, aims, save;
+	float yr; 
+
+	printf("請輸入本金,年利率,每年存入金額,存款目標:");
+	scanf_s("%d %f %d %d", &p, &yr, &save, &aims);
+
+	printf("第%d年達到存款目標\n", compound(p, yr, save, aims));
+
+	
+	return 0;
+}
+
+int compound(int p, float r, int save, int aims) {
+
+	int year = 1;
+	float result = 1.0, n = 1.0; 
+	
+	result = p;
+
+	for (year = 1;result < aims;year++) {
+
+		if (year == 1) {
+			result = result * (1.00 + r);
+		}
+		else {
+			result = result * (1.00 + r);
+			result = result + save;
+		}
+			
+	}
+	return year - 1;
+}
+
+
+

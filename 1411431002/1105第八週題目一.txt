@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<math.h>
+
+//float square(float a);
+
+double app_pi(double);
+double ball_vol(double,double);
+double ball_area(double, double);
+double cyl_vol(double, double, double);
+double cyl_area(double, double, double);
+
+int main() {
+
+	printf("\n\n題目1\n\n");
+
+	int n,br,vr,vh;
+	double result,ballvol,ballarea,cylvol,cylarea;
+
+	printf("請輸入項目總數n:");
+	scanf_s("%d", &n);
+	printf("請輸入球體半徑br:");
+	scanf_s("%d", &br);
+	printf("請輸入圓柱體半徑br:");
+	scanf_s("%d", &vr);
+	printf("請輸入圓柱體的高vh:");
+	scanf_s("%d", &vh);
+
+	printf("pi的近似值:%lf\n", app_pi(n));
+	printf("球體積的近似值:%lf\n", ball_vol(app_pi(n), br));
+	printf("球表面積的近似值:%lf\n", ball_area(app_pi(n), br));
+	printf("圓柱體積的近似值:%lf\n", cyl_vol(app_pi(n), vr, vh));
+	printf("圓柱體表面積的近似值:%lf\n", cyl_area(app_pi(n), vr, vh));
+
+	return 0;
+}
+
+double app_pi(double x) {
+
+	int coun = 2, a1 = 1;
+	float pi = 4.0, answ1, a = -1.0;
+
+	for (coun = 2;coun <= x;coun++) {
+		a = coun + a1; 
+		answ1 = 4 * (1 / a);
+		if (coun % 2 == 0) {
+			pi = pi + answ1 * -1;
+		}
+		else {
+			pi = pi + answ1;
+		}
+		a1++;
+	}
+
+	return pi;
+}
+
+double ball_vol(double pi1, double r1) {
+	return (4.0 / 3) * pi1 * r1 * r1 * r1;
+}
+
+double ball_area(double pi2, double r2) {
+	return 4 * pi2 * r2 * r2;
+}
+double cyl_vol(double pi3, double r3, double h) {
+	return (pi3 * r3 * r3) - h;
+}
+double cyl_area(double pi4, double r4, double h2) {
+	return (2 * pi4 * r4 * r4) + (2 * pi4 * r4 * h2);
+}
+
