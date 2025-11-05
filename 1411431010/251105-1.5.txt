@@ -1,0 +1,7 @@
+double caa(double pi, int r, int h)
+
+{
+	double ca;
+	ca = 2 * pi * r * r + 2 * pi * r * h;
+	return ca;
+}

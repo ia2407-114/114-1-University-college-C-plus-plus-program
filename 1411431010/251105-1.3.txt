@@ -1,0 +1,7 @@
+double baa(double pi, int r)
+
+{
+	double ba;
+	ba = 4.0 * pi * r * r;
+	return ba;
+}

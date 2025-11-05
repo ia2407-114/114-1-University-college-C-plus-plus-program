@@ -1,0 +1,7 @@
+double cvv(double pi, int r, int h)
+
+{
+	double cv;
+	cv = pi * r * r * h;
+	return cv;
+}

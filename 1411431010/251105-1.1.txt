@@ -1,0 +1,11 @@
+double pii(int n) {
+	double pi = 0.0;
+	double s = 1.0;
+	int i;
+	for (int i = 0; i < n; i++)
+	{
+		pi += s * 4.0 / (2 * i + 1);
+		s *= -1.0;
+	}
+	return pi;
+}
