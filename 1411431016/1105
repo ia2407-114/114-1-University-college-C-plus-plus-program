@@ -1,0 +1,72 @@
+#include<stdio.h>
+
+
+double calcpi(int);
+double ball_volume(double pi, double r);
+double sphere_area(double pi, double r);
+double cylinder_volume(double pi, double r, double h);
+double cylinder_area(double pi, double r, double h);
+
+int main(void)
+{
+	int num;
+	double r, h;
+	printf("請輸入項目數量: ");
+	scanf_s("%d", &num);
+	printf("請輸入球體半徑: ");
+	scanf_s("%lf", &r);
+	printf("請輸入圓柱高度: ");
+	scanf_s("%lf", &h);
+
+	printf("pi的近似值為:%lf", calcpi(num));
+	printf("球體積的近似值:%lf", ball_volume(calcpi(num),r));
+	printf("球表面積的近似值:%lf", sphere_area(calcpi(num), r));
+	printf("圓柱體積的近似值:%lf", cylinder_volume(calcpi(num), r,h));
+	printf("圓柱表面積的近似值:%lf", cylinder_area(calcpi(num), r,h));
+
+	return 0;
+
+}
+
+
+double calcpi(int n) {
+    double pi = 0.0;
+    int i;
+    for (i = 0; i < n; i++) {
+        if (i % 2 == 0)
+            pi += 1.0 / (2.0 * i + 1);
+        else
+            pi -= 1.0 / (2.0 * i + 1);
+    }
+    pi *= 4;
+    return pi;
+}
+
+double ball_volume (double pi, double r)
+{
+	return(4.0 / 3.0) * pi * r * r * r;
+
+}
+
+double sphere_area (double pi, double r)
+{
+	return 4.0 * pi * r * r ;
+
+}
+
+double cylinder_volume(double pi, double r, double h)
+{
+	return pi * r * r * h;
+
+}
+
+double cylinder_area(double pi, double r, double h)
+{
+	double 側面積 = 2.0 * pi * r * h;
+
+	double 兩個底面積 = 2.0 * pi * r * r;
+
+
+	return 側面積+兩個底面積;
+
+}
