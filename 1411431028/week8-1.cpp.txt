@@ -1,0 +1,48 @@
+#include<stdio.h>
+double balla(double, double, double);
+double ballb(double,double,double);
+double ballc(double, double);
+double ballv(double, double);
+double pi(double, double, double, double, double, double, double);
+int main() {
+	double k = 0, o = 0;
+	double n = 0, pi1 = 0, pi2 = 0, i = 1, j = 3,r,h;
+	printf("輸入項目總數\n");
+	scanf_s("%lf", &n);
+	printf("輸入半徑:\n");
+	scanf_s("%lf", &r);
+	printf("輸入高:\n");
+	scanf_s("%lf", &h);
+	printf("pi的似近值為 %lf \n", pi(k, h, i, j, pi2, pi1, n));
+	printf("球體積的似近值為 %lf \n",ballv(r,pi(k, h, i, j, pi2, pi1, n)));
+	printf("球面積的似近值為 %lf \n", ballc(r, pi(k, h, i, j, pi2, pi1, n)));
+	printf("圓柱體機的似近值為 %lf \n", ballb(r,h, pi(k, h, i, j, pi2, pi1, n)));
+	printf("圓柱表面積的似近值為 %lf \n", balla(r, h, pi(k, h, i, j, pi2, pi1, n)));
+	return 0;
+
+
+}
+double ballv(double r, double pi) {
+	
+	return  4.0 / 3 * pi * r * r * r;
+}
+double pi(double k, double h, double i, double j, double pi2, double pi, double n) {
+	for (;k != n;k++) {
+		pi += 4 / i;
+		i += 4;
+	}
+	for (;h != n;h++) {
+		pi2 += 4 / j;
+		j += 4;
+	}
+	return pi -= pi2;
+}
+double ballc(double r, double pi) {
+	return 4.0 * pi * r * r;
+}
+double ballb(double r, double pi, double h) {
+	return pi * r * r * h;
+}
+double balla(double r, double pi, double h) {
+	return 2 * pi * r*(h + r);
+}
