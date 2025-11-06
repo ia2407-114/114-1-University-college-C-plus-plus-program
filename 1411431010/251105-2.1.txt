@@ -1,0 +1,14 @@
+
+int yy(float p, int aims, int amount, float r) {
+
+    float t = p;
+    int y;
+
+    for (y = 1; t <= aims; y++) {
+
+
+        t = t * (1 + r) + amount;
+
+    }
+    return y;
+}

@@ -1,0 +1,28 @@
+#include <stdio.h> 
+
+int yy(float p, int aims, int amount, float r);
+
+int main()
+{
+    float p ;
+    float r ;
+    float t ;
+    int aims, amount;
+    int y = 1;
+
+    printf("請輸入本金:\n");
+    scanf_s("%f", &p);
+    printf("請輸入利率:\n");
+    scanf_s("%f", &r);
+    printf("請輸入目標:\n");
+    scanf_s("%d", &aims);
+    printf("請輸入每年定期定額存入金額:\n ");
+    scanf_s("%d", &amount);
+
+    y = yy(p, aims, amount, r);
+
+    
+    printf("需%d年達成目標", y - 1);
+
+    return 0;
+}
