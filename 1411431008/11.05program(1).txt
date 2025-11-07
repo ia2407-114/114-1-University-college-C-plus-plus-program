@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+double approximate_pi(int n);
+double sphere_volume(double radius, double pi);
+double sphere_surface_area(double radius, double pi);
+double cylinder_volume(double radius, double height, double pi);
+double cylinder_surface_area(double radius, double height, double pi);
+
+int main() {
+    int n;
+    double pi_result;
+    double r_sphere, r_cylinder, h_cylinder;
+    double s_vol, s_area, c_vol, c_area;
+
+    printf("輸入要計算的項目總數 n:");
+    scanf_s("%d", &n);
+    printf("%d項次算出的π近似值為:%.15f\n", n, pi_result);
+
+    printf("輸入要計算的球體半徑:\n ");
+    scanf_s("%lf", &r_sphere);
+
+    printf("輸入要計算的圓柱體半徑:\n ");
+    scanf_s("%lf", &r_cylinder);
+
+    printf("輸入要計算的圓柱體高度\n ");
+    scanf_s("%lf", &h_cylinder);
+    
+    pi_result = approximate_pi(n);
+
+    s_vol = sphere_volume(r_sphere, pi_result);
+    s_area = sphere_surface_area(r_sphere, pi_result);
+    c_vol = cylinder_volume(r_cylinder, h_cylinder, pi_result);
+    c_area = cylinder_surface_area(r_cylinder, h_cylinder, pi_result);
+
+    printf("球體半徑:%.2f\n", r_sphere);
+    printf("球體體積:%.4f\n", s_vol);
+    printf("球體表面積:%.4f\n", s_area);
+   
+    printf("圓柱體半徑:%.2f\n", r_cylinder);
+    printf("圓柱體高度:%.2f\n", h_cylinder);
+    printf("圓柱體體積:%.4f\n", c_vol);
+    printf("圓柱體表面積: %.4f\n", c_area);
+
+    return 0;
+}
+
+
+double approximate_pi(int n) {
+    int i;
+    double pi_approx = 0.0;
+    double sign = 1.0;
+
+    for (i = 0; i < n; i++) {
+        double denominator = 2.0 * i + 1.0;
+        pi_approx += sign * (4.0 / denominator);
+        sign *= -1.0;
+    }
+
+    return pi_approx;
+}
+
+double sphere_volume(double radius, double pi){
+	return (4.0) / 3.0 * pi * radius * radius * radius;
+}
+
+double sphere_surface_area(double radius, double pi) {
+	return 4.0 * pi * radius * radius;
+}
+
+double cylinder_volume(double radius, double height, double pi) {
+	return pi * radius * radius * height;
+}
+
+double cylinder_surface_area(double radius, double height, double pi) {
+    double side_area = 2.0 * pi * radius * height;
+    double base_area = 2.0 * pi * radius * radius;
+    return side_area + base_area;
+}
