@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int year(float p, float r, int aim, int c);
+
+int main() {
+
+	float  p, r;
+	int y, aim, c,result;
+	printf("輸入本金:");
+	scanf_s("%f", &p);
+	printf("輸入年利率:");
+	scanf_s("%f", &r);
+	printf("輸入定期定額:");
+	scanf_s("%d", &c);
+	printf("輸入目標:");
+	scanf_s("%d", &aim);
+
+	result= year(p, r, aim, c);
+	printf("需要%d年達到目標", result - 1);
+
+	return 0;
+}
+
+int year(float p, float r, int aim, int c) {
+
+	float total = p;
+	int y;
+
+	for (y = 1;aim > total;y++) {
+		total = total * (1 + r) + c;
+
+
+	}
+
+	return y;
+}
+//承襲第6週的題目2，寫一個主程式，從鍵盤輸入本金(p) 年利率(r)，每年年底定期定額存入金額，以及存款目標(aim)，再寫一個副程式，計算需要幾年才能達成目標，並傳回年數(int型態)。
