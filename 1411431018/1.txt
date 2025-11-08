@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+
+int main() {
+	int a, b, c;
+	printf("輸入三個整數:");
+	scanf_s("%d %d %d", &a, &b, &c);
+
+	printf("Sum is %d\n", a + b + c);
+	printf("Average is %.2f\n", (a + b + c) / 3.0); //強制轉換浮點數計算
+	printf("Product is %d\n", a * b * c);
+
+	if (a < b && a < c)
+		printf("Smallest is %d\n", a);
+
+	else if (b < a && b < c)
+		printf("Smallest is %d\n", b);
+	else
+		printf("Smallest is %d\n", c);
+
+		if (a > b && a > c)
+			printf("Largest is %d\n", a);
+
+		else if (b > a && b > c)
+			printf("Largest is %d\n", b);
+		else
+			printf("Largest is %d", c);
+
+	return 0;
+}
+//Wirte a program that inputs three different intergers from the keyboard, then prints the sum, the average, the product, the smalles and the largest of these numbers.Use only the single - selection from of the 'if' statement you learned in this chapter.The screen dialogue should appear as in the TEXTBOOD p.97.
