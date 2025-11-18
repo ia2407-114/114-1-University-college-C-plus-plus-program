@@ -3,8 +3,9 @@
 
 float value(int);//函數宣告
 
-int n;
+
 int main(void) {
+    int n;
 	printf("enter n\n");
 	scanf_s("%d", &n);
 	printf("%d的pi近似值為 %f\n", n,value(n));//函數呼叫
