@@ -1,0 +1,54 @@
+#include <stdio.h> // 包含標準輸入輸出函式庫
+#include <limits.h> // 包含極限值相關常數 (非強制，但用於確保類型正確性)
+
+// 函數原型宣告 (Function Prototype) [7]
+// 遞迴副程式：計算 n!。n 必須是非負整數 [3]。
+unsigned long long int factorial(unsigned int n);
+
+int main(void)
+{
+    unsigned int n; // 儲存輸入的上限 n
+    // 使用 double 儲存 e 值，並初始化為 1.0 (代表 1/0!) [1], [6]
+    double e_value = 1.0; 
+
+    // 1. 主程式輸入 n (Input n in the main function)
+    printf("請輸入要計算 e 值的最大階乘 n (n >= 0):\n");
+    // 使用 %u 轉換指定符來讀取 unsigned int 類型的值 [8]
+    scanf("%u", &n); 
+
+    // 2. 主程式計算 e 值
+    // e 的公式為 1 + (1/1!) + (1/2!) + ... + (1/n!)
+    // 迴圈從 i=1 開始，直到 i=n 結束
+    for (unsigned int i = 1; i <= n; ++i) {
+        // 3. 函數呼叫 (Function Call)：呼叫遞迴副程式計算 i! [7]
+        unsigned long long int fact_i = factorial(i);
+        
+        // 將 1.0 顯式轉換為 double，確保在除法運算中執行浮點數運算 [9], [10]
+        // 避免發生整數除法導致小數部分被截斷 (truncation) [11]
+        if (fact_i > 0) {
+             e_value += 1.0 / fact_i;
+        }
+        
+    }
+
+    // 顯示結果
+    // 使用 %.15f 顯示浮點數結果，以確保足夠的精度 [12]
+    printf("計算至 1/ %u! 的 e 值近似值為: %.15f\n", n, e_value);
+
+    return 0;
+}
+
+// 遞迴函數定義 (Recursive Function Definition) [13]
+// 負責計算 n! (Calculate n!)
+unsigned long long int factorial(unsigned int n)
+{
+    // 基底案例 (Base Case): 當 n 為 0 或 1 時，n! = 1 [3], [13]
+    if (n <= 1) {
+        return 1;
+    }
+    // 遞迴步驟 (Recursive Step): n! = n * (n-1)! [2], [13]
+    else {
+        // 這裡會發生遞迴呼叫，直到達到基底案例為止 [14]
+        return n * factorial(n - 1);
+    }
+}
