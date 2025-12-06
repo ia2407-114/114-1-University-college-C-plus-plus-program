@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+double fac(int);
+double pow(int,int);
+
+int main(void) {
+	int n;
+	double e = 1;
+	double x;
+	printf("輸入項目數量:");
+	scanf_s("%d", &n);
+	printf("輸入X:");
+	scanf_s("%lf", &x);
+	for (int i = 1; i <= n; i++)
+		e = e +((double)pow(x,i)/ fac(i));
+	printf("%lf", e);
+}
+double fac(int n) {
+	if (n <= 1)
+		return 1;
+	else
+		return n * fac(n - 1);
+}
+double pow(int x,int n) {
+	if (n <= 0)
+		return 1;
+	else
+		return x * pow(x,n-1);
+}
