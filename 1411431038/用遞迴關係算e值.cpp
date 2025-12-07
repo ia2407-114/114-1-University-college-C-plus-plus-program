@@ -1,0 +1,20 @@
+#include<stdio.h>
+int f(int n);
+int main(void) {
+	int n;
+	float e = 1.0;
+	printf("enter n¡G");
+	scanf_s("%d", &n);
+	for (int i = 1;i <= n;i++) {
+		e = e + 1.0 / f(i);
+	}
+	printf("e¡G%f", e);
+}
+int f(int n) {
+	if (n <= 1) {
+		return 1;
+	}
+	else {
+		return n*f(n-1);
+	}
+}
