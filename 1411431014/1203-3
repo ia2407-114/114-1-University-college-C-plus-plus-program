@@ -1,0 +1,54 @@
+#include <stdio.h>
+#define M 25
+
+double pow(double x, int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return x * pow(x, n - 1);
+}
+
+int fac(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * fac(n - 1);
+}
+
+int main() {
+    int n;
+    double x;
+    int terms[M];
+    double result = 0;
+    printf("陣列最大容量=%d\n", M);
+    printf("n=");
+    if (scanf_s("%d", &n) != 1 || n < 0 || n >= M) {
+        printf("n 必須是非負整數且小於 %d\n", M);
+        return 1;
+    }
+
+    printf("x=");
+    if (scanf_s("%lf", &x) != 1) {
+        printf("x 無效\n");
+        return 1;
+    }
+
+    for (int i = 0; i <= n; i++) {
+        double numerator = pow(x, i);
+        double denominator = fac(i);
+
+        double finalresult = numerator / denominator;
+        terms[i] = (int)finalresult;
+        result += finalresult;
+
+    }
+
+    printf("e^x 的近似值為: %.15lf\n", result);
+
+    printf("-----|-----\n");
+    for (int i = 0; i <= n; i++) {
+        printf("%4d | %d\n", i, terms[i]);
+    }
+
+    return 0;
+}
