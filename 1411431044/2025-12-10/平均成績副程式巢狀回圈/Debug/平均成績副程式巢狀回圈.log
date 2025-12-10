@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\User\Desktop\2025-12-10\平均成績副程式巢狀回圈\Source.cpp(29,54): warning C4244: '=': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+C:\Users\User\Desktop\2025-12-10\平均成績副程式巢狀回圈\Source.cpp(53,54): warning C4244: '=': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+  平均成績副程式巢狀回圈.vcxproj -> C:\Users\User\Desktop\2025-12-10\平均成績副程式巢狀回圈\Debug\平均成績副程式巢狀回圈.exe
