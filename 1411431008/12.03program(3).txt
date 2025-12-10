@@ -1,0 +1,58 @@
+#include <stdio.h>
+#define m 50 
+
+double power(double base, int exp);
+long long factorial(int k);
+
+int main() {
+    
+    double terms[m];
+    int n;      
+    double x;   
+    double ex = 0.0; 
+
+    
+    printf("請輸入 x 值: ");
+    scanf_s("%lf", &x);
+
+    printf("請輸入 n 值 (必須小於 %d): ", m);
+    scanf_s("%d", &n);
+
+
+    
+    for (int i = 0; i <= n; i++) {
+        double numerator = power(x, i);       
+        long long denominator = factorial(i); 
+        double termValue = numerator / denominator;
+
+       
+        terms[i] = termValue;
+        ex += terms[i];
+        printf("第 %d 項 (terms[%d]): %.10f\n", i, i, terms[i]);
+    }
+
+    
+    printf("當 x = %.5f, n = %d 時，計算出的 e^x 值為: %.10lf\n", x, n, ex);
+
+    return 0;
+}
+
+
+
+double power(double base, int exp) {
+    if (exp == 0) {
+        return 1.0;
+    }
+    else {
+        return base * power(base, exp - 1);
+    }
+}
+
+long long factorial(int k) {
+    if (k <= 1) {
+        return 1;
+    }
+    else {
+        return k * factorial(k - 1);
+    }
+}
