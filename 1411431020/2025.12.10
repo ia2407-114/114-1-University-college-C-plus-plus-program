@@ -1,0 +1,79 @@
+#第一題(第0題)
+#include <stdio.h>
+#define RESPONSES_SIZE 40
+#define FREQUENCY_SIZE 11
+
+int main(void)
+{
+    int frequency[FREQUENCY_SIZE] = { 0 }, answer, rating, point;
+
+    int responses[RESPONSES_SIZE] = { 1, 2, 6, 4, 8, 5, 9, 7, 8, 10,
+         1, 6, 3, 8, 6, 10, 3, 8, 2, 7, 6, 5, 7, 6, 8, 6, 7, 5, 6, 6,
+         5, 6, 7, 5, 6, 4, 8, 6, 8, 10 };
+
+
+    for (answer = 0; answer < RESPONSES_SIZE; ++answer) {
+        ++frequency[responses[answer]];
+    }
+
+
+    printf("%s%17s%13s\n", "Rating", "Frequency", "Histogram");
+
+    for (rating = 1; rating < FREQUENCY_SIZE; ++rating) {
+        printf("\n%6d%17d    ", rating, frequency[rating]);
+
+        for (point = 1; point <= frequency[rating]; ++point) {
+            printf("%c", '*'); 
+        }
+        puts("");
+    }
+}
+
+#第二題(第1題)
+#include <stdio.h>
+#define SIZE 20 
+
+void sortScores(int ids[], int scores[], size_t length);
+
+int main(void)
+{
+
+    int id[SIZE] = { 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 26, 27, 28, 29, 31, 32, 33, 36, 37 };
+    int score[SIZE] = { 66, 67, 66, 70, 73, 74, 75, 75, 62, 32, 44, 46, 27, 12, 80, 63, 66, 90, 11, 66 };
+
+    
+    printf("\nData items in ascending order");
+    printf("\n");
+    puts("ID      score");
+
+
+    for (size_t i = 0; i < SIZE; ++i) {
+        printf("%4d%10d\n", id[i], score[i]);
+    }
+    
+    return 0;
+} 
+
+void sortScores(int ids[], int scores[], size_t length)
+{
+    
+    for (size_t pass = 1; pass < length; ++pass) {
+        
+        
+        for (size_t i = 0; i < length - 1; ++i) {
+            
+            
+            if (scores[i] > scores[i + 1]) { 
+                
+                
+                int tempScore = scores[i]; 
+                scores[i] = scores[i + 1];
+                scores[i + 1] = tempScore;
+
+                int tempId = ids[i];
+                ids[i] = ids[i + 1];
+                ids[i + 1] = tempId;
+            }
+        }
+    }
+}
