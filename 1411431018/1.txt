@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+long long int factorial(int n);
+
+int main() {
+    int term;
+    int i;
+    float e = 1.0;
+    printf("輸入一個整數(term<13):");
+    scanf_s("%d", &term);
+
+    for (i = 1;i <= term;i++) {
+        e = e + (1.0 / factorial(i));// i的階層
+    }
+    printf("e的近似值是%.10f", e);
+    return 0;
+
+}
+
+long long int factorial(int n) {
+
+    if (n <= 0)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+//請參考課本P.3-44 題3.45(b)，由主程式輸入n。並建立一個遞迴副程式，負責計算n!，再由主程式計算出e值。
