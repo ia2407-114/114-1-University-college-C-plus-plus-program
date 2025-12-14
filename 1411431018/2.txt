@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+float poww(float x,float n);
+long long int factorial(int y);
+
+int main()
+{
+	float x;
+	printf("輸入x值(可以是小數):");
+	scanf_s("%f", &x);
+	int term;
+	printf("輸入項數(term<13):");
+	scanf_s("%d", &term);
+	
+	float e = 1.0; //加第一項就是1
+	int i;
+
+	for (i = 1;i < term;i++) {
+	
+		e = e + poww(x,i) / factorial(i);
+
+	}
+
+	printf("e^x=%f",e);
+	return 0;
+}
+	float poww(float x,float n){
+	
+	if (n <= 0)
+		return 1;
+	else
+		return x*poww(x, n-1);
+	}
+long long int factorial(int y) {
+
+	if (y <= 0)
+		return 1;
+	else
+		return y * factorial(y-1);
+}
+//請參考課本P.3-45題3.45(c)，由主程式輸入n，x值。並建立兩個遞迴程式，分別計算X ^ n與n!，再由主程式計算出e^x值。
