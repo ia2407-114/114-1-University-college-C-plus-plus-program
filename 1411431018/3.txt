@@ -1,0 +1,46 @@
+#include <stdio.h>
+#define m 15 //
+
+float poww(float x, float n);
+long long int factorial(int y);
+
+int main()
+{
+	float terms[m];
+	float x;
+	printf("輸入x值(可以是小數):");
+	scanf_s("%f", &x);
+	int term;
+	printf("輸入項數(term=<15):",m);
+	scanf_s("%d", &term);
+
+	float e = 0.0; //沒加第一項就是0
+	int i;
+	terms[0] = 1.0; //加第一項就是1
+	e = e + terms[0];//第一項有了
+
+	for (i = 1;i <= term;i++) {
+		float now_terms= poww(x, i) / factorial(i);
+		terms[i] = now_terms;
+		e = e + terms[i];
+		printf("terms[%d]=%f\n", i, terms[i]);
+	}
+
+	printf("e^x=%f", e);
+	return 0;
+}
+float poww(float x, float n) {
+
+	if (n <= 0)
+		return 1;
+	else
+		return x * poww(x, n - 1);
+}
+long long int factorial(int y) {
+
+	if (y <= 0)
+		return 1;
+	else
+		return y * factorial(y - 1);
+}
+//請參考課本P.3.45題3.45(c)，在主程式宣告一個大小為m的整數陣列terms[m]，再由主程式輸入n與 x值且n<m。建立兩個遞迴程式，分別計算X^n與n!，再由主程式計算出e^x值，並且將級數每一項的質放入陣列terms中。
