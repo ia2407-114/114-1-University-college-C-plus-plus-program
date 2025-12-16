@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int ff(int n);
+
+int main()
+{
+    int n;
+    float e = 0.0;
+    int i;
+
+    printf("請輸入項數:\n");
+    scanf("%d", &n);
+
+    for (i = 0; i <= n; i++) {
+        e += 1.0 / ff(i);
+    }
+
+    printf("e = %f\n", e);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+int ff(int n)
+{
+    int res = 1;
+    for (int i = 1; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
