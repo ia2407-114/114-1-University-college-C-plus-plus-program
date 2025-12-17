@@ -1,4 +1,4 @@
-#第一題(第0題)
+//第一題(第0題)
 #include <stdio.h>
 #define RESPONSES_SIZE 40
 #define FREQUENCY_SIZE 11
@@ -29,7 +29,7 @@ int main(void)
     }
 }
 
-#第二題(第1題)
+//第二題(第1題)
 #include <stdio.h>
 #define SIZE 20 
 
@@ -76,4 +76,155 @@ void sortScores(int ids[], int scores[], size_t length)
             }
         }
     }
+}
+
+
+
+//第三題(第2題)
+#include <stdio.h>
+#define SIZE 20
+
+void sortScores(int ids[], int scores[], int length);
+
+int main(void)
+{
+
+    int id[SIZE] = { 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 26, 27, 28, 29, 31, 32, 33, 36, 37 };
+    int score[SIZE] = { 66, 67, 66, 70, 73, 74, 75, 75, 62, 32, 44, 46, 27, 12, 80, 63, 66, 90, 11, 66 };
+
+    sortScores(id, score, SIZE);
+
+    printf("Data items in ascending order \n");
+    printf("%5s%10s\n", "ID", "score");
+
+
+    for (size_t i = 0; i < SIZE; ++i) {
+        printf("%5d%10d\n", id[i], score[i]);
+    }
+
+    return 0;
+} 
+
+
+void sortScores(int ids[], int scores[], int length)
+{
+
+    int tempScore;
+    int tempId;
+
+    for (int pass = 1; pass < length; ++pass) {
+        for (int i = 0; i < length - 1; ++i) {
+            if (scores[i] > scores[i + 1]) {
+
+                tempScore = scores[i];
+                scores[i] = scores[i + 1];
+                scores[i + 1] = tempScore;
+
+                tempId = ids[i];
+                ids[i] = ids[i + 1];
+                ids[i + 1] = tempId;
+            }
+        }
+    }
+}
+
+
+
+//第四題(第3題)
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 10 
+#define SCORE_size 101
+
+void sortRecords(int ids[], int cScores[], int mScores[], double avgScores[], size_t length);
+int findMode(const int scores[], size_t length);
+
+int main(void)
+{
+
+    int id[SIZE] = { 12, 13, 14, 15, 16, 17, 19, 21, 22, 23 };
+    int compSci[SIZE] = { 66, 67, 66, 70, 73, 74, 75, 75, 62, 32 };
+    int math[SIZE] = { 80, 78, 90, 85, 70, 68, 65, 88, 77, 60 }; 
+
+    double average[SIZE] = { 0.0 };
+    int total_score_sum = 0;
+
+    for (size_t i = 0; i < SIZE; ++i) {
+        total_score_sum = compSci[i] + math[i];
+        average[i] = (double)total_score_sum / 2.0;
+    }
+
+    printf("data frist\n");
+    printf("%5s%10s%10s%10s\n", "ID", "CompSci", "Math", "Avg");
+    for (size_t i = 0; i < SIZE; ++i) {
+        printf("%5d%10d%10d%10.2f\n", id[i], compSci[i], math[i], average[i]);
+    }
+    puts("");
+
+    sortRecords(id, compSci, math, average, SIZE);
+
+    int modeResult = findMode(compSci, SIZE);
+
+    printf("data after\n");
+    printf("%5s%10s%10s%10s\n", "ID", "CompSci", "Math", "Avg");
+
+    for (size_t i = 0; i < SIZE; ++i) {
+        printf("%5d%10d%10d%10.2f\n", id[i], compSci[i], math[i], average[i]);
+    }
+
+    printf("\n所有計概成績的眾數 (最常出現的值) 是: %d\n", modeResult);
+
+    return 0;
+}
+
+
+void sortRecords(int ids[], int cScores[], int mScores[], double avgScores[], size_t length)
+{
+    for (size_t pass = 1; pass < length; ++pass) {
+        for (size_t i = 0; i < length - 1; ++i) {
+            if (avgScores[i] > avgScores[i + 1]) {
+
+                double tempAvg = avgScores[i];
+                avgScores[i] = avgScores[i + 1];
+                avgScores[i + 1] = tempAvg;
+
+                int tempId = ids[i];
+                ids[i] = ids[i + 1];
+                ids[i + 1] = tempId;
+
+                int tempCS = cScores[i];
+                cScores[i] = cScores[i + 1];
+                cScores[i + 1] = tempCS;
+
+                int tempMath = mScores[i];
+                mScores[i] = mScores[i + 1];
+                mScores[i + 1] = tempMath;
+            }
+        }
+    }
+}
+
+int findMode(const int scores[], size_t length)
+{
+    
+    int frequency[SCORE_size] = { 0 };
+    int modeValue = 0;
+    int largestCount = 0;
+
+    for (size_t i = 0; i < length; ++i) {
+        if (scores[i] >= 0) {
+            if (scores[i] < SCORE_size) {
+                ++frequency[scores[i]];
+            }
+        }
+    }
+
+    for (int score = 0; score < SCORE_size; ++score) {
+        if (frequency[score] > largestCount) {
+            largestCount = frequency[score];
+            modeValue = score;
+        }
+    }
+
+    return modeValue;
 }
