@@ -1,0 +1,77 @@
+#include <stdio.h>
+
+#define SIZE 10
+
+void sort(int arr[])
+{
+    int i, j, temp;
+    for (i = 0; i < SIZE - 1; i++)
+    {
+        for (j = 0; j < SIZE - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int mode(int arr[])
+{
+    int i, j;
+    int max = 0;
+    int m = arr[0];
+
+    for (i = 0; i < SIZE; i++)
+    {
+        int count = 0;
+        for (j = 0; j < SIZE; j++)
+        {
+            if (arr[i] == arr[j])
+                count++;
+        }
+
+        if (count > max)
+        {
+            max = count;
+            m = arr[i];
+        }
+    }
+    return m;
+}
+
+int main()
+{
+    int id[SIZE], cs[SIZE], math[SIZE];
+    float avg[SIZE];
+    int i;
+
+    for (i = 0; i < SIZE; i++)
+    {
+        printf("輸入學號 計概 數學：");
+        scanf_s("%d %d %d", &id[i], &cs[i], &math[i]);
+    }
+
+    for (i = 0; i < SIZE; i++)
+    {
+        avg[i] = (cs[i] + math[i]) / 2.0;
+    }
+
+    sort(cs);
+    sort(math);
+
+    printf("\n計概眾數：%d\n", mode(cs));
+    printf("數學眾數：%d\n\n", mode(math));
+
+    printf("學號\t計概\t數學\t平均\n");
+    for (i = 0; i < SIZE; i++)
+    {
+        printf("%d\t%d\t%d\t%.1f\n",
+            id[i], cs[i], math[i], avg[i]);
+    }
+
+    return 0;
+}
