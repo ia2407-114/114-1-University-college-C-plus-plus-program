@@ -1,0 +1,40 @@
+int main()
+{
+    int n, i;
+    double x, ex = 0.0;
+
+    printf("請輸入 n：");
+    scanf("%d", &n);
+
+    printf("請輸入 x：");
+    scanf("%lf", &x);
+
+    for (i = 0; i <= n; i++)
+    {
+        ex += power(x, i) / factorial(i);
+    }
+
+    printf("e^%.2f 約等於 %.6f\n", x, ex);
+
+    return 0;
+}
+
+
+副1
+double power(double x, int n)
+{
+    if (n == 0)
+        return 1;
+    else
+        return x * power(x, n - 1);
+}
+
+
+副2
+long long factorial(int n)
+{
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
