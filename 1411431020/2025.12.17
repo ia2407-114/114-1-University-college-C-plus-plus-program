@@ -1,0 +1,217 @@
+//第一題
+#include <stdio.h>
+#define SIZE 10
+
+int find_mode(float arr[], int n);
+void sort_array(int id[], int computer[], int math[], float avg[], int n);
+
+int main() {
+	int student_id[SIZE] = { 11, 15, 13, 18, 12, 17, 14, 19, 16, 20 };
+	int comp_sci_scores[SIZE] = { 85, 92, 78, 85, 90, 85, 76, 95, 88, 85 };
+	int math_scores[SIZE] = { 70, 80, 75, 90, 85, 70, 82, 92, 88, 70 };
+	float average_scores[SIZE];
+	int scores_sum = 0;
+	int i;
+
+	printf("學號\t計概成績\t數學成績\t平均成績\n");\
+
+		for (i = 0; i < SIZE; i++) {
+			scores_sum = comp_sci_scores[i] + math_scores[i];
+			average_scores[i] = (double)scores_sum / 2.0;
+		}
+	for (i = 0; i < SIZE; i++) {
+		printf("%d\t %d\t\t %d\t\t %.2f\t\n", student_id[i], comp_sci_scores[i], math_scores[i], average_scores[i]);
+	}
+
+	sort_array(student_id, comp_sci_scores, math_scores, average_scores, SIZE);
+	int id_mode = find_mode(average_scores, SIZE);
+	printf("學號\t計概成績\t數學成績\t平均成績\n");
+
+		for (i = 0; i < SIZE; i++) {
+			printf("%d\t %d\t\t %d\t\t %.2f\t\n", student_id[i], comp_sci_scores[i], math_scores[i], average_scores[i]);
+		}
+
+	return 0;
+}
+
+
+void sort_array(int id[], int computer[], int math[], float avg[], int n) {
+
+	int i, j, temp;
+	float temp1;
+
+	for (i = 0; i < n - 1; i++) {
+		for (j = 0; j < n - 1 - i; j++) {
+			if (avg[j] < avg[j + 1]) {
+
+				temp = id[j];
+				id[j] = id[j + 1];
+				id[j + 1] = temp;
+
+				temp = computer[j];
+				computer[j] = computer[j + 1];
+				computer[j + 1] = temp;
+
+				temp = math[j];
+				math[j] = math[j + 1];
+				math[j + 1] = temp;
+
+				temp1 = avg[j];
+				avg[j] = avg[j + 1];
+				avg[j + 1] = temp1;
+
+			}
+		}
+	}
+}
+
+int find_mode(float arr[], int n) {
+
+	int i, j;
+	int max_count = 0;
+	int mode = arr[0];
+
+	for (i = 0; i < n; i++) {
+		int current_count = 0;
+		for (j = 0; j < n; j++) {
+			if (arr[j] == arr[i]) {
+				current_count++;
+			}
+		}
+
+		if (current_count > max_count) {
+			max_count = current_count;
+			mode = arr[i];
+		}
+	}
+
+	return mode;
+
+}
+
+
+
+//第二題
+#include <stdio.h>
+#include <stdlib.h>
+
+#define STUDENTS 10
+#define ATTRIBUTES 3 
+
+// 函數原型宣告
+// 排序副程式 (對所有數據進行排序，以某一列（例如學號）為基準)
+void sortData(int data[ATTRIBUTES][STUDENTS], float averages[STUDENTS], size_t length);
+
+// 眾數副程式 (計算所有成績的眾數)
+int calculateMode(const int data[ATTRIBUTES][STUDENTS], size_t length);
+
+// 輸出結果副程式
+void printResults(const int data[ATTRIBUTES][STUDENTS], const float averages[STUDENTS], size_t length);
+
+int main(void)
+{
+    // 建立 3x10 的二維整數陣列：
+    //  = 學號; [1] = 計概成績; [6] = 數學成績
+    int studentData[ATTRIBUTES][STUDENTS] = {
+        {101, 102, 103, 104, 105, 106, 107, 108, 109, 110}, // 學號
+        {85, 78, 92, 65, 88, 75, 90, 60, 81, 79},         // 計概成績
+        {70, 88, 75, 95, 68, 80, 83, 72, 91, 66}          // 數學成績
+    };
+
+    // 建立浮點數陣列存放平均成績
+    float averages[STUDENTS];
+    int modeResult;
+
+    // 2. 主程式：計算平均成績
+    for (size_t i = 0; i < STUDENTS; ++i) {
+        // 由於成績是整數，計算前必須進行顯式轉換（casting）以確保得到浮點數結果
+        float totalScore = (float)studentData[1][i] + studentData[6][i];
+        averages[i] = totalScore / 2.0;
+    }
+
+    // 3. 呼叫排序副程式（例如，依據學號進行排序）
+    // 這裡的排序實現需要複雜邏輯來同時調整所有列的數據，下面以概念性呼叫為例
+    sortData(studentData, averages, STUDENTS);
+
+    // 4. 呼叫眾數副程式
+    modeResult = calculateMode(studentData, STUDENTS);
+
+    // 5. 印出所有結果
+    printResults(studentData, averages, STUDENTS);
+
+    printf("\n所有成績的眾數是: %d\n", modeResult);
+
+    return 0;
+}
+
+int calculateMode(const int data[ATTRIBUTES][STUDENTS], size_t length) {
+    int frequency[8] = { 0 }; // 假設分數範圍 0-100
+    int mode = 0;
+    int maxFrequency = 0;
+
+    // 遍歷所有計概成績 (第 1 列) 和數學成績 (第 2 列)
+    for (size_t i = 0; i < length; ++i) {
+        // 確保成績在有效範圍內（雖然這裡假設數據都是有效分數）
+        if (data[1][i] >= 0 && data[1][i] <= 100) {
+            frequency[data[1][i]]++;
+        }
+        if (data[6][i] >= 0 && data[6][i] <= 100) {
+            frequency[data[6][i]]++;
+        }
+    }
+
+    // 找出最高的頻率
+    for (int score = 0; score <= 100; ++score) {
+        if (frequency[score] > maxFrequency) {
+            maxFrequency = frequency[score];
+            mode = score;
+        }
+    }
+
+    return mode;
+}
+
+
+void sortData(int data[ATTRIBUTES][STUDENTS], float averages[STUDENTS], size_t length) {
+    int tempInt;
+    float tempFloat;
+
+    // 假設我們根據學號（第 0 列）進行排序
+    for (size_t pass = 1; pass < length; ++pass) {
+        for (size_t i = 0; i < length - 1; ++i) {
+            // 比較學號：如果前一個學號大於後一個學號，則進行交換
+            if (data[i] > data[i + 1]) {
+                // 1. 同步交換 學號（第 0 列）
+                for (size_t j = 0; j < ATTRIBUTES; ++j) {
+                    tempInt = data[j][i];
+                    data[j][i] = data[j][i + 1];
+                    data[j][i + 1] = tempInt;
+                }
+
+                // 2. 同步交換 平均成績陣列
+                tempFloat = averages[i];
+                averages[i] = averages[i + 1];
+                averages[i + 1] = tempFloat;
+            }
+        }
+    }
+}
+
+void printResults(const int data[ATTRIBUTES][STUDENTS], const float averages[STUDENTS], size_t length) {
+    printf("\n--------------------------------------------------\n");
+    printf("%-10s %-10s %-10s %-10s\n", "學號", "計概成績", "數學成績", "平均成績");
+    printf("--------------------------------------------------\n");
+
+    for (size_t i = 0; i < length; ++i) {
+        // 輸出浮點數時使用 %.2f 格式指定符，保留兩位小數 [11]
+        printf("%-10d %-10d %-10d %-10.2f\n",
+            data[i],
+            data[1][i],
+            data[6][i],
+            averages[i]);
+    }
+}
+
+
+
+//第三題
