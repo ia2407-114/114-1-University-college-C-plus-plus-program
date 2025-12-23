@@ -52,9 +52,9 @@ int main() {
 
 
 
-	sort_array(stu, average_scores, SIZE);
+	sort_array(stu, average_scores, SIZE);//呼叫排序陣列
 	
-	printf("學號\t計概成績\t數學成績\t平均成績\n");\
+	printf("學號\t計概成績\t數學成績\t平均成績\n");
 
 		for (i = 0; i < SIZE; i++) {
 			printf("%d\t %d\t\t %d\t\t %f\t\n", stu[0][i], stu[1][i], stu[2][i], average_scores[i]);
