@@ -6,7 +6,7 @@ void sort_array(int stu[][SIZE], float avg[], int n) {
 	float temp1;
 
 	for (i = 0; i < n - 1; i++) {
-		for (j = 0; j < n - 1 - i; j++) {
+		for (j = 0; j < n - 1 - i; j++) {//判斷相鄰兩個平均分數，若前者小於後者，則交換，實現由高到低排序。
 			if (avg[j] < avg[j + 1]) {
 
 				temp = stu[0][j];
@@ -34,9 +34,9 @@ void sort_array(int stu[][SIZE], float avg[], int n) {
 int main() {
 	int stu[3][SIZE] ={ { 11, 15, 13, 18, 12, 17, 14, 19, 16, 20 },
 					   { 85, 92, 78, 85, 90, 85, 76, 95, 88, 85 } ,
-					   { 70, 80, 75, 90, 85, 70, 82, 92, 88, 70 } };
+					   { 70, 80, 75, 90, 85, 70, 82, 92, 88, 70 } };//初始化學生資料陣列，第一列為學號，第二列為計概成績，第三列為數學成績。
 
-	float average_scores[SIZE];
+	float average_scores[SIZE];//宣告浮點數陣列，用來存放每位學生的平均分數。
 
 	int i;
 
