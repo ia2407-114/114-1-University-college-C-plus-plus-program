@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\User\Desktop\12.24\12.24.1\12.24.1\Source.cpp(21,11): warning C4101: 'tempf': 未參考的區域變數
+C:\Users\User\Desktop\12.24\12.24.1\12.24.1\Source.cpp(20,15): warning C4101: 'temp': 未參考的區域變數
+  12.24.1.vcxproj -> C:\Users\User\Desktop\12.24\12.24.1\x64\Debug\12.24.1.exe
