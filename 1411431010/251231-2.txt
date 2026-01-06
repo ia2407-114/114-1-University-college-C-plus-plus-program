@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+#define SIZE 10
+
+struct Student {
+    int id;
+    int compSci;
+    int math;
+    float average;
+};
+
+int binarySearch(const struct Student b[], int searchKey, int low, int high);
+
+int main(void) {
+    struct Student data[SIZE] = {
+        {101, 80, 85, 82.5},
+        {105, 75, 70, 72.5},
+        {110, 90, 92, 91.0},
+        {115, 60, 65, 62.5},
+        {120, 88, 84, 86.0},
+        {125, 72, 78, 75.0},
+        {130, 95, 98, 96.5},
+        {135, 66, 62, 64.0},
+        {140, 81, 83, 82.0},
+        {145, 77, 79, 78.0}
+    };
+
+    printf("Enter student ID to search: ");
+    int searchKey;
+    scanf("%d", &searchKey);
+
+    int index = binarySearch(data, searchKey, 0, SIZE - 1);
+
+    if (index != -1) {
+        printf("\nFound at index: %d\n", index);
+        printf("ID: %d\n", data[index].id);
+        printf("Computer Science: %d\n", data[index].compSci);
+        printf("Math: %d\n", data[index].math);
+        printf("Average: %.2f\n", data[index].average);
+    } 
+    else {
+        puts("Value not found");
+    }
+
+    return 0;
+}
+
+int binarySearch(const struct Student b[], int searchKey, int low, int high) {
+    while (low <= high) {
+        int middle = (low + high) / 2;
+
+        if (searchKey == b[middle].id) {
+            return middle;
+        } 
+        else if (searchKey < b[middle].id) {
+            high = middle - 1;
+        } 
+        else {
+            low = middle + 1;
+        }
+    }
+    return -1;
+}
