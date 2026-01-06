@@ -1,0 +1,83 @@
+#include <stdio.h>
+
+#define SIZE 10
+
+void copy1(char* s1, const char* s2) {
+    for (; ((*s1 = *s2) != '\0'); ++s1, ++s2);
+}
+
+
+void swap_int(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void swap_float(float* a, float* b) {
+    float temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+
+void swap_string(char* s1, char* s2) {
+    char temp[20];
+    copy1(temp, s1);
+    copy1(s1, s2);
+    copy1(s2, temp);
+}
+
+
+void sort_array(char name[][20], int stu[SIZE][3], float avg[], int n) {
+    int i, j, k;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (avg[j] < avg[j + 1]) {      
+                swap_float(&avg[j], &avg[j + 1]);
+                swap_string(name[j], name[j + 1]);
+
+                for (k = 0; k < 3; k++) {
+                    swap_int(&stu[j][k], &stu[j + 1][k]);
+                }
+            }
+        }
+    }
+}
+
+int main() {
+
+    const char* name[SIZE] = { "Danny","Mary","Jimmy","Peter","Sue","John","Hearts", "Diamonds","Clubs","Spades" };
+    
+    char stu_names[SIZE][20];
+    for (int i = 0; i < SIZE; i++) {
+        copy1(stu_names[i], name[i]);
+    }
+    int stu_data[SIZE][3] = {
+        {11, 85, 70}, {15, 92, 80}, {13, 78, 75}, {18, 85, 90}, {12, 90, 85},
+        {17, 85, 70}, {14, 76, 82}, {19, 95, 92}, {16, 88, 88}, {20, 85, 70}
+    };
+
+    float average_scores[SIZE];
+
+    for (int i = 0; i < SIZE; i++) {
+        average_scores[i] = (stu_data[i][1] + stu_data[i][2]) / 2.0;
+    }
+
+    printf("排序前：\n");
+    printf("姓名\t\t學號\t數學\t計概\t平均成績\n");
+    printf("------------------------------------------------------------\n");
+    for (int i = 0; i < SIZE; i++) {
+        printf("%-10s\t%d\t%d\t%d\t%.2f\n", stu_names[i], stu_data[i][0], stu_data[i][1], stu_data[i][2], average_scores[i]);
+    }
+
+    sort_array(stu_names, stu_data, average_scores, SIZE);
+
+    printf("\n排序後（依平均分數由大到小）：\n");
+    printf("姓名\t\t學號\t數學\t計概\t平均成績\n");
+    printf("------------------------------------------------------------\n");
+    for (int i = 0; i < SIZE; i++) {
+        printf("%-10s\t%d\t%d\t%d\t%.2f\n", stu_names[i], stu_data[i][0], stu_data[i][1], stu_data[i][2], average_scores[i]);
+    }
+
+    return 0;
+}
