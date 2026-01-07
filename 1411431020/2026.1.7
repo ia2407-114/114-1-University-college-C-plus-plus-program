@@ -1,0 +1,193 @@
+#第一題
+#include <stdio.h>
+#include <string.h>
+#define SIZE 10
+
+struct STUDENT {
+    char name[20];
+    int id, computer, math;
+    double average;
+};
+
+
+
+void sort_array(struct STUDENT MYstu[SIZE], int n) {
+    int i, j, temp;
+    float temp1;
+    char temp_name[SIZE];
+    struct STUDENT temp_struct;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (MYstu[j].average < MYstu[j+1].average) {
+
+                temp_struct = MYstu[j];
+                MYstu[j] = MYstu[j + 1];
+                MYstu[j + 1] = temp_struct;
+
+
+
+
+            }
+        }
+    }
+}
+
+
+
+
+int main() {
+    struct STUDENT stu1,* stuPtr;
+    stu1 = { "Danny",11,85,70};
+    struct STUDENT my_stu[SIZE] = {
+        {"Danny",11,85,70},
+        {"Mary",15,92,80},
+        {"Jimmy",13,78,75},
+        {"Peter",18,85,90},
+        {"Sue",12,90,85},
+        {"John",17,85,70},
+        {"Hearts",14,79,82},
+        {"jenny",19,85,82},
+        {"Clubs",16,88,88},
+        {"Spades",20,85,70},
+    };
+
+    int i;
+
+    printf("排序前：\n");
+    printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+    for (i = 0; i < SIZE; i++) {
+            my_stu[i].average = ((float)my_stu[i].computer + my_stu[i].math) / 2;
+        }
+    for (i = 0; i < SIZE; i++) {
+        printf("%s\t %d\t %d\t\t %d\t\t %.2f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].average);
+    }
+
+    sort_array(my_stu, SIZE);
+
+    printf("\n排序後（依平均成績）：\n");
+    printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+
+        for (i = 0; i < SIZE; i++) {
+            printf("%s\t %d\t %d\t\t %d\t\t %.2f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].average);
+        }
+
+
+    return 0;
+}
+
+
+
+
+#第二題
+#include <stdio.h>
+#include <string.h>
+#define SIZE 10
+
+int binarySearch(const struct STUDENT arr[], int key, int low, int high);
+
+struct STUDENT {
+    char name[20];
+    int id, computer, math;
+    float average;
+};
+
+
+void sort_array(struct STUDENT MYstu[SIZE], int n) {
+    int i, j, temp;
+    float temp1;
+    char temp_name[SIZE];
+    struct STUDENT temp_struct;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (MYstu[j].average < MYstu[j + 1].average) {
+
+                temp_struct = MYstu[j];
+                MYstu[j] = MYstu[j + 1];
+                MYstu[j + 1] = temp_struct;
+
+
+
+
+            }
+        }
+    }
+}
+
+
+
+
+int main() {
+    struct STUDENT stu1, * stuPtr;
+    stu1 = { "Danny",11,85,70 };
+    struct STUDENT my_stu[SIZE] = {
+        {"Danny",11,85,70},
+        {"Mary",15,92,80},
+        {"Jimmy",13,78,75},
+        {"Peter",18,85,90},
+        {"Sue",12,90,85},
+        {"John",17,85,70},
+        {"Hearts",14,79,82},
+        {"jenny",19,85,82},
+        {"Clubs",16,88,88},
+        {"Spades",20,85,70},
+    };
+
+    int i;
+
+    printf("排序前：\n");
+    printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+        for (i = 0; i < SIZE; i++) {
+            my_stu[i].average = ((float)my_stu[i].computer + my_stu[i].math) / 2;
+        }
+    for (i = 0; i < SIZE; i++) {
+        printf("%s\t %d\t %d\t\t %d\t\t %.2f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].average);
+    }
+
+
+    sort_array(my_stu, SIZE);
+    
+    printf("\n排序後（依平均成績）：\n");
+    printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+
+        for (i = 0; i < SIZE; i++) {
+            printf("%s\t %d\t %d\t\t %d\t\t %.2f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].average);
+        }
+
+    int key;
+    printf("請輸入要查詢的學號：");
+    scanf_s("%d", &key);
+
+    int index = binarySearch(my_stu[].id, key, 0);
+
+    if (index != -1) {
+        printf("\n查詢結果：\n");
+        printf("姓名：%s\n", my_stu[i].name);
+        printf("學號：%d\n", my_stu[i].id);
+        printf("計概成績：%d\n", my_stu[i].computer);
+        printf("數學成績：%d\n", my_stu[i].math);
+        printf("平均成績：%.2f\n", my_stu[i].average);
+    }
+    else {
+        printf("查無此學號！\n");
+    }
+
+    return 0;
+}
+
+int binarySearch(const struct STUDENT arr[], int key)
+{
+    int low = 0, high = SIZE - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == key)
+            return mid;
+        else if (key < arr[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+    return 0;
+}
