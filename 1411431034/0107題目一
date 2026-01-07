@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <string.h>
+#define SIZE 10
+
+struct student {//定義型別
+	char name[20];
+	int id, computer, math;
+	double avg;
+};
+
+void sort_array(struct student MYstu[SIZE], int n) {
+	int i, j, temp;
+	float temp1;
+	char temp_name[20];
+	struct student temp_struct;
+	for (i = 0; i < n - 1; i++) {
+		for (j = 0; j < n - 1 - i; j++) {
+			if (MYstu[j].avg < MYstu[j+1].avg) {
+
+				temp_struct = MYstu[j];
+				MYstu[j] = MYstu[j + 1];
+				MYstu[j + 1] = temp_struct;
+
+
+
+
+
+			}
+		}
+	}
+}
+
+
+
+
+int main() {
+	int i;
+	struct student stu1, *stuPtr;
+	stu1 = { "Danny",11,85,70 };
+	struct student my_stu[SIZE] = { {"Danny",11,85,70 },//定義變數
+		   {"Mary",11,85,70 },
+		   {"Jimmy",11,85,70 },
+		   {"Peter",11,85,70 },
+		   {"Sue",11,85,70 },
+		   {"John",11,85,70 },
+		   {"Hearts",11,85,70 },
+		   {"Jenny",11,85,70 },
+		   {"Clubs",11,85,70 },
+		   {"Spades",11,85,70 } };
+		
+
+	
+
+	printf("排序前：\n");
+	printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+		for (i = 0; i < SIZE; i++) {
+			my_stu[i].avg= (float)(my_stu[i].computer+ my_stu[i].math)/ 2;
+		}
+		for (i = 0; i < SIZE; i++) {
+		printf("%s\t%d\t %d\t\t %d\t\t %f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].avg);
+	}
+
+
+	sort_array(my_stu, SIZE);
+
+	printf("\n排序後（依平均成績）：\n");
+	printf("姓名\t學號\t計概成績\t數學成績\t平均成績\n");\
+
+		for (i = 0; i < SIZE; i++) {
+			printf("%s\t%d\t %d\t\t %d\t\t %f\t\n", my_stu[i].name, my_stu[i].id, my_stu[i].computer, my_stu[i].math, my_stu[i].avg);
+		}
+
+
+	return 0;
+}
