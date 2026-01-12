@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <string.h>
+#define SIZE 10
+
+struct student {
+    char name[20];
+    int id, computer, math;
+    double avg;
+};
+
+typedef struct student STU;
+
+void sortarrayid(STU MYstu[SIZE], int n) {
+    int i, j;
+    STU temp_struct;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (MYstu[j].id > MYstu[j + 1].id) { 
+                temp_struct = MYstu[j];
+                MYstu[j] = MYstu[j + 1];
+                MYstu[j + 1] = temp_struct;
+            }
+        }
+    }
+}
+
+int binary_search_id(STU* MYstu, int n, int targetID) {
+    int low = 0;
+    int high = n - 1;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (MYstu[mid].id == targetID) {
+            return mid; 
+        }
+        else if (MYstu[mid].id < targetID) {
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    }
+    
+}
+
+int main() {
+    STU my_stu[SIZE] = {
+               { "Danny",11,85,70 }, { "Mary",15,92,80 },
+               { "Jimmy",13,78,75 }, { "Peter",18,85,90 },
+               { "Sue",12,90,85 }, { "John",17,85,70 },
+               { "Hearts",14,76,82 }, { "Diamonds",19,95,92 },
+               { "Clubs",16,88,88 }, { "Spades",20,85,70 },
+    };
+    int i, searchID, resultId;
+    
+    for (i = 0; i < SIZE; i++) {
+        my_stu[i].avg = ((float)my_stu[i].computer + my_stu[i].math) / 2;
+    }
+
+    sortarrayid(my_stu, SIZE);
+        
+    printf("請輸入要搜尋的學號: ");
+    scanf_s("%d", &searchID);
+    
+    resultId = binary_search_id(my_stu, SIZE, searchID);
+           
+    
+    printf("姓名: %s\n", my_stu[resultId].name);
+    printf("學號: %d\n", my_stu[resultId].id);
+    printf("計概成績: %d\n", my_stu[resultId].computer);
+    printf("數學成績: %d\n", my_stu[resultId].math);
+    printf("平均成績: %.2f\n", my_stu[resultId].avg);
+        
+    return 0;
+}
