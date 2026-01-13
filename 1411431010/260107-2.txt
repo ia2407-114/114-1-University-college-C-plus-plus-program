@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 10
+
+struct student {
+    char name[20];
+    int id, computer, math;
+    double avg;
+};
+
+void sort_by_id(struct student *ptr, int n) {
+    int i, j;
+    struct student temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if ((ptr + j)->id > (ptr + j + 1)->id) {
+                temp = *(ptr + j);
+                *(ptr + j) = *(ptr + j + 1);
+                *(ptr + j + 1) = temp;
+            }
+        }
+    }
+}
+
+int binary_search(struct student *ptr, int n, int target) {
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if ((ptr + mid)->id == target) {
+            return mid;
+        } else if ((ptr + mid)->id < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    struct student data[SIZE] = {
+        {"Danny", 101, 70, 85, 0},
+        {"Mary", 105, 80, 92, 0},
+        {"Jimmy", 103, 75, 78, 0},
+        {"Peter", 108, 90, 85, 0},
+        {"Sue", 102, 85, 90, 0},
+        {"John", 107, 70, 85, 0},
+        {"Hearts", 104, 82, 76, 0},
+        {"Diamonds", 110, 92, 95, 0},
+        {"Clubs", 106, 88, 88, 0},
+        {"Spades", 109, 70, 85, 0}
+    };
+
+    int i, search_id, result_idx;
+
+    for (i = 0; i < SIZE; i++) {
+        data[i].avg = (data[i].computer + data[i].math) / 2.0;
+    }
+
+    sort_by_id(data, SIZE);
+
+    printf("請輸入欲搜尋的學號: ");
+    scanf("%d", &search_id);
+
+    result_idx = binary_search(data, SIZE, search_id);
+
+    if (result_idx != -1) {
+        printf("\n找到資料如下：\n");
+        printf("姓名: %s\n", data[result_idx].name);
+        printf("學號: %d\n", data[result_idx].id);
+        printf("計概: %d\n", data[result_idx].computer);
+        printf("數學: %d\n", data[result_idx].math);
+        printf("平均: %.2f\n", data[result_idx].avg);
+    } else {
+        printf("\n找不到學號為 %d 的資料。\n", search_id);
+    }
+
+    return 0;
+}

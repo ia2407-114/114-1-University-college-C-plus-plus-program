@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 10
+
+struct student {
+    char name[20];
+    int id, computer, math;
+    double avg;
+};
+
+void sort_data(struct student *ptr, int n) {
+    int i, j;
+    struct student temp;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if ((ptr + j)->avg < (ptr + j + 1)->avg) {
+                temp = *(ptr + j);
+                *(ptr + j) = *(ptr + j + 1);
+                *(ptr + j + 1) = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    struct student data[SIZE] = {
+        {"Danny", 101, 70, 85, 0},
+        {"Mary", 102, 80, 92, 0},
+        {"Jimmy", 103, 75, 78, 0},
+        {"Peter", 104, 90, 85, 0},
+        {"Sue", 105, 85, 90, 0},
+        {"John", 106, 70, 85, 0},
+        {"Hearts", 107, 82, 76, 0},
+        {"Diamonds", 108, 92, 95, 0},
+        {"Clubs", 109, 88, 88, 0},
+        {"Spades", 110, 70, 85, 0}
+    };
+
+    int i;
+    for (i = 0; i < SIZE; i++) {
+        data[i].avg = (data[i].computer + data[i].math) / 2.0;
+    }
+
+    printf("排序前資料：\n");
+    printf("%-10s\t%-6s\t%-6s\t%-6s\t%-6s\n", "姓名", "學號", "計概", "數學", "平均");
+    for (i = 0; i < SIZE; i++) {
+        printf("%-10s\t%d\t%d\t%d\t%.2f\n", data[i].name, data[i].id, data[i].computer, data[i].math, data[i].avg);
+    }
+
+    sort_data(data, SIZE);
+
+    printf("\n排序後資料（依平均成績由大到小）：\n");
+    printf("%-10s\t%-6s\t%-6s\t%-6s\t%-6s\n", "姓名", "學號", "計概", "數學", "平均");
+    for (i = 0; i < SIZE; i++) {
+        printf("%-10s\t%d\t%d\t%d\t%.2f\n", data[i].name, data[i].id, data[i].computer, data[i].math, data[i].avg);
+    }
+
+    return 0;
+}
