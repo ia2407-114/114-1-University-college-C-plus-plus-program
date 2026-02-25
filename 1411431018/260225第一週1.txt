@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main(void)
+{
+    FILE* cfPtr; // cfPtr = clients.txt file pointer   
+
+    // fopen opens file. Exit program if unable to create file 
+    if ((cfPtr = fopen("clients.txt", "w")) == NULL) {
+        puts("File could not be opened");
+    }
+    else {
+        puts("Enter the id, name, computer, math and balance");
+        puts("Enter EOF to end input.");
+        printf("%s", "? ");
+
+        unsigned int id; // account number
+        char name[30]; // account name
+        int computer, math;
+        double avg; // account balance
+
+        scanf("%d%29s%3d%3d", &id, name,&computer,&math);
+        
+        // write account, name and balance into file with fprintf
+        while (!feof(stdin)) {
+        	avg = ((float)computer + math) / 2;
+            fprintf(cfPtr, "%d %s %d %d %.2f\n", id, name, computer,math,avg);
+            
+            printf("%s", "? ");
+            scanf("%d%29s%3d%3d", &id, name, &computer,&math);
+        }
+
+        fclose(cfPtr); // fclose closes file   
+    }
+}
+//題目1. 根據上面的程式檔案，修改並建立3筆資料的循序檔案、將全班3人的姓名、學號、數學成績、計概、平均成績放入檔案中
