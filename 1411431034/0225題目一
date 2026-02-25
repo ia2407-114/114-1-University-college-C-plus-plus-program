@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main(void)
+{
+FILE* cfPtr; // cfPtr = clients.txt file pointer
+
+// fopen opens file. Exit program if unable to create file
+if ((cfPtr = fopen("clients.txt", "w")) == NULL) {
+puts("File could not be opened");
+}
+else {
+puts("Enter the account, name, and balance.");
+puts("Enter EOF to end input.");
+printf("%s", "? ");
+
+char name[30]; // account name
+unsigned id;
+int math, com;
+double avg;
+
+
+scanf("%29s%d%3d%3d",name, &id,&math,&com);
+avg = ((float)math + com) / 2;
+
+// write account, name and balance into file with fprintf
+while (!feof(stdin)) {
+fprintf(cfPtr, "%d %s%3d%3d %.2f\n",id , name,math,com,avg);
+printf("%s", "? ");
+scanf("%29s%d%3d%3d", name, &id, &math, &com);
+avg = ((float)math + com) / 2;
+}
+
+fclose(cfPtr); // fclose closes file
+}
+}
