@@ -1,0 +1,40 @@
+題目2. 根據fig11_10.c的檔案內容，建立一個隨機存取檔，用來存入100筆空白的學生資料檔，學生資料存於以下結構中:
+
+struct student {
+ int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+#include <stdio.h>
+            
+struct student {
+ 	int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void)
+{ 
+   FILE *cfPtr; 
+
+   if ((cfPtr = fopen("accounts.dat", "wb")) == NULL) {
+      puts("File could not be opened.");
+   } 
+   else { 
+       
+      struct student blankStudent = {0, "",0,0,0.0}; 
+   
+      for (unsigned int i = 1; i <= 100; ++i) {                                   
+         fwrite(&blankStudent, sizeof(struct student), 1, cfPtr);
+      }                                                      
+
+      fclose (cfPtr); 
+   } 
+   return 0;
+} 
+
+
+
