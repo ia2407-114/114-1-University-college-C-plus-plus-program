@@ -1,0 +1,33 @@
+題目1. 根據上面的程式檔案，修改並建立3筆資料的循序檔案、將全班3人的姓名、學號、數學成績、計概、平均成績放入檔案中
+
+#include <stdio.h>
+
+int main(void)
+{
+    FILE* cfPtr; 
+
+    if ((cfPtr = fopen("clients.txt", "w")) == NULL) {
+        puts("File could not be opened");
+    }
+    else {
+        unsigned int id; 
+        char name[30]; 
+        int math, computer;
+        double avg; 
+
+        printf("%s", "Enter id, name, computer, math (EOF to end): \n? ");
+
+        while (scanf("%u%29s%d%d", &id, name, &computer, &math) != EOF) {
+            avg = (computer + math) / 2.0;
+            fprintf(cfPtr, "%u %s %d %d %.2f\n", id, name, computer, math, avg);
+            printf("%s", "? ");
+        }
+
+        fclose(cfPtr);    
+    }
+    return 0;
+}
+
+
+
+
