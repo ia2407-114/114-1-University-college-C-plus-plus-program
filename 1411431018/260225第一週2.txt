@@ -1,15 +1,7 @@
 #include <stdio.h>
 
-// clientData structure definition            
-/*struct clientData {                              
-   unsigned int acctNum; // account number
-   char lastName[15]; // account last name    
-   char firstName[10]; // account first name   
-   double balance; // account balance      
-}; */
-
 struct student {
- int id;
+ 	int id;
     char name[20];
     int computer, math;
     double avg;
@@ -17,28 +9,37 @@ struct student {
 
 int main(void)
 { 
-   FILE *cfPtr; // accounts.dat file pointer
+   FILE *sfPtr; // students.dat file pointer
 
-   // fopen opens the file; exits if file cannot be opened
-   if ((cfPtr = fopen("students.dat", "wb")) == NULL) {
+  
+   if ((sfPtr = fopen("students.dat", "wb")) == NULL) {
       puts("File could not be opened.");
    } 
    else { 
-      // create clientData with default information       
-      struct student blankStudent = {0, "", 0,0, 0.0}; 
+      
+	  struct student blankStudent = {0, "", 0 ,0 ,0.0}; 
    
       // output 100 blank records to file                              
       for (unsigned int i = 1; i <= 100; ++i) {                                   
-         fwrite(&blankStudent, sizeof(struct student), 1, cfPtr);
+         fwrite(&blankStudent, sizeof(struct student), 1, sfPtr);
       }                                                      
 
-      fclose (cfPtr); // fclose closes the file
+      fclose (sfPtr); // fclose closes the file
    } 
 } 
-//題目2. 根據fig11_10.c的檔案內容，建立一個隨機存取檔，用來存入100筆空白的學生資料檔，學生資料存於以下結構中:
-/*struct student {
+
+
+/*題目2. 根據fig11_10.c的檔案內容，建立一個隨機存取檔，用來存入100筆空白的學生資料檔，學生資料存於以下結構中:
+struct student {
  int id;
     char name[20];
     int computer, math;
     double avg;
+};
+
+*/
+    char name[20];
+    int computer, math;
+    double avg;
+
 };*/
