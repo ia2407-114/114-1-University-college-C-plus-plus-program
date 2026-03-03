@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main(void)
+{ 
+   FILE *cfPtr;  
+
+    
+   if ((cfPtr = fopen("students.txt", "w")) == NULL) {
+      puts("檔案無法開啟");
+   } 
+   else { 
+      puts("輸入學號 姓名 數學成績 計概成績");
+     
+      unsigned int id;     
+      char name[30];      
+      int math;             
+      int cs;              
+      double average;       
+
+     
+      for (int i = 1; i <= 3; i++) {
+         printf("第 %d 位資料 ", i);
+  
+         if (scanf("%u%29s%d%d", &id, name, &math, &cs) == 4) {
+                   
+            average = (math + cs) / 2.0;
+   
+            fprintf(cfPtr, "%u %s %d %d %.2f\n", id, name, math, cs, average);
+         }
+      } 
+      
+      fclose(cfPtr); 
+   } 
+   
+   return 0;
+}
