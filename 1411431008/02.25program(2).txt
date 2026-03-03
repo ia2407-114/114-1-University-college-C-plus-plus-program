@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+struct student {
+    int id;             
+    char name[20];      
+    int computer;       
+    int math;           
+    double avg;         
+};
+
+int main(void)
+{ 
+   FILE *cfPtr; 
+
+   if ((cfPtr = fopen("students.dat", "wb")) == NULL) {
+      puts("無法建立或開啟檔案。");
+   } 
+   else { 
+      
+      struct student blankStudent = {0, "", 0, 0, 0.0}; 
+   
+      for (unsigned int i = 1; i <= 100; ++i) {                                   
+         fwrite(&blankStudent, sizeof(struct student), 1, cfPtr);
+      }                                                      
+
+      fclose(cfPtr); 
+     
+   } 
+
+   return 0;
+}
