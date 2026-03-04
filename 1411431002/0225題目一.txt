@@ -8,7 +8,7 @@ int main(void)
         puts("File could not be opened"); 
     }
     else { 
-        puts("Enter the account, name, and balance.");
+        puts("Enter the id, name, computer and math.");
         puts("Enter EOF to end input."); 
         printf("%s", "? ");
 
@@ -31,4 +31,5 @@ int main(void)
         fclose(cfPtr);    
     }
 }
+
 
