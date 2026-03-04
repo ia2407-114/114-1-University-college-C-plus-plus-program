@@ -1,0 +1,54 @@
+
+#include <stdio.h>
+
+                                          
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};             
+ 
+int main(void) 
+{ 
+   FILE *cfPtr; 
+
+
+   if ((cfPtr = fopen("accounts.dat", "rb+")) == NULL) {
+      puts("File could not be opened.");
+   } 
+   else { 
+     
+      struct student std = {0, "", 0, 0, 0.0};
+
+   
+      printf("%s", "Enter account number"
+         " (1 to 100, 0 to end input): ");
+      scanf("%d", &std.id);
+
+     
+      while (std.id!= 0) { 
+        
+         printf("%s", "Enter name, computer, math: ");
+        
+        
+         fscanf(stdin," %19s %d %d", std.name, &std.computer, &std.math);
+        
+        std.avg = (std.computer + std.math) / 2.0;
+        
+         fseek(cfPtr, (std.id - 1) *              
+            sizeof(struct student), SEEK_SET);         
+
+                    
+         fwrite(&std, sizeof(struct student), 1, cfPtr);
+
+        
+         printf("%s", "Enter account number: ");
+         scanf("%d",&std.id );
+      } 
+
+      fclose(cfPtr); 
+      puts("資料已成功存入檔案。");
+   } 
+      return 0;
+} 
