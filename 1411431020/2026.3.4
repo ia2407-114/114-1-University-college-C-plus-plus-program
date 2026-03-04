@@ -1,0 +1,148 @@
+// Fig. 11.14: fig11_14.c
+// Reading a random-access file sequentially
+#include <stdio.h>
+
+// clientData structure definition               
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void)
+{ 
+    FILE *cfPtr; // accounts.dat file pointer
+
+   // fopen opens the file; exits if file cannot be opened
+    if ((cfPtr = fopen("accounts.dat", "rb")) == NULL) {
+      puts("File could not be opened.");
+    } 
+    else { 
+        printf("%-6s%-10s%-12s%-6s%-10s\n", "id", "name", "computer", "math", "Balance");
+
+      // read all records from file (until eof)
+        while (!feof(cfPtr)) { 
+         // create clientData with default information
+            struct student Student = {0, "", 0, 0, 0.0};
+
+            int result = fread(&Student, sizeof(struct student), 1, cfPtr);
+
+         // display record
+            if (result != 0 && Student.id != 0) {
+            printf("%-6d%-16s%-6d%-6d%10.2f\n", 
+                Student.id, Student.name,
+                Student.computer, Student.math, Student.avg);
+            }
+            else{
+                puts("Enter the id, name, computer score, math score.");
+                puts("Enter id to end input.");
+                printf("%s", "? ");
+                scanf_s("%6d %16s %6d %6d", Student.id, Student.name, Student.computer, Student.math);
+                Student.avg = ((float)Student.computer + Student.math) / 2;
+            }
+        } 
+
+        fclose(cfPtr); // fclose closes the file
+    } 
+} 
+
+
+
+//000000
+#include <stdio.h>
+
+// 1. 根據題目要求定義學生結構 [1, 8, 9]
+struct student {
+    int id;             // 學號（作為記錄鍵值）
+    char name[10];      // 姓名
+    int computer, math; // 計概與數學成績
+    double avg;         // 平均成績
+};
+
+int main(void) {
+    FILE *cfPtr; // 檔案指標 [1, 11]
+    struct student stu = {0, "", 0, 0, 0.0}; // 初始化結構 [5, 12, 13]
+
+    // 2. 開啟已建立的空白隨機存取檔 (使用 rb+ 模式進行更新) [14-16]
+    if ((cfPtr = fopen("students.dat", "rb+")) == NULL) {
+        puts("檔案無法開啟。");
+    } 
+    else {
+        // 3. 輸入第一筆學號 [3]
+        printf("%s", "輸入學號 (1 到 N, 0 代表結束輸入): ");
+        scanf("%d", &stu.id);
+
+        // 4. 直到輸入 id = 0 才停止輸入 [3, 17]
+        while (stu.id != 0) {
+            // 輸入其他資料
+            printf("%s", "輸入姓名, 計概成績, 數學成績: ");
+            // 注意：字串輸入限制長度以防溢位 [18, 19]
+            scanf("%19s%d%d", stu.name, &stu.computer, &stu.math);
+
+            // 5. 計算平均成績 [20, 21]
+            stu.avg = (double)(stu.computer + stu.math) / 2.0;
+
+            // 6. 定位到檔案中正確的記錄位置 [3, 7, 22]
+            // 位置計算公式：(學號 - 1) * 結構大小
+            fseek(cfPtr, (stu.id - 1) * sizeof(struct student), SEEK_SET);
+
+            // 7. 將學生資料寫入檔案 [4, 5, 23]
+            fwrite(&stu, sizeof(struct student), 1, cfPtr);
+
+            // 提示下一筆輸入
+            printf("%s", "輸入學號: ");
+            scanf("%d", &stu.id);
+        }
+
+        // 8. 關閉檔案 [11, 24, 25]
+        fclose(cfPtr); 
+    }
+
+    return 0;
+}
+
+//000000
+
+//Dev-c++
+// Fig. 11.14: fig11_14.c
+// Reading a random-access file sequentially
+#include <stdio.h>
+
+// clientData structure definition               
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void)
+{ 
+   FILE *cfPtr; // accounts.dat file pointer
+
+   // fopen opens the file; exits if file cannot be opened
+   if ((cfPtr = fopen("accounts.dat", "rb")) == NULL) {
+      puts("File could not be opened.");
+   } 
+   else { 
+      printf("%-6s%-10s%-12s%-6s%-10s\n", "id", "name", "computer", "math", "Balance");
+
+      // read all records from file (until eof)
+      while (!feof(cfPtr)) { 
+         // create clientData with default information
+         struct student Student = {0, "", 0, 0, 0.0};
+
+         int result = fread(&Student, sizeof(struct student), 1, cfPtr);
+
+         // display record
+         if (result != 0 && Student.id != 0) {
+            printf("%-6d%-10s%-12d%-6d%10.2f\n", 
+                Student.id, Student.name,
+                Student.computer, Student.math, Student.avg);
+         } 
+      } 
+
+      fclose(cfPtr); // fclose closes the file
+   } 
+} 
