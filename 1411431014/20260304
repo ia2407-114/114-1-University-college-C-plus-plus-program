@@ -1,0 +1,74 @@
+//第一題
+#include <stdio.h>
+
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void) {
+    FILE *cfPtr;
+
+    if ((cfPtr = fopen("students.dat", "rb+")) == NULL) {
+        puts("File could not be opened.");
+    } 
+    else {
+        struct student std = {0, "", 0, 0, 0.0};
+
+        printf("Enter ID (1 to 100, 0 to end): ");
+        scanf("%d", &std.id);
+
+        while (std.id != 0) {
+            printf("Enter name, computer score, math score: ");
+            scanf("%19s %d %d", std.name, &std.computer, &std.math);
+            
+            std.avg = (std.computer + std.math) / 2.0;
+
+            fseek(cfPtr, (std.id - 1) * sizeof(struct student), SEEK_SET);
+            fwrite(&std, sizeof(struct student), 1, cfPtr);
+
+            printf("Enter ID: ");
+            scanf("%d", &std.id);
+        }
+
+        fclose(cfPtr);
+    }
+    
+    return 0;
+}
+//第二題
+#include <stdio.h>
+
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void) {
+    FILE *cfPtr;
+
+    if ((cfPtr = fopen("students.dat", "rb")) == NULL) {
+        puts("File could not be opened.");
+    } 
+    else {
+        printf("%-10s%-20s%-10s%-10s%-10s\n", 
+               "ID", "Name", "computer", "Math", "Avg");
+
+        struct student std = {0, "", 0, 0, 0.0};
+
+        while (fread(&std, sizeof(struct student), 1, cfPtr) != 0) {
+            if (std.id != 0) {
+                printf("%-10d%-20s%-10d%-10d%-10.2f\n", 
+                       std.id, std.name, std.computer, std.math, std.avg);
+            }
+        }
+
+        fclose(cfPtr);
+    }
+
+    return 0;
+}
