@@ -38,6 +38,7 @@ int main(void) {
     
     return 0;
 }
+
 //第二題
 #include <stdio.h>
 
