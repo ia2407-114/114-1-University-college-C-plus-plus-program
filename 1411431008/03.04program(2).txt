@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+struct student {
+    int id;           
+    char name[20];    
+    int computer, math; 
+    double avg;        
+};
+
+int main(void) {
+    FILE *cfPtr; 
+    struct student std = {0, "", 0, 0, 0.0}; 
+    
+    if ((cfPtr = fopen("students.dat", "rb")) == NULL) {
+        puts("檔案無法開啟，");
+    } 
+    else { 
+        printf("%-10s%-20s%-10s%-10s%-10s\n", 
+               "學號", "姓名", "電腦", "數學", "平均成績");
+
+        while (fread(&std, sizeof(struct student), 1, cfPtr) == 1) { 
+            if (std.id != 0) {
+                printf("%-10d%-20s%-10d%-10d%-10.2f\n", 
+                       std.id, std.name, std.computer, std.math, std.avg);
+            } 
+        } 
+        fclose(cfPtr); 
+    } 
+    return 0;
+}
