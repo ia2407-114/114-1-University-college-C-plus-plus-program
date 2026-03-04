@@ -1,0 +1,49 @@
+#include <stdio.h>
+           
+struct student {                              
+   unsigned int id; 
+   char name[20]; 
+   int computer, math;
+   double avg;
+};
+int main(void) 
+{ 
+   FILE *sfPtr;
+
+   if ((sfPtr = fopen("students.dat", "rb+")) == NULL) {
+      puts("File could not be opened.");
+   } 
+   else { 
+      struct student client = {0, "", 0,0, 0.0};
+
+      printf("%s", "Enter id"
+         " (1 to 100, 0 to end input): ");
+      scanf("%d", &client.id);
+
+      while (client.id != 0) { 
+         printf("%s", "Enter name, computer, math, avg: ");
+        
+         fscanf(stdin, "%19s%d%d%lf", client.name, 
+            &client.computer, &client.math, &client.avg);
+
+         fseek(sfPtr, (client.id - 1) *              
+            sizeof(struct student), SEEK_SET);         
+     
+         fwrite(&client, sizeof(struct student), 1, sfPtr);
+         
+         printf("%s", "Enter id: ");
+         scanf("%u", &client.id);
+      } 
+
+      fclose(sfPtr);
+   } 
+} 
+
+/*題目1. 根據fig11_11.c的檔案內容，利用已建立的空白隨機存取檔，存入N筆學生資料，，直到輸入id=0才停止輸入學生的結構(struct)為:
+struct student {                              
+   unsigned int id; 
+   char name[20]; 
+   int computer, math;
+   double avg;
+}; */
+
