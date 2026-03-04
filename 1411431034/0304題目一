@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void)
+{
+    FILE *cfPtr;
+    struct student STU = {0, "", 0, 0, 0.0};
+
+    if ((cfPtr = fopen("accounts.dat", "rb+")) == NULL) {
+        puts("檔案開啟失敗");
+    }
+    else {
+        
+        printf("輸入學號: ");
+        if (scanf("%d", &STU.id) != 1); 
+
+       
+        while (STU.id != 0) {
+            printf("請輸入姓名、計概成績、數學成績：");
+            scanf(" %19s %d %d", STU.name, &STU.computer, &STU.math);
+            STU.avg = (float)(STU.computer + STU.math) / 2;
+            fseek(cfPtr, (STU.id - 1) * sizeof(struct student), SEEK_SET);
+            fwrite(&STU, sizeof(struct student), 1, cfPtr);
+            printf("\n請輸入下一個學號: ");
+            scanf("%d", &STU.id);
+        }
+
+        fclose(cfPtr);
+    }
+    return 0;
+}
