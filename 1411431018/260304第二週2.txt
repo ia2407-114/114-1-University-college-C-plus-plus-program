@@ -15,7 +15,7 @@ int main(void)
       puts("File could not be opened.");
    } 
    else { 
-      printf("%-6s%-16s%-11s%-11s%10s\n", "id", "name",
+      printf("%-6s%-20s%11s%11s%10s\n", "id", "name",
          "computer", "math", "avg");
 
       while (!feof(sfPtr)) { 
@@ -25,7 +25,7 @@ int main(void)
          int result = fread(&client, sizeof(struct student), 1, sfPtr);
 
          if (result != 0 && client.id != 0) {
-            printf("%-6u%-16s%-11d%-11d%10.2f\n", 
+            printf("%-6u%-20s%11d%11d%10.2f\n", 
                client.id, client.name, 
                client.computer, client.math,client.avg);
          } 
@@ -34,3 +34,5 @@ int main(void)
       fclose(sfPtr); 
    } 
 } 
+
+//題目2. 承上題根據fig11_14.c的檔案內容，將剛才建立的隨機存取檔的內容印出，包括每一位學生的平均成績
