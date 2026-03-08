@@ -37,9 +37,4 @@ struct student {
     double avg;
 };
 
-*/
-    char name[20];
-    int computer, math;
-    double avg;
 
-};*/
