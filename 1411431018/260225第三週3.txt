@@ -1,0 +1,47 @@
+// Fig. 11.11: fig11_11.c
+
+#include <stdio.h>
+             
+struct student {
+ 	int id;
+    char name[20];
+    int computer, math;
+    double avg;
+ 	};
+ 
+int main(void) 
+{ 
+   FILE *sfPtr;
+
+   if ((sfPtr = fopen("students.dat", "rb+")) == NULL) {
+      puts("File could not be opened.");
+   } 
+   else { 
+
+      struct student client = {0, "", 0, 0, 0.0};
+
+      for(unsigned int i=1;i<=3;i++){
+      	
+    	printf("%s", "Enter id,(1 to 100, Enter 3 records to end input): ");
+    	scanf("%d", &client.id);
+      	
+      	printf("%s","Enter name,computer,math,avg:");
+      	scanf("%19s%d%d%lf",client.name,&client.computer,&client.math,&client.avg);
+      	
+      	fseek(sfPtr,(client.id-1)*sizeof(struct student),SEEK_SET);
+      	
+		fwrite(&client,sizeof(struct student),1,sfPtr);
+		printf("Record #%u written to position %d\n", i, client.id);
+	  }
+	  
+      fclose(sfPtr);
+   } 
+} 
+
+/*題目3. 承上題根據fig11_11.c的檔案內容，利用已建立的空白隨機存取檔，存入3筆學生資料，學生的結構(struct)為:
+struct student {
+ int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};*/
