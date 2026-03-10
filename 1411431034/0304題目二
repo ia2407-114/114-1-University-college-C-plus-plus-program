@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+struct student {
+    unsigned int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main(void)
+{
+    FILE* cfPtr;
+
+    if ((cfPtr = fopen("students.dat", "rb")) == NULL) {
+        puts("File could not be opened.");
+    }
+    else {
+        printf("%-6s%-20s%11s%11s%10s\n", "id", "name",
+            "computer", "math", "avg");
+
+        while (!feof(cfPtr)) {
+
+            struct student STU = { 0, "", 0 ,0 , 0.0 };
+
+            int result = fread(&STU, sizeof(struct student), 1, cfPtr);
+
+            if (result != 0 && STU.id != 0) {
+                printf("%-6u%-20s%11d%11d%10.2f\n",
+                    STU.id, STU.name,
+                    STU.computer, STU.math, STU.avg);
+            }
+        }
+
+        fclose(cfPtr);
+    }
+}
