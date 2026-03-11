@@ -1,0 +1,53 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+
+double& fact(int&, double&);
+double& power(int&, int&, double&);
+
+int main() {
+    int x;
+    double factResult = 0, powerResult = 0;
+
+    cout << "輸入x值:";
+    cin >> x;
+    cout << "輸入a和n值:";
+    int a,n;
+    cin >> a>> n;
+
+   
+    fact(x, factResult);
+    power(a, n, powerResult);
+
+    cout << x << "階乘= " << factResult << endl;
+    cout << a << "^" << n << " = " << powerResult << endl;
+
+    return 0;
+}
+
+
+double& fact(int& n, double& result) {
+    result = 1;
+    if (n == 0) {
+        return result; 
+    }
+    else {
+        for (int j = 1; j <= n; j++) {
+            result *= j;
+        }
+    }
+    return result;
+}
+
+
+double& power(int& a, int& n, double& result) {
+    result = 1;
+    
+    for (int k = 1; k <= n; k++) {
+        result *= a;
+    }
+    
+    return result;
+}
