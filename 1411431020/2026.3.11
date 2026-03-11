@@ -1,0 +1,117 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+    struct student* nextPtr;
+};
+
+typedef struct student STU; // synonym for struct listNode
+typedef STU* STUPtr; // synonym for ListNode*
+
+// prototypes
+void insert(STUPtr* sPtr, STU stu);
+void printList(STUPtr currentPtr);
+int isEmpty(STUPtr sPtr);
+
+
+int main(void)
+{
+    STUPtr startPtr = NULL; // initially there are no nodes
+    STU stu;// student entered by user
+
+    printf("Enter student id (0 to end): \n");
+    scanf_s("%d", &stu.id);
+
+    while (stu.id != 0) {
+        printf("Enter name, computer score, math score: \n");
+        scanf_s("%19s%d%d", stu.name, &stu.computer, &stu.math);
+        stu.avg = (stu.computer + stu.math) / 2.0;
+
+        insert(&startPtr, stu);
+
+        printf("Enter student id (0 to end): \n");
+        scanf_s("%d", &stu.id);
+    }
+
+    printList(startPtr);
+
+    STUPtr temp;
+    while (startPtr != NULL) {
+        temp = startPtr;
+        startPtr = startPtr->nextPtr;
+        free(temp);
+    }
+
+    return 0;
+}
+
+
+
+void insert(STUPtr* sPtr, STU stu)
+{
+    STUPtr newPtr = (STUPtr)malloc(sizeof(STU)); // create node
+
+    if (newPtr != NULL) { // is space available
+        *newPtr = stu; // place value in node
+        newPtr->nextPtr = NULL; // node does not link to another node
+
+        STUPtr previousPtr = NULL;
+        STUPtr currentPtr = *sPtr;
+
+        // loop to find the correct location in the list       
+        while (currentPtr != NULL && stu.id > currentPtr->id) {
+            previousPtr = currentPtr; // walk to ...               
+            currentPtr = currentPtr->nextPtr; // ... next node 
+        }
+
+        // insert new node at beginning of list
+        if (previousPtr == NULL) {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        else { // insert new node between previousPtr and currentPtr
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+    else {
+        printf("Student %d not inserted. No memory available.\n", stu.id);
+    }
+}
+
+
+
+// print the list
+void printList(STUPtr currentPtr)
+{
+    // if list is empty
+    if (isEmpty(currentPtr)) {
+        puts("List is empty.\n");
+    }
+    else {
+        puts("The student list :\n");
+
+        // while not the end of the list
+        while (currentPtr != NULL) {
+            printf("ID: %d  Name: %s Computer: %d Math: %d Avg: %.2f\n",
+                currentPtr->id,
+                currentPtr->name,
+                currentPtr->computer,
+                currentPtr->math,
+                currentPtr->avg);
+            currentPtr = currentPtr->nextPtr;
+        }
+
+    }
+}
+
+int isEmpty(STUPtr sPtr)
+{
+    return sPtr == NULL;
+}
