@@ -51,14 +51,14 @@ void insert(StudentPtr* sPtr, int id, const char name[], int comp, int math) {
         }
     }
     else {
-        printf("°O¾ĞÅé¤£¨¬¡AµLªk·s¼W ID: %d\n", id);
+        printf("è¨˜æ†¶é«”ä¸è¶³ï¼Œç„¡æ³•æ–°å¢ ID: %d\n", id);
     }
 }
 
 
 void printList(StudentPtr currentPtr) {
     if (isEmpty(currentPtr)) {
-        printf("¥Ø«e¦ê¦C¤¤¨S¦³¸ê®Æ¡C\n");
+        printf("ç›®å‰ä¸²åˆ—ä¸­æ²’æœ‰è³‡æ–™ã€‚\n");
     }
     else {
         printf("\n%-5s %-10s %-10s %-8s %-5s\n", "ID", "Name", "Computer", "Math", "Avg");
@@ -76,7 +76,7 @@ void printList(StudentPtr currentPtr) {
 int main(void) {
     StudentPtr startPtr = NULL; 
 
-    printf("--- ¥¿¦b«Ø¥ß¾Ç¥Í¸ê®ÆÃìµ²¦ê¦C ---\n");
+    printf("--- æ­£åœ¨å»ºç«‹å­¸ç”Ÿè³‡æ–™éˆçµä¸²åˆ— ---\n");
 
     
     insert(&startPtr, 103, "John cina", 90, 85);
@@ -86,7 +86,7 @@ int main(void) {
     
     printList(startPtr);
 
-    printf("µ{¦¡°õ¦æ§¹²¦¡C\n");
+    printf("ç¨‹å¼åŸ·è¡Œå®Œç•¢ã€‚\n");
 
     
     system("pause");
