@@ -115,3 +115,173 @@ int isEmpty(STUPtr sPtr)
 {
     return sPtr == NULL;
 }
+
+
+//02
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+    struct student *nextPtr;
+};
+
+typedef struct student STU; 
+typedef STU * STUPtr;
+
+// prototypes
+void insert(STUPtr* sPtr, STU stu);
+void printList(STUPtr currentPtr);
+int deleteNode(STUPtr* sPtr, STU stu);
+int isEmpty(STUPtr sPtr);
+
+
+int main(void)
+{ 
+    STUPtr startPtr = NULL; 
+    STU stu;
+    int deleteID;
+
+    printf("Enter student id (0 to end): \n");
+    scanf_s("%d", &stu.id);
+
+    while (stu.id != 0) {
+        printf("Enter name, computer score, math score: \n");
+        scanf_s("%19s%d%d", stu.name, &stu.computer, &stu.math);
+        stu.avg = (stu.computer + stu.math) / 2.0;
+
+        insert(&startPtr, stu); 
+
+        printf("Enter student id (0 to end): \n");
+        scanf_s("%d", &stu.id);
+    }
+
+    printList(startPtr);
+
+    printf("\nEnter the student id to be deleted : ");
+    scanf("%d", &deleteID);
+
+    if (!isEmpty(startPtr)) {
+        // 呼叫刪除副程式，若傳回值為 -1 代表找不到 [1]
+        if (deleteNode(&startPtr, deleteID) != -1) {
+            printf("ID %d 已成功刪除。\n", deleteID);
+        }
+        else {
+            printf("找不到資料\n"); // 題目要求：找不到時印出此訊息
+        }
+    }
+    else {
+        puts("串列是空的。\n");
+    }
+
+    // D. 列出最後的鏈結串列內容 [7]
+    printList(startPtr);
+
+    STUPtr temp;
+    while (startPtr != NULL) {
+        temp = startPtr;
+        startPtr = startPtr->nextPtr;
+        free(temp);
+    }
+
+    return 0;
+}             
+
+int deleteNode(STUPtr* sPtr, int value) {
+    // 1. 如果要刪除的是第一個節點 [1, 10]
+    if (value == (*sPtr)->id) {
+        STUPtr tempPtr = *sPtr; // 暫存欲刪除節點以便釋放空間
+        *sPtr = (*sPtr)->nextPtr; // 將頭指標移向第二個節點 (de-thread)
+        free(tempPtr); // 釋放記憶體
+        return value;
+    }
+    else {
+        STUPtr previousPtr = *sPtr;
+        STUPtr currentPtr = (*sPtr)->nextPtr;
+
+        // 2. 搜尋串列尋找相符的 ID [1, 10]
+        while (currentPtr != NULL && currentPtr->id != value) {
+            previousPtr = currentPtr; // 往後移動指標
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        // 3. 如果找到相符的節點 [1, 11]
+        if (currentPtr != NULL) {
+            STUPtr tempPtr = currentPtr;
+            previousPtr->nextPtr = currentPtr->nextPtr; // 跳過當前節點重新連接串列
+            free(tempPtr); // 釋放記憶體
+            return value;
+        }
+    }
+
+    return -1; // 若找不到則傳回 -1 [11]
+}
+
+void insert(STUPtr* sPtr, STU stu)
+{ 
+    STUPtr newPtr = (STUPtr)malloc(sizeof(STU)); // create node
+
+    if (newPtr != NULL) { // is space available
+        *newPtr = stu; // place value in node
+        newPtr->nextPtr = NULL; // node does not link to another node
+
+        STUPtr previousPtr = NULL;
+        STUPtr currentPtr = *sPtr;
+
+        // loop to find the correct location in the list       
+        while (currentPtr != NULL && stu.id > currentPtr->id) {
+            previousPtr = currentPtr; // walk to ...               
+            currentPtr = currentPtr->nextPtr; // ... next node 
+        }                                          
+
+        // insert new node at beginning of list
+        if (previousPtr == NULL) { 
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        } 
+        else { // insert new node between previousPtr and currentPtr
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        } 
+    } 
+    else {
+        printf("Student %d not inserted. No memory available.\n", stu.id);
+    } 
+} 
+
+
+
+// print the list
+void printList(STUPtr currentPtr)
+{ 
+   // if list is empty
+    if (isEmpty(currentPtr)) {
+        puts("List is empty.\n");
+    } 
+    else { 
+        puts("The student list :\n");
+
+        // while not the end of the list
+        while (currentPtr != NULL) { 
+            printf("ID: %d  Name: %s Computer: %d Math: %d Avg: %.2f\n",
+                currentPtr->id,
+                currentPtr->name,
+                currentPtr->computer,
+                currentPtr->math,
+                currentPtr->avg);
+            currentPtr = currentPtr->nextPtr;
+        } 
+
+        puts("NULL\n");
+    } 
+} 
+
+int isEmpty(STUPtr sPtr)
+{
+    return sPtr == NULL;
+}
