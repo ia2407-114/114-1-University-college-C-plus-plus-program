@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// 定義學生結構
+struct student {
+    int id;
+    char name[20];
+    int computer, math;
+    double avg;
+};
+
+int main()
+{
+    FILE *fp;
+
+    // 開啟已建立的隨機存取檔案
+    if ((fp = fopen("students.dat", "rb+")) == NULL) {
+        printf("File could not be opened.\n");
+        return 1;
+    }
+
+    struct student s;
+
+    printf("Enter student id (1~100, 0 to end): ");
+    scanf("%d", &s.id);
+
+    while (s.id != 0) {
+
+        printf("Enter name: ");
+        scanf("%s", s.name);
+
+        printf("Enter computer score: ");
+        scanf("%d", &s.computer);
+
+        printf("Enter math score: ");
+        scanf("%d", &s.math);
+
+        // 計算平均
+        s.avg = (s.computer + s.math) / 2.0;
+
+        // 移動檔案指標到指定位置
+        fseek(fp, (s.id - 1) * sizeof(struct student), SEEK_SET);
+
+        // 寫入資料
+        fwrite(&s, sizeof(struct student), 1, fp);
+
+        printf("\nEnter student id (1~100, 0 to end): ");
+        scanf("%d", &s.id);
+    }
+
+    fclose(fp);
+
+    printf("Data saved successfully.\n");
+
+    return 0;
+}
