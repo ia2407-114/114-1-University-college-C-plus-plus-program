@@ -1,0 +1,110 @@
+#define _CRT_SECURE_NO_WARNINGS // 解決 Visual Studio 的 scanf 警告
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// 1. 定義學生資料結構 (取代原本的 char data)
+struct student {
+    int id;              
+    char name[20];      
+    int computer;        
+    int math;            
+    double avg;          
+    struct student* nextPtr; 
+};
+
+typedef struct student Student;
+typedef Student* StudentPtr;
+
+
+void insert(StudentPtr* sPtr, int id, char name[], int comp, int math);
+void printList(StudentPtr currentPtr);
+int isEmpty(StudentPtr sPtr);
+
+int main(void) {
+    StudentPtr startPtr = NULL; 
+    int id, comp, math;
+    char name[20];
+    char choice;
+
+    printf("--- 學生資料插入系統 ---\n");
+
+    while (1) {
+        printf("\n是否要新增學生資料? (y/n): ");
+        scanf(" %c", &choice); 
+
+        if (choice == 'n' || choice == 'N') break;
+
+        printf("請輸入 [學號 姓名 電腦分數 數學分數]: ");
+        
+        scanf("%d %s %d %d", &id, name, &comp, &math);
+
+        insert(&startPtr, id, name, comp, math); 
+        printList(startPtr); 
+    }
+
+    puts("\n程式結束。");
+    return 0;
+}
+
+
+void insert(StudentPtr* sPtr, int id, char name[], int comp, int math) {
+   
+    StudentPtr newPtr = (StudentPtr)malloc(sizeof(Student));
+
+    if (newPtr != NULL) {
+        
+        newPtr->id = id;
+        strcpy(newPtr->name, name);
+        newPtr->computer = comp;
+        newPtr->math = math;
+        newPtr->avg = ((double)comp + math) / 2.0; 
+        newPtr->nextPtr = NULL;
+
+        StudentPtr previousPtr = NULL;
+        StudentPtr currentPtr = *sPtr;
+
+        
+        while (currentPtr != NULL && id > currentPtr->id) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        
+        if (previousPtr == NULL) {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        
+        else {
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+    else {
+        printf("錯誤：記憶體空間不足，無法新增學號 %d。\n", id);
+    }
+}
+
+
+void printList(StudentPtr currentPtr) {
+    if (isEmpty(currentPtr)) {
+        puts("目前的清單是空的。");
+    }
+    else {
+        puts("\n--- 目前學生清單 ---");
+        printf("%-8s %-12s %-6s %-6s %-6s\n", "學號", "姓名", "電腦", "數學", "平均");
+
+        while (currentPtr != NULL) {
+            printf("%-8d %-12s %-6d %-6d %-6.2f\n",
+                currentPtr->id, currentPtr->name, currentPtr->computer, currentPtr->math, currentPtr->avg);
+            currentPtr = currentPtr->nextPtr;
+        }
+        printf("--------------------\n");
+    }
+}
+
+
+int isEmpty(StudentPtr sPtr) {
+    return sPtr == NULL;
+}
