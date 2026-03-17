@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 double& fact(int&, double&);
 double& power(int&, int&, double&);
 
