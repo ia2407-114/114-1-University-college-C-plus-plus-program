@@ -1,0 +1,65 @@
+//001
+#include <iostream>
+using namespace std;
+const double PI = 3.14159265;
+
+int volume(int x) {
+    cout << "正方體體積 (邊長 " << x << ") 為: ";
+    return x * x * x;
+}
+double volume(int radius, int height) {
+    cout << "圓柱體體積 (半徑 " << radius << ", 高 " << height << ") 為: ";
+    return PI * radius * radius * height;
+}
+int volume(int x, int y, int z) {
+    cout << "長方體體積 (""長" << x << ",寬" << y << ",高" << z << ") 為: ";
+    return x * y * z;
+}
+
+int main() {
+    cout << volume(5) << endl;
+    cout << volume(5, 10) << endl;
+    cout << volume(5, 6, 7) << endl;
+    return 0;
+}
+
+
+
+
+//002主程式
+#include <iostream>
+#include "volume.h"
+using namespace std;
+
+int main()
+{
+  
+    int i1;
+    cout << "請輸入正方形邊長(整數): ";
+    cin >> i1;
+
+    cout << "整數計算結果: " << volume(i1) << endl;
+
+
+    float f1;
+    cout << "\n請輸入正方形邊長(浮點數float): ";
+    cin >> f1;
+
+    cout << "float 計算結果: " << volume(f1) << endl;
+
+
+    double d1;
+    cout << "\n請輸入正方形邊長(雙精度浮點數double): ";
+    cin >> d1;
+
+    cout << "double 計算結果: " << volume(d1) << endl;
+
+    return 0;
+}
+
+//002標頭檔
+template < typename T >
+T volume(T s1)
+{
+    return s1 * s1 * s1;
+}
