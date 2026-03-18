@@ -1,0 +1,55 @@
+// Fig. 15.12: maximum.h
+// Definition of function template maximum.
+
+template < class T >  // or template< typename T >
+T volume(T value1, T value2, T value3)
+{
+
+    T volume = value1 * value2 * value3; 
+
+    return volume;
+}
+
+
+
+
+
+// Fig. 15.13: fig15_13.cpp
+// Function template maximum test program.
+#include <iostream>
+using namespace std;
+
+#include "volume.h" // include definition of function template maximum
+
+int main()
+{
+    // demonstrate maximum with int values
+    int int1, int2, int3;
+
+    cout << "Input three integer values: ";
+    cin >> int1 >> int2 >> int3;
+
+    // invoke int version of maximum
+    cout << "integer value is: "
+        << volume(int1, int2, int3);
+
+    // demonstrate maximum with double values
+    double double1, double2, double3;
+
+    cout << "\n\nInput three double values: ";
+    cin >> double1 >> double2 >> double3;
+
+    // invoke double version of maximum
+    cout << "double value is: "
+        << volume(double1, double2, double3);
+
+    // demonstrate maximum with char values
+    char float1, float2, float3;
+
+    cout << "\n\nInput three float: ";
+    cin >> float1 >> float2 >> float3;
+
+    // invoke char version of maximum
+    cout << "float value is: "
+        << volume(float1, float2, float3) << endl;
+}
