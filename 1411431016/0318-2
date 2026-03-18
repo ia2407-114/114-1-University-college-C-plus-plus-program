@@ -1,0 +1,44 @@
+#include <iostream>
+#include <cstdlib>
+#include "maximum.h" 
+
+using namespace std;
+
+int main() {
+   
+    int i1, i2, i3;
+    cout << "【1. 整數測試】" << endl;
+    cout << "請輸入 3 個整數 (例如 5 10 2): ";
+    cin >> i1 >> i2 >> i3;
+    cout << "整數體積計算結果為: " << volume(i1, i2, i3) << endl << endl;
+
+   
+    float f1, f2, f3;
+    cout << "【2. 浮點數測試 (float)】" << endl;
+    cout << "請輸入 3 個浮點數 (例如 1.2 2.3 3.4): ";
+    cin >> f1 >> f2 >> f3;
+    cout << "Float 小數體積結果為: " << volume(f1, f2, f3) << endl << endl;
+
+    
+    double d1, d2, d3;
+    cout << "【3. 雙倍精度測試 (double)】" << endl;
+    cout << "請輸入 3 個 double 小數 (例如 10.5 20.5 30.5): ";
+    cin >> d1 >> d2 >> d3;
+    cout << "Double 小數體積結果為: " << volume(d1, d2, d3) << endl << endl;
+
+    cout << "------------------------------------" << endl;
+    cout << "所有測試完成！" << endl;
+
+    system("pause"); 
+    return 0;
+}
+
+
+
+
+#pragma once
+template < class T >
+T volume(T value1, T value2, T value3)
+{
+	return value1 * value2 * value3; 
+}
