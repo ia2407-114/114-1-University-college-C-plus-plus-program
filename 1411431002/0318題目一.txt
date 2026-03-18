@@ -1,0 +1,40 @@
+#include <iostream>
+#include<cmath>
+
+using namespace std;
+
+const double PI = 3.141592653589793;
+
+int volume(int x){
+	cout << "正方體體積為";
+	return x * x * x;
+}
+
+double volume(int y, int z) {	
+	cout << "圓柱體體積為: ";
+	return PI * pow(y, 2) * z;
+}
+
+double volume(int x, int y, int z)
+{
+	cout << "長方體體積為：";
+	return x * y * z;
+}
+
+int main()
+{
+	int a, b, c, d, e, f;
+
+	cout << "輸入一個整數：";
+	cin >> a ;
+	cout << volume(a) << endl;
+
+	cout << "輸入兩個整數：";
+	cin >> b >> c;
+	cout << volume(b,c) << endl;
+	
+	cout << "輸入三個整數：";
+	cin >> d >> e >> f;
+	cout << volume(d, e, f) << endl;
+
+}

@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+#include "maximum.h"
+
+int main()
+{
+    int int1, int2, int3;
+
+    cout << "輸入三個整數：";
+    cin >> int1 >> int2 >> int3;
+
+    cout << "正方體體積為：" << maximum(int1, int2, int3) << endl ;
+
+    float float1, float2, float3;
+
+    cout << "輸入三個浮點數(float)：";
+    cin >> float1 >> float2 >> float3;
+
+    cout << "正方體體積為：" << maximum(float1, float2, float3) << endl;
+
+    double double1, double2, double3;
+
+    cout << "輸入三個浮點數(doubel)：";
+    cin >> double1 >> double2 >> double3;
+
+    cout << "正方體體積為：" << maximum(double1, double2, double3) << endl;
+}
