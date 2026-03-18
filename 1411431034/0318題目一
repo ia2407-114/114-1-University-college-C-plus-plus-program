@@ -1,0 +1,41 @@
+// Fig. 15.10: fig15_10.cpp
+// Overloaded functions.
+#include <iostream>
+using namespace std;
+
+// function square for int values
+int volume(int x)
+{
+	return x * x * x;
+}
+double volume(int r, int h)
+{
+	double p = 3.14;
+	return r *r* h* p ;
+}
+
+// function square for double values
+double volume(int x, int y, int z)
+{
+	return x * y * z;
+}
+
+int main()
+{
+	int a,b,c;
+	cout<<"輸入邊長"<<endl;
+	cin >> a;
+	cout << "正方體體積" << volume(a) << endl<<endl;
+	cout << "輸入半徑和高" << endl;
+	cin >> a>>b;
+	cout << "圓柱體體積" << volume(a,b) << endl << endl;
+	cout << "輸入邊長" << endl;
+	cin >> a>>b>>c;
+	cout << "長方體體積" << volume(a,b,c) << endl;
+
+
+
+
+	
+}
+
