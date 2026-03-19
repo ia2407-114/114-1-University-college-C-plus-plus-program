@@ -30,7 +30,7 @@ int main(void)
       // user enters information, which is copied into file
       while (student.id != 0) { 
          // user enters last name, first name and balance
-         printf("%s", "Enter name, computer, math, avg: ");
+         printf("%s", "Enter name, computer, math: ");
         
          // set record lastName, firstName and balance value
          fscanf(stdin, "%14s %9d %9d", student.name, 
