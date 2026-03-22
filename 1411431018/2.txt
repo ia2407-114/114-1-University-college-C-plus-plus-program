@@ -1,0 +1,43 @@
+// Fig. 15.13: fig15_13.cpp
+// Function template maximum test program.
+#include <iostream>
+using namespace std;
+
+#include "maximum.h" // include definition of function template maximum
+
+int main()
+{
+
+    int int1, int2, int3;
+
+    cout << "Input three int values: ";
+    cin >> int1 >> int2 >> int3;
+
+
+    cout << "The intcube value is: "
+        << maximum(int1, int2, int3);
+
+
+    float float1, float2, float3;
+
+    cout << "\n\nInput three float values: ";
+    cin >> float1 >> float2 >> float3;
+
+
+    cout << "The floatcube value is: "
+        << maximum(float1, float2, float3);
+
+
+    double double1, double2, double3;
+
+    cout << "\n\nInput three double: ";
+    cin >> double1 >> double2 >> double3;
+
+
+    cout << "The doublecube value is: "
+        << maximum(double1, double2, double3) << endl;
+}
+/*題目2. 請建立一個樣版函數volume( )，寫出主程式達成下列目標:
+1.輸入3個整數時，呼叫樣版函數volume( )計算正方體體積(整數結果)
+2.輸入3個浮點數，呼叫樣版函數volume( )計算正方體體積(浮點數)
+3.輸入3個double，呼叫樣版函數volume( )計算正方體體積(double結果)*/

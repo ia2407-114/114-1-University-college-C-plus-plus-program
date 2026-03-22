@@ -1,0 +1,69 @@
+// Fig. 15.10: fig15_10.cpp
+// Overloaded functions.
+#include <iostream>
+using namespace std;
+
+int volume(int x)
+{
+	cout << "cubeside" << x << "'s volume is ";
+	return x * x * x;
+}
+
+double volume(int r, int h)
+{
+	cout << "roundradius&height" << r << " " << h << "'s volume is ";
+	return 3.14159 * r * r * h;
+}
+
+int volume(int l, int w, int h)
+{
+	cout << "reeelong&width&height" << l << " " << w << " "<< h<< "'s volume is ";
+	return l * w * h;
+}
+
+int main()
+{
+	int x, r, h, l, w;
+
+	cout << "Enter one integer:";
+	cin >> x;
+	cout << volume(x) << endl;
+	cout << "Enter two integers:";
+	cin >> r >> h;
+	cout << volume(r,h) << endl;
+	cout << "Enter three integers:";
+	cin >> l >> w >> h;
+	cout << volume(l,w,h) << endl;
+}
+
+
+/*題目1.請建立三個多載函數volume()，達成下列目標:
+1.輸入1個整數時，呼叫計算正方體體積的副程式volume()
+2.輸入2個整數時，呼叫計算圓柱體體積的副程式volume()
+3.輸入3個整數時，呼叫計算長方體體積的副程式volume()
+ Fig. 15.10: fig15_10.cpp
+// Overloaded functions.
+#include <iostream>
+using namespace std;
+
+// function square for int values
+int volume( int x )
+{
+   cout << "cube volume " << x << " is ";
+   return x * x * x;
+}
+
+// function square for double values
+double volume( int x, int y, int z )
+{
+   cout << "rect volume: %d " << x<< " is ";
+   return z * y * z;
+}
+
+int main()
+{
+   cout << volume( 7 ); // calls int version
+   cout << endl;
+   cout << volume( 5,6,7 ); // calls double version
+   cout << endl;
+}*/
