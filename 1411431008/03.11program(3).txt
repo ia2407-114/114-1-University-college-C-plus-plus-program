@@ -1,0 +1,44 @@
+#include <iostream>
+#include <stdlib.h> 
+#include <math.h>
+
+using namespace std;
+
+double power(int& a, int& n);
+double fact(int& x);
+
+int main() {
+    int x, i;
+
+    cout << "Enter x (底數) = ";
+    cin >> x; 
+
+    cout << "Enter i (次數/階乘值) = ";
+    cin >> i;
+
+    double p_result = power(x, i);
+    double f_result = fact(i);
+
+    cout << "結果(Power): " << p_result << endl;
+    cout << "結果(Factorial): " << f_result << endl;
+
+    return 0;
+}
+
+double power(int& a, int& n) {
+    double xpow = 1.0;
+    
+    for (int k = 1; k <= n; k++) {
+        xpow *= a;
+    }
+    return xpow;
+}
+
+
+double fact(int& x) {
+    double level = 1.0;
+    for (int j = x; j >= 1; j--) {
+        level *= j;
+    }
+    return level;
+}
