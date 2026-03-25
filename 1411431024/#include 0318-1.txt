@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+// 1個整數 → 正方體體積
+int volume(int x)
+{
+    cout << "Cube volume is ";
+    return x * x * x;
+}
+
+// 2個整數 → 圓柱體體積 (π ≈ 3)
+int volume(int r, int h)
+{
+    cout << "Cylinder volume is ";
+    return 3 * r * r * h;
+}
+
+// 3個整數 → 長方體體積
+int volume(int x, int y, int z)
+{
+    cout << "Rectangular volume is ";
+    return x * y * z;
+}
+
+int main()
+{
+    int x = 1;
+    cin >> x;
+    cout << volume(7);
+    cout << endl;
+   
+    int r,h = 2;
+    cin >> r,h ;
+    cout << volume(5, 6);
+    cout << endl;
+
+    int x,y,z = 3;
+    cin >> x,y,z;
+    cout << volume(5, 6, 7);
+    cout << endl;
+
+    return 0;
+}
