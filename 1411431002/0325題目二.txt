@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Pet {
+
+public:
+
+    Pet() : petName("Unknown"), petAge(0) {}
+
+    void setPetName(string name) {
+        if (name.length() >= 2 && name.length() <= 5) {
+            petName = name;
+        }
+        else {
+            cout << "Error：The name length must be greater than or equal to 2 and less than or equal to 5!" << endl;
+            petName = "Unknown";
+        }
+    }
+
+    void setPetAge(int age) {
+        if (age >= 0 && age <= 20) {
+            petAge = age;
+        }
+        else {
+            cout << "Error：Age must be greater than or equal to 0 and less than or equal to 20!" << endl;
+            petAge = 0;
+        }
+    }
+
+    string getPetName() const {
+        string owner;
+        cout << "Are you the owner？(Y/N)" << endl;
+        getline(cin, owner);
+        if (owner == "Y") {
+            return petName;
+        }
+        else {
+            return "You are not the owner";
+        }
+    }
+
+    int getPetAge() const {
+        string owner;
+        cout << "\nAre you the owner？(Y/N)" << endl;
+        getline(cin, owner);
+        if (owner == "Y") {
+            return petAge;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    void displayMessage() const {
+        cout << "My pet name is：" << getPetName() << endl;
+        cout << "My pet age is：" << getPetAge() << endl;
+    }
+
+private:
+    string petName;
+    int petAge;
+};
+
+int main()
+{
+    string nameOfPet = "Unknown";
+    int ageOfPet = 0;
+    Pet myPet;
+
+    cout << "\nPlease enter the pet name:" << endl;
+    getline(cin, nameOfPet);
+    myPet.setPetName(nameOfPet);
+
+    cout << "\nPlease enter the pet age:" << endl;
+    cin >> ageOfPet;
+    cin.ignore();
+    myPet.setPetAge(ageOfPet);
+
+    cout << endl;
+    myPet.displayMessage();
+}
