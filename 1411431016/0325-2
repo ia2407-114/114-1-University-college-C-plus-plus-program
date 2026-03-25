@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class PET {
+public:
+    
+    PET() {
+        petName = "尚未命名";
+        petAge = 0;
+    }
+
+  
+
+    void setPetName(string name) {
+        
+        if (name.length() > 2 && name.length() < 5) {
+            petName = name;
+        }
+        else {
+            cout << "【警告】姓名長度不符合規範！" << endl;
+        }
+    }
+
+    void setPetAge(int age) {
+        
+        if (age > 20) {
+            petAge = age;
+        }
+        else {
+            cout << "【警告】年齡必須大於 20 歲！" << endl;
+        }
+    }
+
+
+    void askAndGetInfo() {
+        char isOwner;
+        cout << "\n請問您是主人嗎？(請按 Y 確認，其他按鍵將拒絕存取): ";
+        cin >> isOwner;
+
+        if (isOwner == 'Y' || isOwner == 'y') {
+            cout << "\n>> [身分驗證成功] 以下為寵物資訊：" << endl;
+            cout << "寵物姓名：" << petName << endl;
+            cout << "寵物年齡：" << petAge << " 歲" << endl;
+        }
+        else {
+            cout << "\n>> [權限不足] 非本人無法查看私有資料！" << endl;
+        }
+    }
+
+private:
+    
+    string petName;
+    int petAge;
+};
+
+
+int main() {
+    string nameInput;
+    int ageInput;
+    PET myPet;
+
+  
+    cout << "請輸入寵物姓名 (3-4字): ";
+    getline(cin, nameInput);
+    myPet.setPetName(nameInput);
+
+    
+    cout << "請輸入寵物年齡 (需 > 20): ";
+    cin >> ageInput;
+    myPet.setPetAge(ageInput);
+
+   
+    myPet.askAndGetInfo();
+
+    return 0;
+}
