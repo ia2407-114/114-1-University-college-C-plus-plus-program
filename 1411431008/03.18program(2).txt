@@ -1,0 +1,32 @@
+template < class T >
+T volume(T s)
+{ 
+	return s * s * s;
+}
+
+#include <iostream>
+#include "volume.h" 
+
+using namespace std;
+
+int main()
+{
+	int intSide;
+	cout << "輸入正方體邊長 (整數 int): ";
+	cin >> intSide;
+	cout << "整數結果: " << volume(intSide) << endl;
+
+	
+	float floatSide;
+	cout << "\n輸入正方體邊長 (浮點數 float): ";
+	cin >> floatSide;
+	cout << "浮點數結果: " << volume(floatSide) << endl;
+
+	
+	double doubleSide;
+	cout << "\n輸入正方體邊長 (雙精度 double): ";
+	cin >> doubleSide;
+	cout << "Double結果: " << volume(doubleSide) << endl;
+
+	return 0;
+}

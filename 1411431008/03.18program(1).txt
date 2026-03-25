@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cmath> 
+using namespace std;
+
+int volume(int s) {
+    return s * s * s;
+}
+
+double volume(int r, int h) {
+    return 3.14159 * r * r * h;
+}
+
+int volume(int l, int w, int h) {
+    return l * w * h;
+}
+
+int main() {
+    int side=5;
+    int radius=3,height=10;
+    int length=2,width=4,depth=6;
+
+    cin >> side;
+    cout << "正方體體積 (邊長 " << side << "): " << volume(side) << endl;
+
+    cin >> radius>> height;
+    cout << "圓柱體體積 (半徑 " << radius << ", 高 " << height << "): " << volume(radius, height) << endl;
+
+    cin>>length>> width>> depth;
+    cout << "長方體體積 (長 " << length << ", 寬 " << width << ", 高 " << depth << "): " << volume(length, width, depth) << endl;
+
+    return 0;
+}
