@@ -1,0 +1,158 @@
+//001
+#include <iostream>
+#include <string> 
+using namespace std;
+
+
+class PET
+{
+public:
+
+    void setPetName( string name )
+    {   
+        if(name.length()<=5 && name.length()>2)
+            petName = name; 
+    } 
+   void setPetAge(int age)
+   {
+        if(age<20 && age>0)
+            petAge = age; 
+   }
+  
+  
+    string getPetName() const
+    {
+        return petName;
+    }
+    int getPetAge() const
+    {
+        return petAge; 
+    }
+
+   
+    void displayMessage() const
+    {
+        
+        cout << "Welcome to see my pet!\n" << "Name:" << getPetName() << "\nAge:" << getPetAge() << "\n"
+            << endl;
+    } 
+private:
+    string petName="Sam";
+    int petAge=5;
+}; 
+
+
+int main()
+{
+    string nameOfPet;
+    int ageOfPet;
+    PET myPet; 
+  
+   
+    cout << "Your Pet name is: " << myPet.getPetName()
+        << endl;
+    cout << "Your Pet age is: " << myPet.getPetAge()
+        << endl;
+
+ 
+    cout << "\nPlease enter the Pet name:" << endl;
+    cin >> nameOfPet;
+    myPet.setPetName(nameOfPet); 
+    cout << "\nPlease enter the Pet age:" << endl;
+    cin >> ageOfPet; 
+    myPet.setPetAge(ageOfPet);
+
+    cout << endl; 
+    myPet.displayMessage(); 
+} 
+
+
+
+//002
+#include <iostream>
+#include <string> 
+using namespace std;
+
+
+class PET
+{
+public:
+    
+    void setPetName(string name)
+    {
+        if (name.length() <= 5 && name.length() >= 2)
+            petName = name; 
+    }
+    void setPetAge(int age)
+    {
+        if (age <= 20 && age >= 0)
+            petAge = age;
+    }
+
+  
+    string getPetName() const
+    {
+        char ans;
+        cout << "Are you the owner？(y/n): " << endl;
+        cin >> ans;
+
+        if (ans == 'Y' || ans == 'y') {
+            return petName;
+        }
+        else {
+            cout << "Access Denied: Only the owner can view the information." << endl;
+        }
+        
+    } 
+    int getPetAge() const
+    {
+        char ans;
+        cout << "Are you the owner？(y/n): " << endl;
+        cin >> ans;
+
+        if (ans == 'Y' || ans == 'y') {
+            return petAge;
+        }
+        else {
+            cout << "Access Denied: Only the owner can view the information." << endl;
+        }
+         
+    }
+
+   
+    void displayMessage() const
+    {
+        
+        cout << "Welcome to see my pet!\n" << "Name:" << getPetName() << "\nAge:" << getPetAge() << "\n"
+            << endl;
+    }
+   
+private:
+    string petName = "Sam";
+    int petAge = 5;
+}; 
+
+
+int main()
+{
+    string nameOfPet;
+    int ageOfPet;
+    PET myPet;
+
+ 
+    cout << "Your Pet name is: " << myPet.getPetName()
+        << endl;
+    cout << "Your Pet age is: " << myPet.getPetAge()
+        << endl;
+
+   
+    cout << "\nPlease enter the Pet name:" << endl;
+    cin >> nameOfPet;
+    myPet.setPetName(nameOfPet); 
+    cout << "\nPlease enter the Pet age:" << endl;
+    cin >> ageOfPet; 
+    myPet.setPetAge(ageOfPet);
+
+    cout << endl; 
+    myPet.displayMessage(); 
+}
