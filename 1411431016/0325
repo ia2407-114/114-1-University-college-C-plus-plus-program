@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class PET {
+public:
+   
+    PET() {
+        petName = "尚未命名";
+        petAge = 0; 
+    }
+
+    
+    void setPetName(string name) {
+        if (name.length() > 2 && name.length() < 5) {
+            petName = name;
+        }
+        else {
+            cout << "【警告】姓名長度不符合規範！" << endl;
+            
+        }
+    }
+
+    
+    void setPetAge(int age) {
+        if (age > 20) {
+            petAge = age;
+        }
+        else {
+            cout << "【警告】年齡必須大於 20 歲！" << endl;
+            
+        }
+    }
+
+
+    string getPetName() const {
+        return petName;
+    }
+
+    int getPetAge() const {
+        return petAge;
+    }
+
+   
+    void displayMessage() const {
+        cout << "\n===== 最終寵物資訊 =====" << endl;
+        cout << "寵物姓名：" << getPetName() << endl;
+        cout << "寵物年齡：" << getPetAge() << " 歲" << endl;
+    }
+
+private:
+    
+    string petName;
+    int petAge;
+};
+
+
+int main() {
+    string nameOfPet;
+    int ageOfPet;
+    PET myPet; 
+
+    
+    cout << "Initial pet name is: " << myPet.getPetName() << endl;
+    cout << "Initial pet age is: " << myPet.getPetAge() << endl;
+
+    
+    cout << "\nPlease enter the pet name (3-4 characters):" << endl;
+    getline(cin, nameOfPet);
+    myPet.setPetName(nameOfPet);
+
+  
+    cout << "\nPlease enter the pet age (must > 20):" << endl;
+    cin >> ageOfPet;
+    myPet.setPetAge(ageOfPet);
+
+    cout << endl;
+    myPet.displayMessage(); 
+
+    return 0;
+}
