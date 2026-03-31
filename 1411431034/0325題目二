@@ -1,0 +1,66 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+public:
+    void setPetName(string name) {
+        if (name.length() > 0 && name.length() < 5) {
+            PetName = name;
+        }
+        else {
+            cout << "姓名長度須大於0且小於5" << endl;
+        }
+    }
+
+    void setPetage(int age) {
+        if (age > 0 && age < 15) {
+            Petage = age;
+        }
+        else {
+            cout << "年齡須大於0且小於等於15" << endl;
+        }
+    }
+
+    string getPetName() const { return PetName; }
+    int getPetage() const { return Petage; }
+
+    void displayMessage() const {
+        cout << "姓名: " << PetName << ", 年齡: " << Petage << "!" << endl;
+    }
+
+private:
+    string PetName = "xing";
+    int Petage = 1;
+};
+
+int main() {
+    Pet myPet;
+    char isOwner;
+
+    cout << "是否為主人 是按Y ";
+    cin >> isOwner;
+    cin.ignore(100, '\n');
+
+    if (isOwner == 'Y') {
+
+        string name;
+        int age;
+
+        cout << "\n[驗證成功] 請輸入寵物姓名: ";
+        getline(cin, name);
+        myPet.setPetName(name);
+
+        cout << "請輸入寵物年齡: ";
+        cin >> age;
+        myPet.setPetage(age);
+
+        myPet.displayMessage();
+    }
+    else {
+     
+        cout << "\n非主人" << endl;
+    }
+
+    return 0;
+}
