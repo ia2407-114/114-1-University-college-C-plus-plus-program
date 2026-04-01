@@ -1,0 +1,71 @@
+//Main主程式
+#include <iostream>
+#include <string>
+#include "pet.h"
+using namespace std;
+
+int main() {
+    PET myDog("Lucky", 3);
+    PET myCat("Sixy", 2);
+
+    myCat.displayMessage();
+    myDog.displayMessage();
+    
+    return 0;
+}
+
+
+
+//pet.cpp 實作
+#include "pet.h"
+PET::PET(string name, int age) {
+    petName = name;
+    petAge = age;
+}
+PET::~PET() {
+    cout << "bye my pet!!" << endl;
+}
+
+void PET::setPetName(string name) {
+    if (name.length() <= 5)
+        petName = name;
+}
+
+void PET::setPetAge(int age) {
+    if (age >= 0 && age <= 15)
+        petAge = age;
+}
+
+string PET::getPetName() const {
+    return petName;
+}
+
+int PET::getPetAge() const {
+    return petAge;
+}
+
+void PET::displayMessage() const {
+    cout << "Welcome to see my pet\n" << getPetName()
+        << ", and he is " << getPetAge() << " year old!" << endl;
+}
+
+
+
+//pet.h 介面
+#include <string>
+#include <iostream>
+using namespace std;
+
+class PET {
+public:
+    PET(string name, int age);
+    ~PET();
+    void setPetName(string name);
+    void setPetAge(int age);
+    string getPetName() const;
+    int getPetAge() const;
+    void displayMessage() const;
+private:
+    string petName;
+    int petAge;
+};
