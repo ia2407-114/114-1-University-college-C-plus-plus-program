@@ -1,0 +1,238 @@
+//第一題
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+struct StudentNode {
+    int id;
+    string name;
+    int computer;
+    int math;
+    double avg;
+    StudentNode* nextPtr;
+
+    StudentNode(int i, string n, int c, int m) {
+        id = i;
+        name = n;
+        computer = c;
+        math = m;
+        avg = (c + m) / 2.0;
+        nextPtr = nullptr;
+    }
+};
+
+void insert(StudentNode** sPtr, int id, string name, int comp, int math);
+void printList(StudentNode* currentPtr);
+bool isEmpty(StudentNode* sPtr);
+
+int main() {
+    StudentNode* startPtr = nullptr;
+    int count, id, comp, math;
+    string name;
+
+    cout << "請輸入要建立幾筆學生資料: ";
+    cin >> count;
+
+    for (int i = 0; i < count; ++i) {
+        cout << "\n請輸入第 " << i + 1 << " 位學生的 [ID 姓名 電腦 數學]: ";
+        cin >> id >> name >> comp >> math;
+
+        insert(&startPtr, id, name, comp, math);
+        printList(startPtr);
+    }
+
+    cout << "執行結束。" << endl;
+    return 0;
+}
+
+void insert(StudentNode** sPtr, int id, string name, int comp, int math) {
+    StudentNode* newPtr = new StudentNode(id, name, comp, math);
+
+    if (newPtr != nullptr) {
+        StudentNode* previousPtr = nullptr;
+        StudentNode* currentPtr = *sPtr;
+
+        while (currentPtr != nullptr && id > currentPtr->id) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        if (previousPtr == nullptr) {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        else {
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+}
+
+void printList(StudentNode* currentPtr) {
+    if (isEmpty(currentPtr)) {
+        cout << "目前串列為空。" << endl;
+    }
+    else {
+        cout << "\n" << left << setw(8) << "ID" << setw(12) << "姓名"
+            << setw(8) << "電腦" << setw(8) << "數學" << "平均" << endl;
+        cout << string(45, '-') << endl;
+
+        while (currentPtr != nullptr) {
+            cout << left << setw(8) << currentPtr->id
+                << setw(12) << currentPtr->name
+                << setw(8) << currentPtr->computer
+                << setw(8) << currentPtr->math
+                << fixed << setprecision(2) << currentPtr->avg << endl;
+            currentPtr = currentPtr->nextPtr;
+        }
+        cout << string(45, '-') << endl;
+    }
+}
+
+bool isEmpty(StudentNode* sPtr) {
+    return sPtr == nullptr;
+}
+//第二題
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+struct StudentNode {
+    int id;
+    string name;
+    int computer;
+    int math;
+    double avg;
+    StudentNode* nextPtr;
+
+    StudentNode(int i, string n, int c, int m) {
+        id = i;
+        name = n;
+        computer = c;
+        math = m;
+        avg = (c + m) / 2.0;
+        nextPtr = nullptr;
+    }
+};
+
+void insert(StudentNode** sPtr, int id, string name, int comp, int math);
+bool deleteNode(StudentNode** sPtr, int id);
+void printList(StudentNode* currentPtr);
+bool isEmpty(StudentNode* sPtr);
+
+int main() {
+    StudentNode* startPtr = nullptr;
+    int choice, id, comp, math;
+    string name;
+
+    while (true) {
+        cout << "\n1. 插入學生資料\n2. 刪除學生資料 (按ID)\n3. 結束程式\n請選擇: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "請輸入 ID, 姓名, 電腦分數, 數學分數: ";
+            cin >> id >> name >> comp >> math;
+            insert(&startPtr, id, name, comp, math);
+            printList(startPtr);
+        }
+        else if (choice == 2) {
+            if (isEmpty(startPtr)) {
+                cout << "串列是空的，無法刪除。" << endl;
+                continue;
+            }
+            cout << "請輸入欲刪除的學生 ID: ";
+            cin >> id;
+            if (deleteNode(&startPtr, id)) {
+                cout << "學生 ID " << id << " 已成功刪除。" << endl;
+            }
+            else {
+                cout << "找不到該筆資料。" << endl;
+            }
+            printList(startPtr);
+        }
+        else if (choice == 3) {
+            break;
+        }
+    }
+
+    return 0;
+}
+
+void insert(StudentNode** sPtr, int id, string name, int comp, int math) {
+    StudentNode* newPtr = new StudentNode(id, name, comp, math);
+
+    if (newPtr != nullptr) {
+        StudentNode* previousPtr = nullptr;
+        StudentNode* currentPtr = *sPtr;
+
+        while (currentPtr != nullptr && id > currentPtr->id) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        if (previousPtr == nullptr) {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        else {
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+}
+
+bool deleteNode(StudentNode** sPtr, int id) {
+    if (id == (*sPtr)->id) {
+        StudentNode* tempPtr = *sPtr;
+        *sPtr = (*sPtr)->nextPtr;
+        delete tempPtr;
+        return true;
+    }
+    else {
+        StudentNode* previousPtr = *sPtr;
+        StudentNode* currentPtr = (*sPtr)->nextPtr;
+
+        while (currentPtr != nullptr && currentPtr->id != id) {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        if (currentPtr != nullptr) {
+            StudentNode* tempPtr = currentPtr;
+            previousPtr->nextPtr = currentPtr->nextPtr;
+            delete tempPtr;
+            return true;
+        }
+    }
+    return false;
+}
+
+void printList(StudentNode* currentPtr) {
+    if (isEmpty(currentPtr)) {
+        cout << "\n目前串列為空。" << endl;
+    }
+    else {
+        cout << "\n" << left << setw(8) << "ID" << setw(12) << "姓名"
+            << setw(8) << "電腦" << setw(8) << "數學" << "平均" << endl;
+        cout << string(45, '-') << endl;
+
+        while (currentPtr != nullptr) {
+            cout << left << setw(8) << currentPtr->id
+                << setw(12) << currentPtr->name
+                << setw(8) << currentPtr->computer
+                << setw(8) << currentPtr->math
+                << fixed << setprecision(2) << currentPtr->avg << endl;
+            currentPtr = currentPtr->nextPtr;
+        }
+        cout << string(45, '-') << endl;
+    }
+}
+
+bool isEmpty(StudentNode* sPtr) {
+    return sPtr == nullptr;
+}
