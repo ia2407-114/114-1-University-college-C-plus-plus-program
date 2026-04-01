@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+int volume(int s) {
+    return s * s * s;
+}
+
+double volume(int r, int h) {
+    return 3.14159 * r * r * h;
+}
+
+int volume(int l, int w, int h) {
+    return l * w * h;
+}
+
+int main() {
+    cout << "正方體體積: " << volume(7) << endl;
+    cout << "圓柱體體積: " << volume(5, 10) << endl;
+    cout << "長方體體積: " << volume(5, 6, 7) << endl;
+
+    return 0;
+}
