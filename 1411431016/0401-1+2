@@ -1,0 +1,82 @@
+main.cpp
+
+#include <iostream>
+#include <string> 
+#include "pet.h"
+using namespace std;
+
+int main() {
+    string nameInput;
+    int ageInput;
+
+    cout << "請輸入寵物名字: ";
+    getline(cin, nameInput); 
+
+    cout << "請輸入寵物年齡: ";
+    cin >> ageInput;         
+
+    
+    PET myPet(nameInput, ageInput);
+
+    myPet.displayInfo();
+
+    return 0;
+}
+
+
+
+
+pet.cpp
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+PET::PET(string name, int age) {
+    
+    if (name.length() > 2 && name.length() < 5) {
+        petName = name;
+    }
+    else {
+        petName = "預設名字";
+        cout << "警告：名字長度不合格，已設為預設值。" << endl;
+    }
+
+    
+    if (age > 20) {
+        petAge = age;
+    }
+    else {
+        petAge = 0;
+        cout << "警告：年齡不合格，已設為0。" << endl;
+    }
+}
+
+PET::~PET() {
+    cout << "再見了，" << petName << "！" << endl;
+}
+
+void PET::displayInfo() const {
+    cout << "\n--- 寵物資料顯示 ---" << endl;
+    cout << "名字: " << petName << endl;
+    cout << "年齡: " << petAge << endl;
+}
+
+
+
+
+pet.h
+#pragma once
+#include <string>
+
+class PET {
+public:
+    PET(std::string name, int age); 
+    ~PET();                         
+    void displayInfo() const;       
+
+private:
+    std::string petName;
+    int petAge;
+};
+
+
