@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet
+{
+public:
+    Pet(string name, int tempage)
+    {
+        PetName = name;
+        Petage = tempage;
+    }
+    ~Pet()
+    {
+        cout << "Bye Bye my pet" << endl;
+    }
+    void setPetName(string name) {
+        if (name.length() > 0 && name.length() < 5) {
+            PetName = name;
+        }
+        else {
+            cout << "姓名長度須大於0且小於5" << endl;
+        }
+    }
+
+    void setPetage(int age) {
+        if (age > 0 && age < 15) {
+            Petage = age;
+        }
+        else {
+            cout << "年齡須大於0且小於等於15" << endl;
+        }
+    }
+
+    string getPetName() const
+    {
+        return PetName;
+    }
+
+    int getPetage() const
+    {
+        return Petage;
+    }
+
+    void displayMessage() const {
+        cout << "Welcome to see my pet\n" << "Name: " << getPetName() << ", Age: " << getPetage() << "!"
+            << endl;
+    }
+
+private:
+    string PetName;
+    int Petage = 1;
+};
+
+int main()
+{
+    string nameOfPet;
+    int ageOfPet;
+    Pet myPet("xing", 1);
+
+    cout << endl;
+    myPet.displayMessage();
+
+    
+}
