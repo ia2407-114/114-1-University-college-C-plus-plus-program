@@ -1,0 +1,61 @@
+//主程式
+#include <iostream>
+#include <string> 
+using namespace std;
+#include "pet.h"
+
+int main()
+{
+    string inputName;
+    int inputAge;
+
+    cout << "Please enter the pet's name: ";
+    getline(cin, inputName);
+    cout << "Please enter the pet's age: ";
+    cin >> inputAge;
+
+    cout << endl;
+
+    PET myPet(inputName, inputAge);
+    myPet.displayPetInfo();
+
+    cout << endl;
+    return 0; 
+}
+
+
+//實作
+#include "pet.h"
+
+PET::PET(string name, int age)
+    : petName(name), petAge(age)
+{
+    cout << "Data entry successful.\n\n" << endl;
+}
+PET::~PET()
+{
+    cout << "Bye bye!" << endl;
+}
+void PET::displayPetInfo() const
+{
+    cout << "Welcome to see my pet!" << endl;
+    cout << "My pet's name is " << petName << ", and it's " << petAge << " years old." << endl;
+}
+
+
+//介面
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PET
+{
+public:
+    PET(string name, int age);//建構子-初始化物件
+    ~PET();//解構子-終止清理工作
+    void displayPetInfo() const;//輸出寵物的詳細資料
+
+private:
+    string petName;
+    int petAge;
+};
