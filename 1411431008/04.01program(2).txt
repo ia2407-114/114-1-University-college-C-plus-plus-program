@@ -1,0 +1,62 @@
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+int main() {
+    PetDog myDog1("dodo", 3);
+    myDog1.display();
+
+    PetDog myDog2("Lucky", 5);
+    myDog2.display();
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PetDog {
+private:
+    std::string petName;
+    int petAge;
+
+public:
+    PetDog(std::string name, int age);
+    ~PetDog();
+    void display() const;
+
+};
+
+
+
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+PetDog::PetDog(string name, int age) {
+    if (name.length() >= 2 && name.length() <= 5) {
+        petName = name;
+    }
+    else {
+        petName = "Unknown";
+    }
+
+    if (age >= 0 && age < 15) {
+        petAge = age;
+    }
+    else {
+        petAge = -1;
+    }
+    cout << "寵物 " << petName << " 的資料" << endl;
+}
+
+PetDog::~PetDog() {
+    cout << "與寵物 " << petName << " 說再見！" << endl;
+}
+
+void PetDog::display() const {
+    cout << ">> 寵物名稱: " << petName << " | 年齡: " << petAge << endl;
+}

@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PetDog {
+private:
+    string petName;
+    int petAge;
+
+public:
+    PetDog(string name, int age) {
+        if (name.length() >= 2 && name.length() <= 5) {
+            petName = name;
+        }
+        else {
+            petName = "Unknown";
+        }
+
+        if (age >= 0 && age < 15) {
+            petAge = age;
+        }
+        else {
+            petAge = -1;
+        }
+        cout << "寵物 " << petName << " 的資料。" << endl;
+    }
+
+    ~PetDog() {
+        cout << "與寵物 " << petName << " 說再見" << endl;
+    }
+
+    void display() const {
+        cout << ">> 寵物姓名: " << petName << " / 年齡: " << petAge << endl;
+    }
+};
+
+int main() {
+    PetDog dog1("dodo", 3);
+    dog1.display();
+
+    PetDog dog2("Lucky", 5);
+    dog2.display();
+
+    return 0;
+}
