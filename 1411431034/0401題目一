@@ -1,0 +1,95 @@
+#include <iostream>
+#include <string> // program uses C++ standard string class
+using namespace std;
+
+// GradeBook class definition
+
+class PET
+{
+public:
+
+	PET(string name, int age) {
+		petName = name;
+		petAge = age;
+	}
+
+	~PET() {
+		cout << "bye my pet!!" << endl;
+	}
+
+
+	// function that sets the course name
+
+	void setPetName(string name)
+	{
+		if (name.length() <= 5)
+			petName = name; // store the course name in the object
+	} 
+
+	void setPetAge(int age)
+	{
+		if (age >= 0 && age <= 15)
+			petAge = age; // store the course name in the object
+	} // end function setCourseName
+
+	// function that gets the course name
+
+	string getPetName() const
+	{
+		return petName; 
+	} 
+
+
+
+	int getPetAge() const
+	{
+		return petAge; // return the object's courseName
+	} // end function getCourseName
+	// function that displays a welcome message
+	void displayMessage() const{
+		cout << "Welcome to see my pet\n" << getPetName() << ",and he is " << getPetAge() << "  year old!" << endl;
+	}
+
+private:
+	string petName; // course name for this GradeBook
+	int petAge;
+}; // end class GradeBook
+
+
+
+// function main begins program execution
+
+int main()
+{
+	string nameOfPet; // string of characters to store the course name
+	PET myDog("Lucky", 3), myCat("sixy", 2); // create a GradeBook object named myGradeBook
+	int ageOfPet;
+	// display initial value of courseName
+
+	/*cout << "Initial pet name is: " << myDog.getPetName() << endl;
+
+	cout << "Initial pet age is: " << myDog.getPetAge() << endl;
+
+	cout << "Initial pet name is: " << myCat.getPetName() << endl;
+
+	cout << "Initial pet age is: " << myCat.getPetAge() << endl;*/
+
+
+
+	// prompt for, input and set course name
+
+	cout << "\nPlease enter the pet name:" << endl;
+
+	//getline(cin, nameOfPet); // read a course name with blanks
+
+	//myPet.setPetName(nameOfPet); // set the course name
+
+	//cout << "\nPlease enter the pet age:" << endl;
+
+	///getline(cin, ageOfPet); // read a course name with blanks
+
+	//myPet.setPetAge(ageOfPet); // set the course name
+	cout << endl; // outputs a blank line
+	myCat.displayMessage(); // display message with new course name
+	myDog.displayMessage(); // display message with new course name
+}
