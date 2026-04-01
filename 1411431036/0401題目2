@@ -1,0 +1,88 @@
+//主程式
+#include <iostream>
+#include <string>
+using namespace std;
+#include"Pet.h"
+
+int main()
+{
+    string nameOfPet;
+    int ageOfPet;
+    Pet myPet("xing", 1);
+    Pet mydog("xingbin", 1);
+    cout << endl;
+    myPet.displayMessage();
+    mydog.displayMessage();
+
+}
+//標頭檔
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet
+{
+public:
+    Pet(string name, int tempage);
+    ~Pet();
+    void setPetName(string name);
+
+    void setPetage(int age);
+
+    string getPetName() const;
+    int getPetage() const;
+
+    void displayMessage() const;
+
+private:
+    string PetName;
+    int Petage = 1;
+}; 
+//實作檔
+#include <iostream>
+#include <string>
+using namespace std;
+#include"Pet.h"
+
+    Pet::Pet(string name, int tempage)
+    {
+        PetName = name;
+        Petage = tempage;
+    }
+    Pet::~Pet()
+    {
+        cout << "Bye Bye my pet" << endl;
+    }
+    void Pet::setPetName(string name) {
+        if (name.length() > 0 && name.length() < 5) {
+            PetName = name;
+        }
+        else {
+            cout << "姓名長度須大於0且小於5" << endl;
+        }
+    }
+
+    void Pet::setPetage(int age) {
+        if (age > 0 && age < 15) {
+            Petage = age;
+        }
+        else {
+            cout << "年齡須大於0且小於等於15" << endl;
+        }
+    }
+
+    string Pet::getPetName() const
+    {
+        return PetName;
+    }
+
+    int Pet::getPetage() const
+    {
+        return Petage;
+    }
+
+    void Pet::displayMessage() const {
+        cout << "Welcome to see my pet\n" << "Name: " << getPetName() << ", Age: " << getPetage() << "!"
+            << endl;
+    }
+
