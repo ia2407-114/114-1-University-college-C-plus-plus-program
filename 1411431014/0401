@@ -1,0 +1,88 @@
+//標頭檔(pet.h)
+
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+using namespace std;
+
+class Pet {
+public:
+    Pet(string name, int age);
+    ~Pet();
+
+    void setPetName(string name);
+    void setPetAge(int age);
+    void displayPetInfo() const;
+
+private:
+    string petName;
+    int petAge;
+};
+
+#endif
+
+//資源檔(pet.cpp)
+#include <iostream>
+#include <string>
+#include "pet.h"
+using namespace std;
+
+Pet::Pet(string name, int age) {
+    setPetName(name);
+    setPetAge(age);
+    cout << "--- 寵物資料已成功建立 ---" << endl;
+}
+
+Pet::~Pet() {
+    cout << "再見了，" << petName << "！" << endl;
+}
+
+void Pet::setPetName(string name) {
+    if (name.length() > 2 && name.length() < 5) {
+        petName = name;
+    }
+    else {
+        petName = "ErrorName";
+    }
+}
+
+void Pet::setPetAge(int age) {
+    if (age >= 0 && age <= 15) {
+        petAge = age;
+    }
+    else {
+        petAge = -1; 
+    }
+}
+
+void Pet::displayPetInfo() const {
+    cout << "Pet Name: " << petName << endl;
+    cout << "Pet Age: " << (petAge == -1 ? "Invalid Age" : to_string(petAge)) << endl;
+}
+
+//主程式
+#include <iostream>
+#include <string>
+#include "pet.h"
+using namespace std;
+
+int main() {
+    string nameInput;
+    int ageInput;
+
+    cout << "請輸入寵物姓名 (長度 3-4 位): ";
+    getline(cin, nameInput);
+
+    cout << "請輸入寵物年齡 (0-15 歲): ";
+    cin >> ageInput;
+
+    Pet myPet(nameInput, ageInput);
+
+    cout << "\n顯示寵物資訊：" << endl;
+    myPet.displayPetInfo();
+
+    cout << "\n程式即將結束..." << endl;
+
+    return 0;
+}
