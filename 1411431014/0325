@@ -1,0 +1,133 @@
+//第一題
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+public:
+    void setPetName(string name) {
+        if (name.length() > 2 && name.length() < 5) {
+            petName = name;
+        }
+        else {
+            petName = "Error";
+        }
+    }
+
+    void setPetAge(int age) {
+        if (age > 20) {
+            petAge = age;
+        }
+        else {
+            petAge = 0;
+        }
+    }
+
+    string getPetName() const {
+        return petName;
+    }
+
+    int getPetAge() const {
+        return petAge;
+    }
+
+    void displayPetInfo() const {
+        cout << "Pet Name: " << getPetName() << endl;
+        cout << "Pet Age: " << getPetAge() << endl;
+    }
+
+private:
+    string petName;
+    int petAge;
+};
+
+int main() {
+    Pet myPet;
+    string nameInput;
+    int ageInput;
+
+    cout << "Enter pet name: ";
+    getline(cin, nameInput);
+    myPet.setPetName(nameInput);
+
+    cout << "Enter pet age: ";
+    cin >> ageInput;
+    myPet.setPetAge(ageInput);
+
+    cout << endl;
+    myPet.displayPetInfo();
+
+    return 0;
+}
+
+//第二題
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+public:
+    void setPetName(string name) {
+        if (name.length() > 2 && name.length() < 5) {
+            petName = name;
+        }
+        else {
+            petName = "Error";
+        }
+    }
+
+    void setPetAge(int age) {
+        if (age > 20) {
+            petAge = age;
+        }
+        else {
+            petAge = 0;
+        }
+    }
+
+    string getPetName() const {
+        return petName;
+    }
+
+    int getPetAge() const {
+        return petAge;
+    }
+
+    void displayPetInfo() const {
+        char isOwner;
+        cout << "Are you the owner? (Press Y): ";
+        cin >> isOwner;
+
+        if (isOwner == 'Y' || isOwner == 'y') {
+            cout << "Pet Name: " << getPetName() << endl;
+            cout << "Pet Age: " << getPetAge() << endl;
+        }
+        else {
+            cout << "Access Denied." << endl;
+        }
+    }
+
+private:
+    string petName;
+    int petAge;
+};
+
+int main() {
+    Pet myPet;
+    string nameInput;
+    int ageInput;
+
+    cout << "Enter pet name: ";
+    getline(cin, nameInput);
+    myPet.setPetName(nameInput);
+
+    cout << "Enter pet age: ";
+    cin >> ageInput;
+    myPet.setPetAge(ageInput);
+
+    cout << endl;
+    myPet.displayPetInfo();
+
+    return 0;
+}
