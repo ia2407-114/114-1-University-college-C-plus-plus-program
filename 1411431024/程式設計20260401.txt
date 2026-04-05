@@ -1,0 +1,68 @@
+pet.cpp(實作檔)
+#include <iostream>
+#include <string>
+#include "pet.h"
+using namespace std;
+
+
+PET::PET(string name, int age)
+{
+    petName = name;
+    petAge = age;
+}
+
+
+PET::~PET()
+{
+    cout << "Bye Bye my pet " << petName << "!" << endl;
+}
+
+
+void PET::displayMessage() const
+{
+    cout << "Welcome to see my pet!" << endl;
+    cout << "Pet name: " << petName << endl;
+    cout << "Pet age: " << petAge << endl;
+}
+
+pet.h(介面檔)
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PET
+{
+private:
+    string petName;
+    int petAge;
+
+public:
+    PET(string name, int age);
+    ~PET();                    
+
+    void displayMessage() const;
+};
+
+source.cpp(主程式)
+#include <iostream>
+#include <string>
+#include "pet.h"
+using namespace std;
+
+int main()
+{
+    string nameOfPet;
+    int ageOfPet;
+
+    cout << "Please enter the pet name: ";
+    getline(cin, nameOfPet);  
+
+    cout << "Please enter the pet age: ";
+    cin >> ageOfPet;
+
+    PET myPet(nameOfPet, ageOfPet);
+
+    myPet.displayMessage();        
+
+    return 0;
+}
