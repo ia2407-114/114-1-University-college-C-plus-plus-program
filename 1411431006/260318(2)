@@ -1,0 +1,38 @@
+/*題目2. 請建立一個樣版函數volume( )，寫出主程式達成下列目標:
+1.輸入3個整數時，呼叫樣版函數volume( )計算正方體體積(整數結果)
+2.輸入3個浮點數，呼叫樣版函數volume( )計算正方體體積(浮點數)
+3.輸入3個double，呼叫樣版函數volume( )計算正方體體積(double結果)*/
+
+#include <iostream>
+using namespace std;
+
+#include "typename T.h"
+
+int main() {
+    int i1, i2, i3;
+    cout << "輸入 3 個整數: ";
+    cin >> i1 >> i2 >> i3;
+    cout << "正方體 體積為: " << volume(i1, i2, i3) << endl;
+
+    float f1, f2, f3;
+    cout << "\n輸入 3 個 float 數值: ";
+    cin >> f1 >> f2 >> f3;
+    cout << "正方體 體積為: " << volume(f1, f2, f3) << endl;
+
+    double d1, d2, d3;
+    cout << "\n輸入 3 個 double 數值: ";
+    cin >> d1 >> d2 >> d3;
+    cout << "正方體 體積為: " << volume(d1, d2, d3) << endl;
+
+    return 0;
+}
+
+
+template <typename T>
+T volume(T x, T y, T z) {
+    return x * y * z;
+}
+
+
+
+
