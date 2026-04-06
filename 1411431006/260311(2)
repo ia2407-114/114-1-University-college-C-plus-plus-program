@@ -1,0 +1,152 @@
+/*題目2. 呈上題，修改刪除節點的程式碼，輸入欲刪除的學生id，若該筆資料存在則進行刪除，否則印出"找不到資料"的訊息，並且列出鏈結串列的內容*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct student {
+    int id;
+    char name[20];
+    int computer;
+    int math;
+    double avg;
+};
+
+struct listNode {
+    struct student data;
+    struct listNode *nextPtr;
+};
+
+typedef struct listNode ListNode;
+typedef ListNode *ListNodePtr;
+
+void insert(ListNodePtr *sPtr, struct student value);
+void printList(ListNodePtr currentPtr);
+void deleteNode(ListNodePtr *sPtr, int id);
+
+int main()
+{
+    ListNodePtr startPtr = NULL;
+    struct student s;
+    int n, deleteID;
+
+    printf("要輸入幾筆學生資料? ");
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++)
+    {
+        printf("\n輸入學生ID: ");
+        scanf("%d", &s.id);
+
+        printf("輸入學生姓名: ");
+        scanf("%s", s.name);
+
+        printf("輸入Computer成績: ");
+        scanf("%d", &s.computer);
+
+        printf("輸入Math成績: ");
+        scanf("%d", &s.math);
+
+        s.avg = (s.computer + s.math) / 2.0;
+
+        insert(&startPtr, s);
+    }
+
+    printf("\n鏈結串列內容:\n");
+    printList(startPtr);
+
+    printf("\n輸入要刪除的學生ID: ");
+    scanf("%d", &deleteID);
+
+    deleteNode(&startPtr, deleteID);
+
+    printf("\n刪除後鏈結串列:\n");
+    printList(startPtr);
+
+    return 0;
+}
+
+void insert(ListNodePtr *sPtr, struct student value)
+{
+    ListNodePtr newPtr = (ListNodePtr) malloc(sizeof(ListNode));
+
+    if(newPtr != NULL)
+    {
+        newPtr->data = value;
+        newPtr->nextPtr = NULL;
+
+        ListNodePtr previousPtr = NULL;
+        ListNodePtr currentPtr = *sPtr;
+
+        while(currentPtr != NULL && value.id > currentPtr->data.id)
+        {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        if(previousPtr == NULL)
+        {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        else
+        {
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+    else
+    {
+        printf("無法分配記憶體\n");
+    }
+}
+
+void deleteNode(ListNodePtr *sPtr, int id)
+{
+    ListNodePtr previousPtr = NULL;
+    ListNodePtr currentPtr = *sPtr;
+
+    while(currentPtr != NULL && currentPtr->data.id != id)
+    {
+        previousPtr = currentPtr;
+        currentPtr = currentPtr->nextPtr;
+    }
+
+    if(currentPtr == NULL)
+    {
+        printf("找不到資料\n");
+        return;
+    }
+
+    if(previousPtr == NULL)
+    {
+        *sPtr = currentPtr->nextPtr;
+    }
+    else
+    {
+        previousPtr->nextPtr = currentPtr->nextPtr;
+    }
+
+    free(currentPtr);
+    printf("刪除成功\n");
+}
+
+void printList(ListNodePtr currentPtr)
+{
+    if(currentPtr == NULL)
+    {
+        printf("鏈結串列為空\n");
+        return;
+    }
+
+    while(currentPtr != NULL)
+    {
+        printf("ID:%d Name:%s Computer:%d Math:%d Avg:%.2f\n",
+               currentPtr->data.id,
+               currentPtr->data.name,
+               currentPtr->data.computer,
+               currentPtr->data.math,
+               currentPtr->data.avg);
+        currentPtr = currentPtr->nextPtr;
+    }
+}
