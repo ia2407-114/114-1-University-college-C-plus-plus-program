@@ -1,0 +1,58 @@
+/*題目1. (利用建構子(constructor)與解構子(destructor)) 以類別建立成員函數與資料成員，透過建構子來設定寵物的姓名與年齡(定義為私有資料成員)，最後印出寵物的姓名與年齡。並且利用解構子印出與寵物再見的訊息。
+題目2. (承上題) 利用"介面與實作分離"的方式，將第一題的程式碼拆分成:主程式、介面檔(pet.h)、實作檔(pet.cpp)，別存放主程式碼、類別內的成員函數名稱、與成員函數的實作內容*/
+
+
+//main.cpp檔
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+int main() {
+    Pet myPet1("nini", 20);
+    Pet myPet2("mimi", 15);
+    myPet1.printInfo();
+    myPet2.printInfo();
+    return 0;
+}
+
+//pet.cpp檔
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+Pet::Pet(string name, int age) {
+    petName = name;
+    petAge = age;
+}
+
+Pet::~Pet() {
+    cout << "Byebye my " << petName << "." << endl;
+}
+
+void Pet::printInfo() const {
+    cout << "寵物姓名: " << petName << endl;
+    cout << "寵物年齡: " << petAge << " 歲" << endl;
+}
+
+//pet.h檔
+#include <string>
+using namespace std;
+
+class Pet {
+public:
+    Pet(string name, int age);
+    ~Pet();
+    void printInfo() const;
+
+private:
+    string petName;
+    int petAge;
+};
+
+
+
+
+
+
+
+
