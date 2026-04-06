@@ -1,0 +1,46 @@
+/*題目1: 以類別建立成員函數與資料成員，包所需的“set”functions 與 “get”functions，用來設定與取得寵物狗的姓名與年齡(定義為私有資料成員)，透過“set”function判斷資料正確性(輸入姓名長度是否大於2並小於5、年齡是否>20歲)，透過“get”function ，則印出寵物的姓名與年齡。*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PET {
+public:
+    void setPetName(string name) {
+         petName = name;
+    }
+    void setPetAge(int age) {
+         petAge = age;
+    }
+
+    string getPetName() const { return petName; }
+    int getPetAge() const { return petAge; }
+
+private:
+    string petName = "John";
+    int petAge = 25;
+};
+
+int main() {
+    PET myPet;
+    string name;
+    int age;
+
+    cout << "請輸入寵物姓名: ";
+    getline(cin, name);
+    myPet.setPetName(name);
+
+    cout << "請輸入寵物年齡: ";
+    cin >> age;
+    myPet.setPetAge(age);
+
+    cout << "\n--- 寵物資訊 ---" << endl;
+    cout << "姓名: " << myPet.getPetName() << endl;
+    cout << "年齡: " << myPet.getPetAge() << endl;
+
+    return 0;
+}
+
+
+
+
