@@ -1,0 +1,106 @@
+/*題目1. 請參課本程式碼fig12_03.c，修改目前的程式碼，建立學生資料，並且插入數筆資料至鏈結串列之中，並且列出鏈結串列的內容*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct student{
+    int id;
+    char name[20];
+    int computer;
+    int math;
+    double avg;
+};
+
+struct listNode{
+    struct student data;
+    struct listNode *nextPtr;
+};
+
+typedef struct listNode ListNode;
+typedef ListNode *ListNodePtr;
+
+void insert(ListNodePtr *sPtr, struct student value);
+void printList(ListNodePtr currentPtr);
+
+int main()
+{
+    ListNodePtr startPtr = NULL;
+    struct student s;
+
+    for(int i=0;i<3;i++)
+    {
+        printf("輸入ID:");
+        scanf("%d",&s.id);
+
+        printf("輸入姓名:");
+        scanf("%s",s.name);
+
+        printf("computer:");
+        scanf("%d",&s.computer);
+
+        printf("math:");
+        scanf("%d",&s.math);
+
+        s.avg = (s.computer + s.math)/2.0;
+
+        insert(&startPtr,s);
+    }
+
+    printf("\n鏈結串列內容\n");
+    printList(startPtr);
+
+    return 0;
+}
+
+void insert(ListNodePtr *sPtr, struct student value)
+{
+ListNodePtr newPtr=(ListNodePtr)malloc(sizeof(ListNode));
+
+    if(newPtr != NULL)
+    {
+        newPtr->data = value;
+        newPtr->nextPtr = NULL;
+
+        ListNodePtr previousPtr = NULL;
+        ListNodePtr currentPtr = *sPtr;
+
+        while(currentPtr != NULL && value.id > currentPtr->data.id)
+        {
+            previousPtr = currentPtr;
+            currentPtr = currentPtr->nextPtr;
+        }
+
+        if(previousPtr == NULL)
+        {
+            newPtr->nextPtr = *sPtr;
+            *sPtr = newPtr;
+        }
+        else
+        {
+            previousPtr->nextPtr = newPtr;
+            newPtr->nextPtr = currentPtr;
+        }
+    }
+}
+
+void printList(ListNodePtr currentPtr)
+{
+    if(currentPtr == NULL)
+    {
+        printf("List is empty\n");
+    }
+    else
+    {
+        while(currentPtr != NULL)
+        {
+            printf("ID:%d Name:%s Computer:%d Math:%d Avg:%.2f\n",
+            currentPtr->data.id,
+            currentPtr->data.name,
+            currentPtr->data.computer,
+            currentPtr->data.math,
+            currentPtr->data.avg);
+
+            currentPtr = currentPtr->nextPtr;
+        }
+    }
+}
