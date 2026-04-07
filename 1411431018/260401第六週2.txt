@@ -1,0 +1,22 @@
+// Fig. 3.5: fig03_05.cpp
+// Define class GradeBook that contains a courseName data member
+// and member functions to set and get its value; 
+// Create and manipulate a GradeBook object with these functions.
+#include <iostream>
+#include <string> // program uses C++ standard string class
+#include "Pet.h"
+using namespace std;
+
+int main()
+{
+    string nameOfPet; // string of characters to store the course name
+    PET myDog("Yoyo", 16), myCat1("MaoMao", 6), myCat2("DianDian", 3); // create a GradeBook object named myGradeBook
+    int ageOfPet;
+    cout << endl; // outputs a blank line
+    myDog.displayMessage(); // display message with new course name
+    myCat1.displayMessage();
+    myCat2.displayMessage();
+} // end main
+
+/*題目2. (承上題)利用"介面與實作分離"的方式，將第一題的程式碼拆分成:
+主程式、介面檔(pet.h)、實作檔(pet.cpp)，別存放主程式碼、類別內的成員函數名稱、與成員函數的實作內容*/
