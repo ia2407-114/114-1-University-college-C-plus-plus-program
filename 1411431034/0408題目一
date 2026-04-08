@@ -1,0 +1,79 @@
+//main
+
+#include <iostream>
+#include <stdexcept>
+#include "Date.h"
+using namespace std;
+
+int main() {
+    int y, m, d;
+
+    cout << "預設日期" << endl;
+    Date defaultDate;
+    defaultDate.printAD();
+
+    cout << "請輸入西元年月日:"<<endl;
+    cin >> y >> m >> d;
+
+    try {
+        Date userDate(y, m, d);
+        userDate.printAD();
+        userDate.printROC();
+    }
+    catch (invalid_argument& e) {
+        cerr << "\n錯誤提示: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+//Date.h
+
+#ifndef DATE_H
+#define DATE_H
+
+class Date {
+public:
+
+    Date(int y = 1990, int m = 1, int d = 1);
+
+    void setDate(int, int, int);
+    void printAD() const;
+    void printROC() const;
+
+private:
+    int year;
+    int month;
+    int day;
+};
+
+#endif
+
+//Date.cpp
+
+#include "Date.h"
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+Date::Date(int y, int m, int d) {
+    setDate(y, m, d);
+}
+
+void Date::setDate(int y, int m, int d) {
+ 
+    if (m < 1 || m > 12 || d < 1 || d > 31) {
+        throw invalid_argument("日期內容不正確！");
+    }
+    year = y;
+    month = m;
+    day = d;
+}
+
+void Date::printAD() const {
+    cout << "西元: " << year << "/" << month << "/" << day << endl;
+}
+
+void Date::printROC() const {
+    cout << "民國: " << (year - 1911) << "/" << month << "/" << day << endl;
+}
