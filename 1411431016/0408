@@ -1,0 +1,90 @@
+fig09_03.cpp
+#include <iostream>
+#include "Date.h"
+
+using namespace std;
+
+int main() {
+    int y, m, d;
+    Date t;
+
+    cout << "請輸入西元 年 月 日 (空格隔開): ";
+    cin >> y >> m >> d;
+
+    try {
+        t.setDate(y, m, d);
+        cout << "\n--- 轉換結果 ---" << endl;
+        cout << "西元日期: "; t.printUniversal(); cout << endl;
+        cout << "民國日期: "; t.printStandard(); cout << endl;
+    }
+    catch (invalid_argument& e) {
+        cout << "\nException: " << e.what() << endl;
+    }
+
+    return 0;
+}
+Date.cpp
+
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "Date.h"
+
+using namespace std;
+
+Date::Date(int y, int m, int d) {
+    setDate(y, m, d);
+}
+
+// 判斷閏年的邏輯
+bool Date::isLeapYear(int y) const {
+    return (y % 400 == 0) || (y % 4 == 0 && y % 100 != 0);
+}
+
+void Date::setDate(int y, int m, int d) {
+    // 定義每個月的天數
+    int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    // 如果是閏年，2月就有29天
+    if (isLeapYear(y)) {
+        daysInMonth[2] = 29;
+    }
+
+    // 嚴格檢查日期範圍
+    if (y >= 0 && (m >= 1 && m <= 12) && (d >= 1 && d <= daysInMonth[m])) {
+        year = y;
+        month = m;
+        day = d;
+    }
+    else {
+        throw invalid_argument("Year, month or day out of range");
+    }
+}
+
+void Date::printUniversal() const {
+    cout << year << "/" << month << "/" << day;
+}
+
+void Date::printStandard() const {
+    // 題目要求：民國年 = 西元年 - 1911
+    cout << (year - 1911) << "/" << month << "/" << day;
+}
+Date.h
+
+#ifndef DATE_H
+#define DATE_H
+
+class Date {
+public:
+    Date(int = 1990, int = 1, int = 1); // 建構子
+    void setDate(int, int, int);       // 設定日期
+    void printUniversal() const;      // 印出西元
+    void printStandard() const;       // 印出民國
+private:
+    unsigned int year;
+    unsigned int month;
+    unsigned int day;
+    bool isLeapYear(int) const;       // 新增：判斷閏年的工具
+};
+
+#endif
