@@ -1,0 +1,225 @@
+//002
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include "Dog.h"
+
+using namespace std;
+
+int main() {
+    string name;
+    Date b, a;
+
+    // 鍵盤輸入 [17, 21]
+    cout << "請輸入寵物狗姓名: ";
+    getline(cin, name);
+
+    cout << "請輸入生日 (年 月 日): ";
+    cin >> b.year >> b.month >> b.day;
+
+    cout << "請輸入領養日 (年 月 日): ";
+    cin >> a.year >> a.month >> a.day;
+
+    try {
+        // 建立物件並觸發建構子驗證 [19, 20]
+        Dog myDog(name, b, a);
+        myDog.displayDogInfo();
+    }
+    catch (const invalid_argument& e) {
+        cerr << "\n設定失敗: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+//002.h
+#ifndef DOG_H
+#define DOG_H
+
+#include <string>
+
+// 定義日期結構
+struct Date {
+    int year;
+    int month;
+    int day;
+};
+
+class Dog {
+public:
+    // 2. 建構子：包含姓名、生日及領養日參數 [10, 11]
+    Dog(std::string name, Date birth, Date adopt);
+
+    void displayDogInfo() const; // 顯示寵物資訊
+
+private:
+    std::string petName;
+    Date birthday;
+    Date adoptionDate;
+
+    // 內部驗證功能 [12, 13]
+    void validateData(Date birth, Date adopt);
+    int calculateAge(Date birth) const;
+};
+
+#endif
+
+//002.cpp
+#include <iostream>
+#include <stdexcept> // 為了使用 invalid_argument [15]
+#include "Dog.h"
+
+using namespace std;
+
+// 建構子實作：直接設定屬性並呼叫驗證 [3, 6]
+Dog::Dog(string name, Date birth, Date adopt) {
+    petName = name;
+    validateData(birth, adopt); // 3. 判斷資料是否合理
+    birthday = birth;
+    adoptionDate = adopt;
+}
+
+void Dog::validateData(Date birth, Date adopt) {
+    int age = calculateAge(birth);
+
+    // 驗證年齡：介於 0~20 歲 [16]
+    if (age < 0 || age > 20) {
+        throw invalid_argument("錯誤：狗的年齡不合理 (需在 0-20 歲之間)。");
+    }
+
+    // 驗證領養日：不可早於生日
+    if (adopt.year < birth.year ||
+        (adopt.year == birth.year && adopt.month < birth.month) ||
+        (adopt.year == birth.year && adopt.month == birth.month && adopt.day < birth.day)) {
+        throw invalid_argument("錯誤：領養日期不可早於出生日期。");
+    }
+}
+
+// 以 2026/04/08 為基準計算年齡
+int Dog::calculateAge(Date birth) const {
+    int currY = 2026, currM = 4, currD = 8;
+    int age = currY - birth.year;
+    if (birth.month > currM || (birth.month == currM && birth.day > currD)) {
+        age--;
+    }
+    return age;
+}
+
+void Dog::displayDogInfo() const {
+    cout << "\n--- 寵物狗詳細資訊 ---" << endl;
+    cout << "姓名: " << petName << endl;
+    cout << "生日: " << birthday.year << "/" << birthday.month << "/" << birthday.day << endl;
+    cout << "領養日: " << adoptionDate.year << "/" << adoptionDate.month << "/" << adoptionDate.day << endl;
+    cout << "目前年齡: " << calculateAge(birthday) << " 歲" << endl;
+}
+
+//001
+#include <iostream>
+#include <stdexcept>
+#include "time.h"
+using namespace std;
+
+int main() {
+    int y, m, d;
+
+    cout << "請輸入西元 年 月 日 (以空格隔開): ";
+    if (cin >> y >> m >> d) {
+        try {
+            // 建立物件，若輸入錯誤會觸發 throw [16, 22]
+            Date userDate(y, m, d);
+
+            cout << "\n--- 轉換結果 ---" << endl;
+            userDate.printGregorian();
+            userDate.printROC();
+        }
+        catch (invalid_argument& e) {
+            // 捕捉並印出錯誤訊息 [16, 22]
+            cerr << "錯誤： " << e.what() << endl;
+        }
+    }
+
+    return 0;
+}
+
+//001.h
+#ifndef DATE_H
+#define DATE_H
+
+class Date {
+public:
+    // 透過建構子設定預設值為 1990/1/1 [6, 10]
+    explicit Date(int = 1990, int = 1, int = 1);
+
+    void setDate(int, int, int); // 設定日期並驗證 [11]
+    void printGregorian() const;  // 印出西元日期
+    void printROC() const;       // 印出民國日期
+
+private:
+    int year;
+    int month;
+    int day;
+
+    // 內部驗證函數：判斷日期內容是否正確 [8, 12]
+    int checkDay(int) const;
+    bool isLeapYear(int) const;
+};
+
+#endif
+
+//001.cpp
+#include <iostream>
+#include <iomanip>
+#include <stdexcept> // 處理異常 [15, 16]
+#include "time.h"
+using namespace std;
+
+Date::Date(int yr, int mn, int dy) {
+    setDate(yr, mn, dy); // 呼叫設定函數進行統一驗證 [16, 17]
+}
+
+void Date::setDate(int yr, int mn, int dy) {
+    // 驗證年份與月份範圍 [7, 17]
+    if (yr < 1) throw invalid_argument("年份必須大於 0");
+    if (mn < 1 || mn > 12) throw invalid_argument("月份必須在 1-12 之間");
+
+    year = yr;
+    month = mn;
+    day = checkDay(dy); // 驗證該月份的天數是否合理 [8]
+}
+
+int Date::checkDay(int testDay) const {
+    static const int daysPerMonth[18] =
+    { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    // 檢查一般月份天數 [8]
+    if (testDay > 0 && testDay <= daysPerMonth[month])
+        return testDay;
+
+    // 處理二月閏年特殊情況 [8]
+    if (month == 2 && testDay == 29 && isLeapYear(year))
+        return testDay;
+
+    throw invalid_argument("日期內容不正確"); // 題目要求：判斷錯誤內容 [13]
+}
+
+bool Date::isLeapYear(int yr) const {
+    return (yr % 400 == 0 || (yr % 4 == 0 && yr % 100 != 0));
+}
+
+void Date::printGregorian() const {
+    cout << "西元日期: " << year << "/"
+        << setfill('0') << setw(2) << month << "/"
+        << setw(2) << day << endl; // 使用格式化輸出 [19, 20]
+}
+
+void Date::printROC() const {
+    int rocYear = year - 1911; // 計算民國年份
+    cout << "民國日期: ";
+    if (rocYear > 0) {
+        cout << "民國 " << rocYear << " 年 ";
+    }
+    else {
+        cout << "民國前 " << abs(rocYear) + 1 << " 年 ";
+    }
+    cout << month << " 月 " << day << " 日" << endl;
+}
