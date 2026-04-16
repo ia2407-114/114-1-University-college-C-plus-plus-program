@@ -1,22 +1,38 @@
 #include <iostream>
 using namespace std;
 
-int volume(int s) {
-    return s * s * s;
+int volume(int x)
+{
+	return x * x * x;
 }
 
-double volume(int r, int h) {
-    return 3.14159 * r * r * h;
+double volume(double r, double h)
+{
+	return r*r* h * 3.14;
 }
 
-int volume(int l, int w, int h) {
-    return l * w * h;
+int volume(int x, int y, int z)
+{
+	return x * y * z;
 }
 
-int main() {
-    cout << "正方體體積: " << volume(7) << endl;
-    cout << "圓柱體體積: " << volume(5, 10) << endl;
-    cout << "長方體體積: " << volume(5, 6, 7) << endl;
+int main()
+{
+	int a, b, c;
 
-    return 0;
+	cout << "計算正方體體積" << endl;
+	cout << "輸入邊長:";
+	cin >> a;
+	cout << "正方體體積為:" << volume(a) << endl;
+
+	cout << "計算圓柱體積" << endl;
+	cout << "輸入半徑與高:";
+	cin >> a>>b;
+	cout << "圓柱體積為:" << volume(a,b) << endl;
+
+	cout << "計算長方體體積" << endl;
+	cout << "輸入長寬高:";
+	cin >> a>>b>>c;
+	cout << "長方體體積為:" << volume(a,b,c) << endl;
+
 }
