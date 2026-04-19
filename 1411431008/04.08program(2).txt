@@ -1,0 +1,114 @@
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+
+class PetDog {
+public:
+    PetDog(std::string name, int bY, int bM, int bD, int aY, int aM, int aD);
+    void display() const;
+
+private:
+    std::string petName;
+    int birthY, birthM, birthD;
+    int adoptY, adoptM, adoptD;
+    
+    int isValidDate(int y, int m, int d) const;
+    int isLeapYear(int y) const;
+
+    int checkLogic(int bY, int bM, int bD, int aY, int aM, int aD) const;
+};
+#endif
+
+
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include "pet.h"
+using namespace std;
+
+PetDog::PetDog(string name, int bY, int bM, int bD, int aY, int aM, int aD) {
+    if (!isValidDate(bY, bM, bD) || !isValidDate(aY, aM, aD)) {
+        throw invalid_argument("日期錯誤");
+    }
+    
+    if (!checkLogic(bY, bM, bD, aY, aM, aD)) {
+        throw invalid_argument("年齡不合理 或 領養日早於生日");
+    }
+
+    petName = name;
+    birthY = bY; birthM = bM; birthD = bD;
+    adoptY = aY; adoptM = aM; adoptD = aD;
+
+    cout << "寵物 " << petName << " 的資料。" << endl;
+}
+
+
+int PetDog::checkLogic(int bY, int bM, int bD, int aY, int aM, int aD) const {
+    int todayY = 2026, todayM = 4, todayD = 8;
+    
+    if (aY < bY) return 0;
+    if (aY == bY && aM < bM) return 0;
+    if (aY == bY && aM == bM && aD < bD) return 0;
+    
+    int age = todayY - bY;
+    if (todayM < bM || (todayM == bM && todayD < bD)) {
+        age--; 
+    }
+
+    if (age < 0 || age > 20) 
+       return 0;
+
+    return 1; 
+}
+
+int PetDog::isValidDate(int y, int m, int d) const {
+    static const int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (m < 1 || m > 12) 
+        return 0;
+    int maxDay = days[m];
+    if (m == 2 && isLeapYear(y)) 
+        maxDay = 29;
+    return (d >= 1 && d <= maxDay);
+}
+
+int PetDog::isLeapYear(int y) const {
+    return (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) ? 1 : 0;
+}
+
+void PetDog::display() const {
+    cout << "  寵物名稱: " << petName << endl;
+    cout << "  出生日期: " << birthY << "/" << birthM << "/" << birthD << endl;
+    cout << "  領養日期: " << adoptY << "/" << adoptM << "/" << adoptD << endl;
+}
+
+
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include "pet.h"
+using namespace std;
+
+int main() {
+    string name;
+    int bY, bM, bD, aY, aM, aD;
+
+    cout << "寵物資料" << endl;
+    cout << "請輸入寵物名字: ";
+    cin >> name;
+    cout << "請輸入出生年月日: ";
+    cin >> bY >> bM >> bD;
+    cout << "請輸入領養年月日: ";
+    cin >> aY >> aM >> aD;
+
+    try {
+       
+        PetDog myDog(name, bY, bM, bD, aY, aM, aD);
+        myDog.display();
+    }
+    catch (invalid_argument& e) {
+        cerr << "\n輸入錯誤: " << e.what() << endl;
+    }
+
+    return 0;
+}

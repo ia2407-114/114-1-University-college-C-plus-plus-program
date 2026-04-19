@@ -1,0 +1,120 @@
+#ifndef DATE_H
+#define DATE_H
+
+class Date {
+public:
+    explicit Date(int = 1990, int = 1, int = 1);
+    
+    void setDate(int, int, int);
+    void setYear(int);
+    void setMonth(int);
+    void setDay(int);
+
+    int getYear() const;
+    int getMonth() const;
+    int getDay() const;
+
+    void printAD() const;      
+    void printROC() const;     
+
+private:
+    int year;
+    int month;
+    int day;
+
+    int isLeapYear(int) const;
+    int checkDay(int, int, int) const;
+};
+#endif
+
+
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "Date.h"
+using namespace std;
+
+Date::Date(int y, int m, int d) {
+    setDate(y, m, d);
+}
+
+void Date::setDate(int y, int m, int d) {
+    if (checkDay(y, m, d)) {
+        year = y;
+        month = m;
+        day = d;
+    }
+    else {
+        throw invalid_argument("日期不對！");
+    }
+}
+
+int Date::isLeapYear(int y) const {
+    if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0))
+        return 1; 
+    else
+        return 0; 
+}
+
+int Date::checkDay(int y, int m, int d) const {
+    static const int daysPerMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    if (m < 1 || m > 12) 
+        return 0; 
+    
+    if (m == 2 && isLeapYear(y)) {
+        if (d >= 1 && d <= 29) 
+            return 1;
+        else 
+            return 0;
+    }
+    
+    if (d >= 1 && d <= daysPerMonth[m])
+        return 1;
+    else
+        return 0;
+}
+
+void Date::printAD() const {
+    cout << "西元日期: " << year << "/"
+        << setfill('0') << setw(2) << month << "/"
+        << setw(2) << day << endl;
+}
+
+void Date::printROC() const {
+    int rocYear = year - 1911;
+    
+    cout << "民國日期: " << (rocYear > 0 ? rocYear : 1) << "/"
+        << setfill('0') << setw(2) << month << "/"
+        << setw(2) << day << endl;
+}
+
+
+#include <iostream>
+#include <stdexcept>
+#include "Date.h"
+using namespace std;
+
+int main() {
+    Date d1;
+    cout << "測試(正確情況):" << endl;
+    d1.printAD();
+    d1.printROC();
+
+    int y, m, d;
+    cout << "\n輸入西元年月日: ";
+    cin >> y >> m >> d;
+
+    try {
+        Date d2(y, m, d);
+        cout << "\n日期為:" << endl;
+        d2.printAD();
+        d2.printROC();
+    }
+    catch (invalid_argument& e) {
+        cerr << "\n錯誤: " << e.what() << endl;
+    }
+
+    return 0;
+}
+

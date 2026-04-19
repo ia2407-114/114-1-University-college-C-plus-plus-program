@@ -1,0 +1,193 @@
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include "pet.h"
+
+using namespace std;
+
+int main() {
+    string name, category;
+    int bY, bM, bD, aY, aM, aD;
+
+    while (true) {
+        try {
+            cout << "輸入第 1 隻寵物：" << endl;
+            cout << "名字: "; cin >> name;
+            cout << "品種: "; cin >> category;
+            cout << "生日 (年 月 日): "; cin >> bY >> bM >> bD;
+            cout << "領養日 (年 月 日): "; cin >> aY >> aM >> aD;
+
+            Pet pet1(name, category, bY, bM, bD, aY, aM, aD);
+            pet1.check_birth();
+            pet1.check_adopt();
+            pet1.print_all_data();
+            break;
+        }
+        catch (const invalid_argument& e) {
+            cout << "錯誤：" << e.what() << "重新輸入。\n" << endl;
+        }
+    }
+
+    
+    while (true) {
+        try {
+            cout << "\n輸入第 2 隻寵物：" << endl;
+            cout << "名字: "; cin >> name;
+            cout << "品種: "; cin >> category;
+            cout << "生日 (年 月 日): "; cin >> bY >> bM >> bD;
+            cout << "領養日 (年 月 日): "; cin >> aY >> aM >> aD;
+
+            Pet pet2(name, category, bY, bM, bD, aY, aM, aD);
+            pet2.check_birth();
+            pet2.check_adopt();
+            pet2.print_all_data();
+            break; 
+        }
+        catch (const invalid_argument& e) {
+            cout << "錯誤：" << e.what() << "重新輸入。\n" << endl;
+        }
+    }
+
+
+    while (true) {
+        try {
+            cout << "\n輸入第 3 隻寵物：" << endl;
+            cout << "名字: "; cin >> name;
+            cout << "品種: "; cin >> category;
+            cout << "生日 (年 月 日): "; cin >> bY >> bM >> bD;
+            cout << "領養日 (年 月 日): "; cin >> aY >> aM >> aD;
+
+            Pet pet3(name, category, bY, bM, bD, aY, aM, aD);
+            pet3.check_birth();
+            pet3.check_adopt();
+            pet3.print_all_data();
+            break;
+        }
+        catch (const invalid_argument& e) {
+            cout << "錯誤：" << e.what() << "重新輸入。\n" << endl;
+        }
+    }
+
+    return 0;
+}
+
+
+
+#ifndef PET_H
+#define PET_H
+#include <string>
+#include "date.h"
+
+class Pet {
+public:
+    Pet(std::string n, std::string c, int bY, int bM, int bD, int aY, int aM, int aD);
+    ~Pet(); 
+    void check_birth();
+    void check_adopt();
+    void print_all_data() const;
+
+private:
+    std::string name;
+    std::string category;
+    Date birthday;   
+    Date adoptDate; 
+};
+
+#endif
+
+
+#include <iostream>
+#include <stdexcept>
+#include "pet.h"
+using namespace std;
+
+Pet::Pet(string n, string c, int bY, int bM, int bD, int aY, int aM, int aD)
+    : name(n), category(c), birthday(bY, bM, bD), adoptDate(aY, aM, aD) {
+    check_birth();
+    check_adopt();
+}
+
+Pet::~Pet() {
+    cout << name << " Bye Bye~~" << endl;
+}
+
+void Pet::check_birth() {
+    int age =  adoptDate.getY()-birthday.getY();
+    if (age < 0 || age > 20) {
+       throw invalid_argument("年齡不合 0-20歲");
+    }
+}
+
+void Pet::check_adopt() {
+  
+        if (adoptDate.getY() < birthday.getY() ||
+            (adoptDate.getY() == birthday.getY() && adoptDate.getM() < birthday.getM()))
+        {
+            throw invalid_argument("領養日早於生日不合");
+        }
+}
+
+void Pet::print_all_data() const {
+    cout << "\n名字: " << name << "  品種:" << category << endl;
+    cout << "生日(西元): "; birthday.print(); cout << endl;
+    cout << "生日(民國): "; birthday.printROC(); cout << endl;
+    cout << "領養(西元): "; adoptDate.print(); cout << endl;
+    cout << "領養(民國): "; adoptDate.printROC(); cout << endl;
+}
+
+
+#ifndef DATE_H
+#define DATE_H
+
+class Date {
+public:
+    Date(int y = 2000, int m = 1, int d = 1);
+    void print() const;
+    void printROC() const;
+
+    int getY() const { return year; }
+    int getM() const { return month; }
+    int getD() const { return day; }
+
+    static int isValidDate(int y, int m, int d);
+    static int isLeapYear(int y);
+
+private:
+    int year, month, day;
+};
+
+#endif
+
+
+#include <iostream>
+#include <stdexcept>
+#include "date.h"
+using namespace std;
+
+Date::Date(int y, int m, int d) {
+    if (!isValidDate(y, m, d)) 
+       throw invalid_argument("無效日期");
+    year = y; month = m; day = d;
+}
+
+void Date::print() const {
+    cout << year << "/" << month << "/" << day;
+}
+void Date::printROC() const {
+    cout << year-1911 << "/" << month << "/" << day;
+}
+
+int Date::isValidDate(int y, int m, int d) {
+    static const int days[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (m < 1 || m > 12) 
+        return 0;
+
+    int maxDay = days[m];
+    int maxDay = 29;
+    if (m == 2 && isLeapYear(y)) 
+       return (d >= 1 && d <= maxDay);
+}
+
+int Date::isLeapYear(int y) {
+    return (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0));
+}
