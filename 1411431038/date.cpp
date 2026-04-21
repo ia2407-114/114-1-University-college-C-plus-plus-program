@@ -1,49 +1,39 @@
 #include <iostream>
-#include <stdexcept> 
-#include "Time.h" 
+#include <iomanip>
+#include "Date.h" 
 using namespace std;
 
-int main()
+Date::Date(int year, int month, int day)
 {
-    Time t;
+    setDate(year, month, day);
+}
 
+void Date::setDate(int y, int m, int d)
+{
+    setYear(y);
+    setMonth(m);
+    setDay(d);
+}
 
-    cout << "The initial CE YEAR is ";
-    t.CE_Year();
-    cout << "\nThe initial ROC YEAR is ";
-    t.ROC_Year();
-    cout << "\n\n";
+void Date::setYear(int y) { year = y; }
+void Date::setMonth(int m) { month = m; }
+void Date::setDay(int d) { day = d; }
 
-    int inputYear, inputMonth, inputDay;
-    cout << "請輸入西元年、月、日 : ";
+unsigned int Date::getYear() const { return year; }
+unsigned int Date::getMonth() const { return month; }
+unsigned int Date::getDay() const { return day; }
 
-    if (cin >> inputYear >> inputMonth >> inputDay)
-    {
+void Date::printUniversal() const
+{
+    cout << setfill('0') << setw(4) << getYear() << "/"
+        << setw(2) << getMonth() << "/" << setw(2) << getDay();
+}
 
-        try
-        {
-            t.setTime(inputYear, inputMonth, inputDay);
-            cout << "\n>>> 時間設定成功！\n";
-        }
-        catch (invalid_argument& e)
-        {
+void Date::printStandard() const
+{
+    if (year >= 1912) cout << "民國 " << year - 1911;
+    else cout << "民國前 " << 1912 - year;
 
-            cout << "\n>>> Exception: " << e.what() << endl;
-            cout << ">>> 提示：輸入的日期無效（可能非閏年或超出月份天數），設定失敗。\n";
-        }
-    }
-    else
-    {
-        cout << "\n>>> 輸入格式錯誤！請輸入數字。\n";
-    }
-
-
-    cout << "\n--- 目前的時間狀態 ---"
-        << "\nCE Year: ";
-    t.CE_Year();
-    cout << "\nROC Year: ";
-    t.ROC_Year();
-    cout << endl;
-
-    return 0;
+    cout << " 年 " << setfill('0') << setw(2) << getMonth()
+        << " 月 " << setw(2) << getDay() << " 日";
 }
