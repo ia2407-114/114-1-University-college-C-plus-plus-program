@@ -1,0 +1,109 @@
+//main
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+int main()
+{
+    int y, m, d;
+
+    for (int i = 1; i <= 3; i++)
+    {
+        string name, category;
+
+        cout << "輸入名字: ";
+        cin >> name;
+
+        cout << "輸入品種: ";
+        cin >> category;
+
+        cout << "輸入生日: ";
+        cin >> y >> m >> d;
+        Date birth(y, m, d);
+
+        cout << "輸入收養日: ";
+        cin >> y >> m >> d;
+        Date adopt(y, m, d);
+
+        Pet p(name, category, birth, adopt);
+
+        p.check_birth();
+        p.check_adopt();
+        p.print_all_data();
+    }
+
+    return 0;
+}
+//pet.cpp
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+Pet::Pet(const string& n, const string& c,
+    const Date& b, const Date& a)
+    : name(n),
+    category(c),
+    birthDate(b),
+    adoptDate(a)
+{
+    cout << "Pet constructor: " << name << endl;
+}
+
+void Pet::print_all_data() const
+{
+    cout << "Name: " << name << endl;
+    cout << "Category: " << category << endl;
+
+    cout << "Birthday: ";
+    birthDate.printStandard();
+
+    cout << "  Adopt Date: ";
+    adoptDate.printStandard();
+
+    cout << endl;
+}
+
+void Pet::check_birth() const
+{
+    cout << name << " birthday: ";
+    birthDate.printStandard();
+    cout << endl;
+}
+
+void Pet::check_adopt() const
+{
+    cout << name << " adopt date: ";
+    adoptDate.printStandard();
+    cout << endl;
+}
+
+Pet::~Pet()
+{
+    cout << "Bye Bye~~ " << name << endl;
+}
+//pet.h
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+#include "date.h"
+
+using namespace std;
+
+class Pet
+{
+public:
+    Pet(const string&, const string&, const Date&, const Date&);
+    void print_all_data() const;
+    void check_birth() const;
+    void check_adopt() const;
+    ~Pet();
+
+private:
+    string name;
+    string category;
+    const Date birthDate;
+    const Date adoptDate;
+};
+
+#endif
