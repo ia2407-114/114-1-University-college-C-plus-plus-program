@@ -1,0 +1,212 @@
+//main
+#include <iostream>
+#include "pet.h" // Employee class definition
+using namespace std;
+
+int main()
+{
+	Date birth1(2019,7, 24);
+	Date adopt1(2021, 6, 21);
+    Date birth2(2020, 3, 11);
+    Date adopt2(2020, 12, 25);
+    Date birth3(2019, 5, 24);
+    Date adopt3(2022, 8, 21);
+	PET pet1("Bob", "Dog", birth1, adopt1);
+	PET pet2("Fat", "Parrot", birth2, adopt2);
+	PET pet3("Strong", "Parrot", birth3, adopt3);
+    //
+    printDate(pet1);
+    printDate(pet2);
+    printDate(pet3);
+}
+
+void printDate(PET& p) {
+
+    cout << "寵物名稱：" << p.firstName << endl;
+
+    cout << "生日：";
+    p.birthDate.printStandard(); // 民國格式 
+    cout << " ("; p.birthDate.printUniversal(); cout << ")" << endl;
+
+    cout << "領養日：";
+    p.adoptDate.printStandard();
+    cout << " ("; p.adoptDate.printUniversal(); cout << ")\n" << endl;
+}
+
+
+
+//pet.h
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+#include "Date.h" // include Date class definition
+
+class PET
+{
+//
+friend void printDate(PET&);
+public:
+    PET(const std::string&, const std::string&,
+        const Date&, const Date&);
+    void print() const;
+    ~PET(); // provided to confirm destruction order
+private:
+    std::string firstName; // composition: member object
+    std::string category; // composition: member object
+    const Date birthDate; // composition: member object
+    const Date adoptDate; // composition: member object
+}; // end class PET#pragma once
+#endif
+
+//pet.cpp
+#include <iostream>
+#include "PET.h" // PET class definition
+#include "Date.h" // Date class definition
+using namespace std;
+
+// constructor uses member initializer list to pass initializer 
+// values to constructors of member objects  
+PET::PET(const string& first, const string& last,
+    const Date& dateOfBirth, const Date& dateOfHire)
+    : firstName(first), // initialize firstName
+    category(last), // initialize lastName
+    birthDate(dateOfBirth), // initialize birthDate
+    adoptDate(dateOfHire) // initialize adoptDate
+{
+    // output PET object to show when constructor is called
+} // end PET constructor
+
+// print PET object
+void PET::print() const
+{
+    cout << category << ", " << firstName << "  Adopted: ";
+    adoptDate.printStandard();
+    adoptDate.printUniversal();
+    cout << "  Birthday: ";
+    birthDate.printStandard();
+    birthDate.printUniversal();
+    cout << endl;
+} // end function print
+
+// output PET object to show when its destructor is called
+PET::~PET()
+{
+    cout << "\n PET object destructor: "
+        << category << ", " << firstName << endl;
+} // end ~PET destructor
+
+
+
+//date.h
+#ifndef DATE_H
+#define DATE_H
+
+// Time class definition
+class Date
+{
+public:
+	explicit Date(int = 1900, int = 1, int = 1); // default constructor
+
+	// set functions
+	void setDate(int, int, int); // set hour, minute, second
+	void setYear(int); // set hour (after validation)
+	void setMonth(int); // set minute (after validation)
+	void setDay(int); // set second (after validation)
+
+	// get functions
+	unsigned int getYear() const; // return hour
+	unsigned int getMonth() const; // return minute
+	unsigned int getDay() const; // return second
+
+	void printUniversal() const; // BC date in universal-time format
+	void printStandard() const; // R.O.C date time in standard-time format
+private:
+	unsigned int year; // 0 - 23 (24-hour clock format)
+	unsigned int month; // 0 - 59
+	unsigned int day; // 0 - 59
+}; // end class Time
+
+#endif
+
+
+//date.cpp
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "date.h" // include definition of class Date from Date.h
+using namespace std;
+
+// Date constructor initializes each data member 
+Date::Date(int year, int month, int day)
+{
+    setDate(year, month, day); // validate and set Date
+} // end Date constructor
+
+// set new Date value using universal Date
+void Date::setDate(int y, int m, int d)
+{
+    setYear(y); // set private field hour
+    setMonth(m); // set private field minute
+    setDay(d); // set private field second
+} // end function setDate
+
+// set hour value
+void Date::setYear(int y)
+{
+    if (y >= 1 && y < 9999)
+        year = y;
+    else
+        cout<<"year must be 0-9999";
+} // end function setHour
+
+// set minute value
+void Date::setMonth(int m)
+{
+    if (m > 0 && m < 13)
+        month = m;
+    else
+        cout << "month must be 1-12";
+} // end function setMinute
+
+// set second value
+void Date::setDay(int d)
+{
+    if (d > 0 && d < 32)
+        day = d;
+    else
+        cout<<"day must be 1-31";
+} // end function setSecond
+
+// return hour value
+unsigned int Date::getYear() const
+{
+    return year;
+} // end function getHour
+
+// return minute value
+unsigned int Date::getMonth() const
+{
+    return month;
+} // end function getMinute
+
+// return second value
+unsigned int Date::getDay() const
+{
+    return day;
+} // end function getSecond
+
+// print Date in universal-Date format (HH:MM:SS)
+void Date::printUniversal() const
+{
+    cout << "  西元"<< setfill('0') << setw(2) << getYear() << "/"
+        << setw(2) << getMonth() << "/" << setw(2) << getDay();
+} // end function printUniversal
+
+// print Date in standard-Date format (HH:MM:SS AM or PM)
+void Date::printStandard() const
+{
+    cout << (year < 1911 ? "民國前 " : "民國 ") << ((getYear() > 1911 ? year - 1911 : 1911 - year))
+        << "/" << setfill('0') << setw(2) << getMonth()
+        << "/" << setw(2) << getDay();
+}
