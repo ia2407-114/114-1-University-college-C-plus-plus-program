@@ -1,32 +1,50 @@
 #include <iostream>
-#include "pet.h"
+#include "PET.h" // PET class definition
+#include "Date.h" // Date class definition
 using namespace std;
 
-Pet::Pet(string n, string c, Date b, Date a)
-    : name(n), category(c), birthday(b), adoptDate(a) {
-}
+// constructor uses member initializer list to pass initializer 
+// values to constructors of member objects  
+PET::PET(const string& first, const string& last,
+    const Date& dateOfBirth, const Date& dateOfHire)
+    : firstName(first), // initialize firstName
+    category(last), // initialize lastName
+    birthDate(dateOfBirth), // initialize birthDate
+    adoptDate(dateOfHire) // initialize adoptDate
+{
+    // output PET object to show when constructor is called
+    cout << "PET object constructor: "
+        << firstName << ' ' << category << endl;
+} // end PET constructor
+//  printDate (Friend Function)
+void printDate(const PET& p)
+{
+    cout << "\n[Friend Function Output]" << endl;
+    cout << "Pet: " << p.firstName << " (" << p.category << ")" << endl;
 
-Pet::~Pet() {
-    cout << "Pet " << name << " Bye Bye~~" << endl;
-}
+    cout << "  Birthday: ";
+    p.birthDate.printStandard(); //  birthDate
 
-void Pet::check_birth() const {
-    cout << "Birthday Check: " << endl;
-    cout << "  "; birthday.printUniversal(); cout << endl;
-    cout << "  "; birthday.printStandard(); cout << endl;
+    cout << "\n  Adopted: ";
+    p.adoptDate.printStandard(); //  adoptDate
+    cout << endl;
 }
+// print PET object
+void PET::print() const
+{
+    cout << category << ", " << firstName << "  Adopted: ";
+    adoptDate.printStandard();
+    adoptDate.printUniversal();
+    cout << "  Birthday: ";
+    birthDate.printStandard();
+    birthDate.printUniversal();
+    cout << endl;
+} // end function print
 
-void Pet::check_adopt() const {
-    cout << "Adoption Date Check: " << endl;
-    cout << "  "; adoptDate.printUniversal(); cout << endl;
-    cout << "  "; adoptDate.printStandard(); cout << endl;
-}
-
-void Pet::print_all_data() const {
-    cout << "\n======= Pet Detailed Data =======" << endl;
-    cout << "Name: " << name << endl;
-    cout << "Category: " << category << endl;
-    check_birth();
-    check_adopt();
-    cout << "=================================" << endl;
-}
+// output PET object to show when its destructor is called
+PET::~PET()
+{
+    print();
+    cout << "\n PET object destructor: "
+        << category << ", " << firstName << endl;
+} // end ~PET destructor

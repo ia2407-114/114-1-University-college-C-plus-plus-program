@@ -1,37 +1,25 @@
 #include <iostream>
-#include <string>
-#include "pet.h"
+#include "pet.h" // Employee class definition
 using namespace std;
 
-int main() {
-    int y, m, d;
-    // Pre-defined names and categories as requested
-    string names[3] = { "Buddy", "Kitty", "Lucky" };
-    string cats[3] = { "Golden Retriever", "Persian Cat", "Holland Lop" };
+int main()
+{
+	Date birth(2019, 7, 24);
+	Date adopt(2021, 12, 21);
+	PET pet1("Bob", "Dog", birth, adopt);
+	PET pet2("Fat", "Parrot", birth, adopt);
+	PET pet3("Strong", "Parrot", birth, adopt);
 
-    for (int i = 0; i < 3; ++i) {
-        try {
-            cout << "\nInput date data for " << names[i] << " (" << cats[i] << "):" << endl;
+	cout << endl;
+	pet1.print();
+	pet2.print();
+	pet3.print();
+	
+	
+	printDate(pet1);
+	printDate(pet2);
+	printDate(pet3);
 
-            cout << "Enter Birthday (YYYY MM DD): ";
-            cin >> y >> m >> d;
-            Date birth(y, m, d);
+	return 0; 
 
-            cout << "Enter Adoption Date (YYYY MM DD): ";
-            cin >> y >> m >> d;
-            Date adopt(y, m, d);
-
-            // Construct and display
-            Pet myPet(names[i], cats[i], birth, adopt);
-            myPet.print_all_data();
-
-            // Destructor triggers at the end of each iteration
-        }
-        catch (invalid_argument& e) {
-            cerr << "Error: " << e.what() << ". Please re-enter for this pet." << endl;
-            --i;
-        }
-    }
-
-    return 0;
-}
+} // end main
