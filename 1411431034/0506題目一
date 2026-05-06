@@ -1,0 +1,116 @@
+//主程式
+#include <iostream>
+#include "Matrix.h"
+
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "矩陣元素開平方根測試\n";
+    cout << "輸入列數(row): ";
+    cin >> r;
+    cout << "輸入行數(column): ";
+    cin >> c;
+
+    Matrix a(r, c);
+    cout << "輸入 " << r << "x" << c << " 矩陣 A 的元素：\n";
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            cout << "A[" << i << "][" << j << "]=";
+            cin >> a.element[i][j];
+        }
+    }
+
+    Matrix result = !a;
+
+    cout << "\n原始矩陣 A:\n";
+    a.display();
+
+    cout << "\n執行 !a 後的結果:\n";
+    result.display();
+
+    return 0;
+}
+//實作檔
+#include <iostream>
+#include <math.h> // 為了使用 sqrt()
+#include "Matrix.h"
+
+using namespace std;
+
+
+Matrix::Matrix(int m, int n){
+    column = n;
+    row = m;
+    element = new double* [row];
+    for (int i = 0; i < row; i++) {
+        element[i] = new double[column];
+    }
+}
+
+Matrix::~Matrix() {
+    for (int i = 0; i < row; i++) delete[] element[i];
+    delete[] element;
+}
+
+Matrix::Matrix(const Matrix& other){
+    column = other.column;
+    row = other.row;
+    element = new double* [row];
+    for (int i = 0; i < row; i++) {
+        element[i] = new double[column];
+        for (int j = 0; j < column; j++)
+            element[i][j] = other.element[i][j];
+    }
+}
+Matrix& Matrix::operator=(const Matrix& other) {
+    if (this == &other) return *this;
+    for (int i = 0; i < row; i++) delete[] element[i];
+    delete[] element;
+
+    row = other.row; column = other.column;
+    element = new double* [row];
+    for (int i = 0; i < row; i++) {
+        element[i] = new double[column];
+        for (int j = 0; j < column; j++)
+            element[i][j] = other.element[i][j];
+    }
+    return *this;
+}
+
+
+Matrix Matrix::operator!() {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            temp.element[i][j] = sqrt(this->element[i][j]);
+        }
+    }
+    return temp;
+}
+void Matrix::display() {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++)
+            cout << element[i][j];
+        cout << endl;
+    }
+}
+//介面檔
+#ifndef MATRIX_H
+#define MATRIX_H
+
+class Matrix {
+public:
+    int row, column;
+    double** element; 
+
+    Matrix(int m, int n);
+    ~Matrix(); 
+    Matrix(const Matrix& other);
+    Matrix& operator=(const Matrix& other);
+    Matrix operator!();
+
+    void display(); 
+};
+
+#endif
