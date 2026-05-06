@@ -1,0 +1,230 @@
+//001&002
+
+//main
+#include <iostream>
+#include "Matrix.h"
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "--- 矩陣運算子多載測試 ---" << endl;
+    cout << "請輸入矩陣列數 (row): ";
+    cin >> r;
+    cout << "請輸入矩陣行數 (column): ";
+    cin >> c;
+
+    Matrix a(r, c);
+
+    cout << "請輸入矩陣元素內容：" << endl;
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            double val;
+            cout << "A[" << i << "][" << j << "]=";
+            cin >> val;
+            a.setElement(i, j, val);
+        }
+    }
+
+    // 呼叫前序運算子 (題目1)
+    !a;
+
+    // 呼叫後序運算子 (題目2)
+    a++;
+
+    return 0;
+}
+
+//介面p
+#ifndef MATRIX_H
+#define MATRIX_H
+
+class Matrix {
+public:
+    // 建構子與解構子 
+    Matrix(int r, int c);
+    ~Matrix();
+
+    // 題目1：前序運算子 (!a)，印出平方根
+    void operator!() const;
+
+    // 題目2要求：後序一元運算子多載 (a++)
+    // 注意：參數列中的 int 是為了與前序區分之語法規範 
+    void operator++(int);
+
+    // 設定矩陣元素功能
+    void setElement(int i, int j, double value);
+
+private:
+    int row;
+    int column;
+    double** element; // 使用 double 型態 
+};
+
+#endif
+
+//實作cpp
+#include <iostream>
+#include <iomanip>
+#include <cmath> // 用於 pow 函式 
+#include "Matrix.h"
+using namespace std;
+
+// 建構子：動態配置二維陣列 
+Matrix::Matrix(int r, int c) : row(r), column(c) {
+    element = new double* [row];
+    for (int i = 0; i < row; ++i) {
+        element[i] = new double[column];
+    }
+}
+
+// 解構子：釋放記憶體 
+Matrix::~Matrix() {
+    for (int i = 0; i < row; ++i) {
+        delete[] element[i];
+    }
+    delete[] element;
+}
+
+void Matrix::setElement(int i, int j, double value) {
+    if (i >= 0 && i < row && j >= 0 && j < column) {
+        element[i][j] = value;
+    }
+}
+
+// 實作題目1：!a (平方根結果)
+void Matrix::operator!() const {
+    cout << "\n[執行 !a] 矩陣各元素之平方根結果：" << endl;
+    for (int i = 0; i < row; ++i) {
+        for (int j = 0; j < column; ++j) {
+            cout << fixed << setprecision(2) << sqrt(element[i][j]) << "\t";
+        }
+        cout << endl;
+    }
+}
+
+// 實作題目2：a++ (2 次方結果)
+void Matrix::operator++(int) {
+    cout << "\n[執行 a++] 矩陣各元素之 2 次方 (平方) 結果：" << endl;
+    for (int i = 0; i < row; ++i) {
+        for (int j = 0; j < column; ++j) {
+            // 使用 pow(x, 2) 或直接 element[i][j] * element[i][j] [145, p.192]
+            double result = pow(element[i][j], 2.0);
+            cout << fixed << setprecision(2) << result << "\t";
+        }
+        cout << endl;
+    }
+}
+
+
+//003
+
+//main
+#include <iostream>
+#include "Matrix.h"
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "--- 矩陣減法運算子 (-) 測試 ---" << endl;
+    cout << "輸入矩陣的列數 (row): "; cin >> r;
+    cout << "輸入矩陣的行數 (column): "; cin >> c;
+
+    // 建立兩個矩陣物件
+    Matrix a(r, c);
+    Matrix b(r, c);
+
+    cout << "\n請輸入矩陣 A 的內容：" << endl;
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            double val;
+            cout << "A[" << i << "][" << j << "]="; cin >> val;
+            a.setElement(i, j, val);
+        }
+    }
+
+    cout << "\n請輸入矩陣 B 的內容：" << endl;
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            double val;
+            cout << "B[" << i << "][" << j << "]="; cin >> val;
+            b.setElement(i, j, val);
+        }
+    }
+
+    // 呼叫二元運算子多載
+    a - b;
+
+    return 0;
+}
+
+//介面p
+#ifndef MATRIX_H
+#define MATRIX_H
+
+class Matrix {
+public:
+    // 建構子與解構子 
+    Matrix(int r, int c);
+    ~Matrix();
+
+    // 題目要求：二元運算子多載 (a - b)
+    // 用途：將矩陣 a 減去矩陣 b 並印出結果
+    void operator-(const Matrix& other) const;
+
+    // 設定矩陣元素功能
+    void setElement(int i, int j, double value);
+
+private:
+    int row;
+    int column;
+    double** element; 
+};
+
+#endif
+
+//實作cpp
+#include <iostream>
+#include <iomanip>
+#include "Matrix.h"
+using namespace std;
+
+// 建構子：執行動態記憶體配置
+Matrix::Matrix(int r, int c) : row(r), column(c) {
+    element = new double* [row];
+    for (int i = 0; i < row; ++i) {
+        element[i] = new double[column];
+    }
+}
+
+// 解構子：釋放動態配置的記憶體 
+Matrix::~Matrix() {
+    for (int i = 0; i < row; ++i) {
+        delete[] element[i];
+    }
+    delete[] element;
+}
+
+void Matrix::setElement(int i, int j, double value) {
+    if (i >= 0 && i < row && j >= 0 && j < column) {
+        element[i][j] = value;
+    }
+}
+
+// 實作二元運算子 
+void Matrix::operator-(const Matrix& other) const {
+    // 檢查兩矩陣維度是否相同 (基礎驗證)
+    if (this->row != other.row || this->column != other.column) {
+        cout << "錯誤：矩陣維度不符，無法相減！" << endl;
+        return;
+    }
+
+    cout << "\n執行[矩陣 A] - [矩陣 B] 的結果如下：" << endl;
+    for (int i = 0; i < row; ++i) {
+        for (int j = 0; j < column; ++j) {
+            // 執行減法運算並印出結果
+            double result = this->element[i][j] - other.element[i][j];
+            cout << fixed << setprecision(2) << result << "\t";
+        }
+        cout << endl;
+    }
+}
