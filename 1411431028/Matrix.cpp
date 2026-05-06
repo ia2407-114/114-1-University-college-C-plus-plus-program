@@ -2,28 +2,26 @@
 #include "Matrix.h"
 using namespace std;
 
+
 int main()
 {
     int i, j, row, column;
-    cout << "重新定義「-」前置運算子的多載，求A矩陣的副矩陣(-A)：\n";
-    cout << "輸入矩陣A的列數(row):";
+    cout << "重新定義「+」(加號)運算子多載，使其能應用在矩陣加法上\n";
+    cout << "輸入矩陣A及B的列數(row):";
     cin >> row;
-    cout << "輸入矩陣A的行數(column):";
+    cout << "輸入矩陣A及B的行數(column):";
     cin >> column;
-    Matrix a(row, column), b(row, column);
-    cout << "輸入一" << row << 'x' << column << "矩陣A" << endl;
-    for (i = 0; i < row; i++)
-        for (j = 0; j < column; j++)
-        {
-            cout << "A[" << i << "][" << j << "]=";
-            cin >> a.element[i][j];
-        }
-    b = a++;
-    cout << "矩陣A的平方根矩陣(!A):\n";
+    Matrix a('A', row, column);
+    Matrix b('B', row, column);
+    Matrix c(row, column);
+
+    c = a + b;  // 矩陣A + 矩陣B
+
+    cout << "矩陣A + 矩陣B = \n";
     for (i = 0; i < row; i++)
     {
         for (j = 0; j < column; j++)
-            cout << b.element[i][j] << '\t';
+            cout << c.element[i][j] << '\t';
         cout << endl;
     }
 
