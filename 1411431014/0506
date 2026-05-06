@@ -1,0 +1,82 @@
+//Matrix.cpp
+#include <iostream>
+#include <cmath>
+#include"Matrix.h"
+
+Matrix::Matrix(int m, int n)
+{
+    row = m;
+    column = n;
+    element = new float* [m];
+    int i, j;
+    for (i = 0; i < m; i++)
+        element[i] = new float[n];
+}
+
+Matrix Matrix::operator!()
+{
+    Matrix temp(row, column);
+    int i, j;
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            temp.element[i][j] = sqrt(this->element[i][j]);
+    return temp;
+}
+
+//Matrix.h
+#pragma once
+#ifndef MATRIX_H
+#define MATRIX_H
+class Matrix
+{
+public:
+    int row, column;
+    float** element;
+
+    Matrix(int m, int n);
+    Matrix operator!();
+};
+#endif
+
+//main
+#include <iostream>
+#include <cmath>
+#include"Matrix.h"
+using namespace std;
+
+int main()
+{
+    int i, j, row, column;
+    cout << "輸入矩陣A的列數(row):";
+    cin >> row;
+    cout << "輸入矩陣A的行數(column):";
+    cin >> column;
+    Matrix a(row, column), b(row, column);
+    cout << "輸入一" << row << 'x' << column << "矩陣A" << endl;
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+        {
+            cout << "A[" << i << "][" << j << "]=";
+            cin >> a.element[i][j];
+        }
+
+    cout << "矩陣A的內容:\n";
+    for (i = 0; i < row; i++)
+    {
+        for (j = 0; j < column; j++)
+            cout << a.element[i][j] << '\t';
+        cout << endl;
+    }
+
+    b = !a;
+    cout << "矩陣A開根號後的結果:\n";
+    for (i = 0; i < row; i++)
+    {
+        for (j = 0; j < column; j++)
+            cout << b.element[i][j] << '\t';
+        cout << endl;
+    }
+
+
+    return 0;
+}
