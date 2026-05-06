@@ -18,8 +18,8 @@ int main()
             cout << "A[" << i << "][" << j << "]=";
             cin >> a.element[i][j];
         }
-    b = !a;
-    cout << "矩陣A的平方根矩陣(-A):\n";
+    b = a++;
+    cout << "矩陣A的平方根矩陣(!A):\n";
     for (i = 0; i < row; i++)
     {
         for (j = 0; j < column; j++)
