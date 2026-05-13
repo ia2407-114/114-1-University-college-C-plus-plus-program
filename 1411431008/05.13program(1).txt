@@ -1,0 +1,109 @@
+#ifndef TIME_H
+#define TIME_H
+
+#include <iostream>
+
+class Time
+{
+	friend std::ostream& operator<<(std::ostream&, const Time&);
+public:
+	Time(int h = 12, int m = 42, int s = 8); 
+	void setTime(int, int, int);
+	Time& operator++(); 
+	Time operator++(int);
+	Time& operator+=(unsigned int);
+private:
+	unsigned int hour;
+	unsigned int minute;
+	unsigned int second;
+	void helpIncrement();
+};
+
+#endif
+
+
+
+#include <iostream>
+#include <iomanip>
+#include "Time.h"
+using namespace std;
+
+Time::Time(int h, int m, int s)
+{
+    setTime(h, m, s);
+}
+
+void Time::setTime(int h, int m, int s)
+{
+    hour = (h >= 0 && h < 24) ? h : 0;
+    minute = (m >= 0 && m < 60) ? m : 0;
+    second = (s >= 0 && s < 60) ? s : 0;
+}
+
+Time& Time::operator++()
+{
+    helpIncrement();
+    return *this;
+}
+
+Time Time::operator++(int)
+{
+    Time temp = *this;
+    helpIncrement();
+    return temp; 
+}
+
+Time& Time::operator+=(unsigned int additionalSeconds)
+{
+    for (unsigned int i = 0; i < additionalSeconds; ++i)
+    {
+        helpIncrement(); 
+    }
+
+    return *this; 
+}
+
+
+
+void Time::helpIncrement()
+{
+    if (++second == 60)
+    {
+        second = 0;
+        if (++minute == 60)
+        {
+            minute = 0;
+            if (++hour == 24)
+                hour = 0;
+        }
+    }
+}
+
+ostream& operator<<(ostream& output, const Time& t)
+{
+    output << t.hour << ":" << t.minute << ":" << t.second;
+    return output;
+}
+
+
+
+#include <iostream>
+#include "Time.h"
+using namespace std;
+
+int main()
+{
+	Time time1(8, 24, 36);
+
+	cout << "Initial time1: " << time1 << endl;
+
+	cout << "Testing postfix (time1++): " << time1++ << endl;
+	cout << "After postfix, time1 is: " << time1 << endl;
+
+	cout << "Testing prefix (++time1): " << ++time1 << endl;
+	
+	time1 += 70;
+	cout << "After time1 += 70: " << time1 << endl;
+
+	return 0;
+}

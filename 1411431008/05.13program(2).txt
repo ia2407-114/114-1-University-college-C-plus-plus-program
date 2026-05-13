@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Pet {
+private:
+    string name;
+    int age;
+
+public:
+    
+    Pet() {
+        cout << "請輸入寵物姓名: ";
+        cin >> name;
+        cout << "請輸入寵物年齡: ";
+        cin >> age;
+    }
+
+    ~Pet() {
+        cout << "午安 晚安\n";
+    }
+
+    void display() {
+        cout << "\n寵物基本資料" << endl;
+        cout << "姓名: " << name << endl;
+        cout << "年齡: " << age << " 歲" << endl;
+    }
+};
+
+
+class Dog : public Pet {
+private:
+    int weightdog;   
+    float fooddog;   
+
+public:
+    Dog() {
+        cout << "\n執行子類別 Dog \n";
+        cout << "輸入狗狗的體重kg: ";
+        cin >> weightdog;
+        cout << "輸入每日餵食狗糧多少g: ";
+        cin >> fooddog;
+    }
+
+    ~Dog() {
+        cout << " Dog 早安\n";
+    }
+
+    void display_dog() {
+        cout << "狗狗體重: " << weightdog << " 公斤" << endl;
+        cout << "狗狗食量: " << fooddog << " 公克" << endl;
+    }
+};
+
+
+class Bird : public Pet {
+private:
+    int eggCount;      
+    float sleepbird;    
+
+public:
+    Bird() {
+        cout << "\n執行子類別 Bird \n";
+        cout << "輸入生幾顆蛋: ";
+        cin >> eggCount;
+        cout << "輸入睡幾小時: ";
+        cin >> sleepbird;
+    }
+
+    ~Bird() {
+        cout << " Bird 早安\n";
+    }
+
+    void display_bird() {
+        cout << "生蛋數量: " << eggCount << " 顆" << endl;
+        cout << "睡眠時間: " << sleepbird << " 小時" << endl;
+    }
+};
+
+
+int main() {
+    cout << "建立狗資料" << endl;
+    Dog myDog;
+    myDog.display();        
+    myDog.display_dog();    
+
+    cout << "\n建立鳥資料" << endl;
+    Bird myBird;
+    myBird.display();      
+    myBird.display_bird();
+
+    return 0;
+}
