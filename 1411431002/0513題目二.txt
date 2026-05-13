@@ -1,0 +1,103 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class PET
+{
+private:
+    string name; 
+    string gender;
+    int age; 
+    int birthDay;
+    int adoptDay;
+public:      
+    PET()
+    {
+        cout << "----寵物基本資料輸入----" << endl;
+        cout << "姓名:";
+        cin >> name;
+        cout << "性別:";
+        cin >> gender;
+        cout << "年齡:";
+        cin >> age;
+    }
+
+    ~PET()
+    {
+        cout << "執行父類別PET的解構元函式.\n";
+    }
+    void display()
+    {
+        cout << "----寵物基本資料輸出----" << endl;
+        cout << "\n名稱:" << name << endl;
+        cout << "性別:" << gender << endl;
+        cout << "年齡:" << age << endl;
+    }
+};
+
+class DOG :public PET
+{
+private:
+    int kids;
+    int run; 
+
+public:
+    DOG()
+    {
+        cout << "\n----DOG的基本資料輸入----" << endl;
+        cout << "產仔數量:";
+        cin >> kids;
+        cout << "奔跑速度:";
+        cin >> run;
+        cout << endl;
+    }
+
+    ~DOG()
+    {
+        cout << "執行子類別DOG的解構元函式.\n";
+    }
+    void display()
+    {
+        cout << "\n----DOG的基本資料輸出----" << endl;
+        cout << "產仔數量:" << kids << endl;
+        cout << "奔跑速度:" << run << endl;
+    }
+};
+
+class Bird :public PET
+{
+private:
+    int kids;
+    int fly; 
+
+public:
+    Bird()
+    {
+        cout << "\n----Bird的基本資料輸入----" << endl;
+        cout << "生蛋數量:";
+        cin >> kids;
+        cout << "飛行速度:";
+        cin >> fly;
+    }
+    ~Bird()
+    {
+        cout << "執行子類別Bird的解構元函式.\n";
+    }
+
+    void display()
+    {
+        cout << "\n----Bird的基本資料輸出----" << endl;
+        cout << "生蛋數量:" << kids << endl;
+        cout << "飛行速度:" << fly << endl;
+    }
+};
+
+int main()
+{
+    DOG dog1;
+    Bird bird1;
+    dog1.PET::display();
+    dog1.display();
+    bird1.display();
+    return 0;
+}
