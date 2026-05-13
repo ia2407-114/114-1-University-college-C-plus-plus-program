@@ -1,0 +1,142 @@
+主程式
+#include <iostream>
+#include "Dog.h"
+#include "Bird.h"
+using namespace std;
+
+int main() {
+   
+    cout << "建立狗狗資料" << endl;
+    Dog myDog;
+    myDog.display();
+    myDog.display_dog();
+
+    cout << "\n\n";
+
+    
+    cout << "建立小鳥資料" << endl;
+    Bird myBird;
+    myBird.display();
+    myBird.display_bird();
+
+    cout << endl;
+    return 0;
+}
+寵物實作
+#include <iostream>
+#include "Pet.h"
+using namespace std;
+
+Pet::Pet() {
+    cout << "執行父類別 Pet 的建構子\n";
+    cout << "請輸入寵物姓名: ";
+    cin >> name;
+    cout << "請輸入寵物年齡: ";
+    cin >> age;
+}
+
+Pet::~Pet() {
+    cout << "執行父類別 Pet 的解構子\n";
+}
+
+void Pet::display() const {
+    cout << "\n--- 寵物基本資料 ---" << endl;
+    cout << "姓名: " << name << endl;
+    cout << "年齡: " << age << " 歲" << endl;
+}
+寵物標頭
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+
+class Pet {
+public:
+    Pet();         
+    ~Pet(); 
+    void display() const;
+
+private:
+    std::string name;
+    int age;
+};
+
+#endif
+狗實作
+#include <iostream>
+#include "Dog.h"
+using namespace std;
+
+Dog::Dog() {
+    cout << "\n執行子類別 Dog 的建構子\n";
+    cout << "請輸入產仔數量: ";
+    cin >> litter_size;
+    cout << "請輸入奔跑速度 (km/h): ";
+    cin >> run_speed;
+}
+
+Dog::~Dog() {
+    cout << "執行子類別 Dog 的解構子\n";
+}
+
+void Dog::display_dog() const {
+    cout << "產仔數量: " << litter_size << " 隻" << endl;
+    cout << "奔跑速度: " << run_speed << " km/h" << endl;
+}
+狗標頭
+#ifndef DOG_H
+#define DOG_H
+
+#include "Pet.h"
+
+class Dog : public Pet {
+public:
+    Dog();
+    ~Dog();
+    void display_dog() const;
+
+private:
+    int litter_size;
+    float run_speed;
+};
+
+#endif
+鳥實作
+#include <iostream>
+#include "Bird.h"
+using namespace std;
+
+Bird::Bird() {
+    cout << "\n執行子類別 Bird 的建構子\n";
+    cout << "請輸入生蛋數量: ";
+    cin >> egg_count;
+    cout << "請輸入飛行速度 (km/h): ";
+    cin >> fly_speed;
+}
+
+Bird::~Bird() {
+    cout << "執行子類別 Bird 的解構子\n";
+}
+
+void Bird::display_bird() const {
+    cout << "生蛋數量: " << egg_count << " 顆" << endl;
+    cout << "飛行速度: " << fly_speed << " km/h" << endl;
+}
+鳥標頭
+#ifndef BIRD_H
+#define BIRD_H
+
+#include "Pet.h"
+
+class Bird : public Pet {
+public:
+    Bird();
+    ~Bird();
+    void display_bird() const;
+
+private:
+    int egg_count;
+    float fly_speed;
+};
+
+#endif
