@@ -1,0 +1,197 @@
+//001
+//main
+#include <iostream>
+#include "time.h"
+#include "time.cpp"
+using namespace std;
+
+
+int main()
+{
+    Time time1(8, 24, 36);
+
+    cout << "初始時間: " << time1 << endl;
+
+    // 呼叫後序運算子
+    // 根據來源定義，此運算式結果為「增加前」的值 [13, 23]
+    cout << "time1++ is: " << time1++ << endl;
+
+    // 再次印出物件，確認內部已增加一秒
+    cout << "time1 is: " << time1 << endl;
+
+    return 0;
+} // end main
+//time.h
+#ifndef TIME_H
+#define TIME_H
+
+#include <array>
+#include <iostream>
+
+class Time
+{
+	friend std::ostream& operator<<(std::ostream&, const Time&);
+public:
+	Time(int h = 0, int m = 0, int s = 0); // default constructor
+	void setTime(int, int, int); // set hour, minute, second
+	// 建構子，包含時、分、秒初始化 [25, 26]
+
+	// 題目要求：後序一元運算子多載 (time++)
+	// int 為虛設參數，用於與前序區分 [13, 19, 27]
+	Time operator++(int);
+private:
+	unsigned int hour;
+	unsigned int minute;
+	unsigned int second;
+	void helpIncrement(); // utility function for incrementing Time
+}; // end class Time
+
+#endif
+
+//time.cpp
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include "time.h"
+using namespace std;
+
+// initialize static member; one classwide copy
+/*const array< unsigned int, 13 > Time::seconds =
+{ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };*/
+
+// Time constructor
+Time::Time(int minute, int second, int hour)
+{
+    setTime(minute, second, hour);
+} // end Time constructor
+
+// set minute, second and hour
+void Time::setTime(int h, int m, int s)
+{
+    if (m >= 0 && m <= 60)
+        minute = m;
+    else
+        throw invalid_argument("minute must be 0-60");
+
+    if (h >= 1 && h <= 24)
+        hour = h;
+    else
+        throw invalid_argument("hour must be1-24");
+
+    // test for a leap hour
+    if (s >= 0 && s <= 60)
+        second = s;
+    else
+        throw invalid_argument(
+            "second is out of range for current minute and hour");
+} // end function setTime
+
+void Time::helpIncrement() {
+    if (++second >= 60) {
+        second = 0;
+        if (++minute >= 60) {
+            minute = 0;
+            if (++hour >= 24) {
+                hour = 0;
+            }
+        }
+    }
+}
+
+// 多載輸出運算子，格式為 H:M:S [15]
+ostream& operator<<(ostream& output, const Time& t) {
+    output << t.hour << ":"
+        << setfill('0') << setw(2) << t.minute << ":"
+        << setw(2) << t.second;
+    return output;
+}
+  
+Time Time::operator++(int) {
+    Time temp = *this; // 1. 先儲存目前的物件狀態 [6, 22]
+    helpIncrement();    // 2. 呼叫輔助函數增加一秒
+    return temp;        // 3. 回傳增加前的原始物件 (值回傳) [21, 22]
+}
+
+
+
+
+
+
+//002
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class pet {
+public:
+
+    pet(string n, int a) : name(n), age(a) {
+        cout << "PET物件 [" << name << "] 已建立" << endl;
+    }
+    ~pet() {
+        cout << "Bye Bye ! " << name << endl;
+    }
+    void printPetData() const {
+        cout << "姓名：" << name << " , 年齡：" << age << " 歲" << endl;
+    }
+
+private:
+    string name;
+    int age;
+};
+
+
+class dog : public pet {
+public:
+    
+    dog(string n, int a, int p, double s)
+        : pet(n, a), pupCount(p), runSpeed(s) {}
+
+    // 衍生類別專屬列印函數 
+    void printDogData() const {
+        cout << "--- 犬類詳細資料 ---" << endl;
+        printPetData(); // 呼叫繼承來的基礎類別函數 
+        cout << "專屬特色：產仔數量 " << pupCount << " 隻 , 奔跑速度 " << runSpeed << " km/h" << endl;
+    }
+
+private:
+    // 自身特色資料成員
+    int pupCount;     // 產仔數量
+    double runSpeed;  // 奔跑速度
+};
+
+class bird : public pet {
+public:
+    // 建構子
+    bird(string n, int a, int e, double s)
+        : pet(n, a), eggCount(e), flySpeed(s) {}
+
+    // 衍生類別專屬列印函數 
+    void printBirdData() const {
+        cout << "--- 鳥類詳細資料 ---" << endl;
+        printPetData();
+        cout << "專屬特色：生蛋數量 " << eggCount << " 顆 , 飛行速度 " << flySpeed << " km/h" << endl;
+    }
+
+private:
+    // 自身特色資料成員
+    int eggCount;     // 生蛋數量
+    double flySpeed;  // 飛行速度
+};
+
+int main() {
+    // 建立 dog 物件並初始化
+    dog myDog("Lucky", 3, 6, 35.0);
+    myDog.printDogData();
+
+    cout << endl;
+
+    // 建立 bird 物件並初始化
+    bird myBird("Bluey", 1, 4, 50.0);
+    myBird.printBirdData();
+
+    cout << endl;
+
+    return 0; 
+}
