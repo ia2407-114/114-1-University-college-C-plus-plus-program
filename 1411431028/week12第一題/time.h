@@ -1,0 +1,27 @@
+#ifndef TIME_H
+#define TIME_H
+
+#include <iostream>
+#include <iomanip>
+
+class Time
+{
+    
+    friend std::ostream& operator<<(std::ostream&, const Time&);
+public:
+    Time(int h = 0, int m = 0, int s = 0); 
+    void setTime(int, int, int);           
+
+    Time& operator++();    
+    Time operator++(int);  
+    Time& operator+=(unsigned int); 
+
+private:
+    unsigned int hour;  
+    unsigned int minute; 
+    unsigned int second; 
+
+    void helpIncrement(); 
+};
+
+#endif
