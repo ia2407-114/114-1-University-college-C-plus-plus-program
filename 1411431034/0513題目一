@@ -1,0 +1,110 @@
+//主程式
+
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "time.h"
+
+using namespace std;
+
+int main() {
+    Time t1(23, 59, 58);
+    cout << "最初值: " << t1 << endl;
+    cout << "++t1: " << ++t1 << endl; // 23:59:59
+    cout << "++t1: " << ++t1 << " (下一天)" << endl; // 00:00:00
+
+    t1 += 120; // 增加 120 秒 (2 分鐘)
+    cout << "After += 120s: " << t1 << endl; // 00:02:00
+}
+
+//實作檔
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "time.h"
+using namespace std;
+
+Time::Time(int h, int m, int s) {
+    setTime(h, m, s);
+}
+
+void Time::setTime(int h, int m, int s) {
+    if (h >= 0 && h < 24) 
+        hour = h;
+    else throw invalid_argument("Hour must be 0-23");
+
+    if (m >= 0 && m < 60) 
+        minute = m;
+    else throw invalid_argument("Minute must be 0-59");
+
+    if (s >= 0 && s < 60) 
+        second = s;
+    else throw invalid_argument("Second must be 0-59");
+}
+
+// 前置 ++
+Time& Time::operator++() {
+    helpIncrement();
+    return *this;
+}
+
+// 後置 ++
+Time Time::operator++(int) {
+    Time temp = *this;
+    helpIncrement();
+    return temp;
+}
+
+// 加法賦值
+Time& Time::operator+=(unsigned int s) {
+    for (unsigned int i = 0; i < s; ++i)
+        helpIncrement();
+    return *this;
+}
+
+// 關鍵進位邏輯
+void Time::helpIncrement() {
+    second++;
+    if (second >= 60) {
+        second = 0;
+        minute++;
+        if (minute >= 60) {
+            minute = 0;
+            hour++;
+            if (hour >= 24) {
+                hour = 0; // 滿 24 小時歸零
+            }
+        }
+    }
+}
+
+// 輸出運算子重載
+ostream& operator<<(ostream& output, const Time& t) {
+    output << setfill('0') << setw(2) << t.hour << ":"
+        << setw(2) << t.minute << ":"
+        << setw(2) << t.second;
+    return output;
+}
+
+//介面檔
+#ifndef TIME_H
+#define TIME_H
+
+#include <iostream>
+
+class Time {
+    friend std::ostream& operator<<(std::ostream&, const Time&);
+public:
+    Time(int h = 0, int m = 0, int s = 0);
+    void setTime(int, int, int);
+    Time& operator++();    // 前置 ++ (增加 1 秒)
+    Time operator++(int);  // 後置 ++
+    Time& operator+=(unsigned int); // 增加秒數
+private:
+    unsigned int hour;   // 0-23
+    unsigned int minute; // 0-59
+    unsigned int second; // 0-59
+    void helpIncrement(); // 處理進位邏輯
+};
+
+#endif
