@@ -1,0 +1,168 @@
+#include <iostream>
+#include "pet.h" 
+using namespace std;
+
+int main()
+{
+	Date birth(2019, 7, 24);
+	Date adopt(2021, 12, 21);
+	PET pet1("Bob", "Dog", birth, adopt);
+	PET pet2("Fat", "Parrot", birth, adopt);
+	PET pet3("Strong", "Parrot", birth, adopt);
+
+	cout << endl;
+	pet1.print();
+	pet2.print();
+	pet3.print();
+}
+
+
+#pragma once
+#ifndef DATE_H
+#define DATE_H
+
+class Date
+{
+	friend void printDate(const Date&);
+public:
+	explicit Date(int = 1900, int = 1, int = 1); 
+
+	void setDate(int, int, int); 
+	void setYear(int); 
+	void setMonth(int);
+	void setDay(int);
+	
+	unsigned int getYear() const; 
+	unsigned int getMonth() const; 
+	unsigned int getDay() const;
+
+	void printUniversal() const;
+	void printStandard() const; 
+private:
+	unsigned int year; 
+	unsigned int month; 
+	unsigned int day;
+};
+
+#endif
+
+
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+#include "date.h" 
+using namespace std;
+
+Date::Date(int year, int month, int day)
+{
+    setDate(year, month, day); 
+} 
+
+void Date::setDate(int y, int m, int d)
+{
+    setYear(y); 
+    setMonth(m); 
+    setDay(d);
+} 
+
+void Date::setYear(int y)
+{
+    if (y >= 1 && y < 9999)
+        year = y;
+    else
+        cout << "year must be 0-9999";
+}
+
+
+void Date::setMonth(int m)
+{
+    if (m > 0 && m < 13)
+        month = m;
+    else
+        cout << "month must be 1-12";
+} 
+
+void Date::setDay(int d)
+{
+    if (d > 0 && d < 32)
+        day = d;
+    else
+        cout << "day must be 1-31";
+} 
+
+unsigned int Date::getYear() const
+{
+    return year;
+}
+
+unsigned int Date::getMonth() const
+{
+    return month;
+}
+
+unsigned int Date::getDay() const
+{
+    return day;
+} 
+
+void printDate(const Date& d) {
+    std::cout << d.year << "/" << d.month << "/" << d.day << endl;
+}
+
+
+#pragma once
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+#include "Date.h" 
+
+class PET
+{
+public:
+    PET(const std::string&, const std::string&,
+        const Date&, const Date&);
+    void print() const;
+    ~PET(); 
+private:
+    std::string firstName; 
+    std::string category; 
+    const Date birthDate;
+    const Date adoptDate; 
+}; 
+#endif
+
+
+#include <iostream>
+#include "PET.h"
+#include "Date.h"
+using namespace std;
+
+void printDate(const Date&);
+
+PET::PET(const string& first, const string& last,
+    const Date& dateOfBirth, const Date& dateOfHire)
+    : firstName(first),
+    category(last),
+    birthDate(dateOfBirth),
+    adoptDate(dateOfHire)
+{
+    cout << "PET object constructor: " << firstName << ' ' << category << endl;
+}
+
+void PET::print() const
+{
+    cout << category << ", " << firstName << endl;
+
+    cout << "  Adopted: ";
+    printDate(adoptDate); 
+
+    cout << "\n  Birthday: ";
+    printDate(birthDate); 
+    cout << endl;
+}
+
+PET::~PET()
+{
+    cout << "\n PET object destructor: " << category << ", " << firstName << endl;
+}
