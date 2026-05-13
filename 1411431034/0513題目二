@@ -1,0 +1,103 @@
+//主程式
+#include "DerivedPets.h"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // 建立 Dog 物件
+    Dog myDog("小黑", 3, 5, 25.5);
+    cout << "狗狗資料 -> ";
+    myDog.printDogInfo();
+
+    cout << "--------------------------" << endl;
+
+    // 建立 Bird 物件
+    Bird myBird("皮皮", 1, 3, 40.0);
+    cout << "小鳥資料 -> ";
+    myBird.printBirdInfo();
+
+    cout << "--------------------------" << endl;
+
+    return 0;
+}
+
+//Pet實作檔
+#include "DerivedPets.h"
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // 建立 Dog 物件
+    Dog myDog("小黑", 3, 5, 25.5);
+    cout << "狗狗資料 -> ";
+    myDog.printDogInfo();
+
+    cout << "--------------------------" << endl;
+
+    // 建立 Bird 物件
+    Bird myBird("皮皮", 1, 3, 40.0);
+    cout << "小鳥資料 -> ";
+    myBird.printBirdInfo();
+
+    cout << "--------------------------" << endl;
+
+    return 0;
+}
+
+//DerivedPets標頭檔
+#ifndef DERIVED_PETS_H
+#define DERIVED_PETS_H
+#include "Pet.h"
+
+using namespace std;
+
+// 衍生類別：Dog
+class Dog : public Pet {
+public:
+    Dog(string name, int age, int litterSize, double runSpeed);
+    void printDogInfo() const;
+
+private:
+    int litterSize; // 專屬：產仔數量
+    double runSpeed; // 專屬：奔跑速度
+};
+
+// 衍生類別：Bird
+class Bird : public Pet {
+public:
+    Bird(string name, int age, int eggCount, double flySpeed);
+    void printBirdInfo() const;
+
+private:
+    int eggCount;  // 專屬：生蛋數量
+    double flySpeed; // 專屬：飛行速度
+};
+
+#endif
+
+//Pet標頭檔
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+
+class Pet {
+private:
+    string name;
+    int age;
+
+public:
+    // 建構子與解構子
+    Pet(string name, int age);
+    virtual ~Pet(); // 繼承架構中，解構子建議宣告為 virtual
+
+    // 印出基本資料的函數
+    void printInfo() const;
+};
+
+#endif
