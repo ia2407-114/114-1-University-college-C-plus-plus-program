@@ -1,0 +1,123 @@
+//main.cpp
+#include <iostream>
+#include "Pets.h"
+
+using namespace std;
+
+int main() {
+    cout << "【實作一隻狗狗】" << endl;
+    Dog myDog;
+    myDog.display_dog();
+
+    cout << "\n" << endl;
+
+    cout << "【實作一隻鳥類】" << endl;
+    Bird myBird;
+    myBird.display_bird();
+
+    cout << "\n程式結束，準備執行解構作業..." << endl;
+
+    return 0;
+}
+
+//Pets.cpp
+#include "Pets.h"
+
+Pet::Pet() {
+    cout << "--- 開始輸入寵物基本資料 ---" << endl;
+    cout << "請輸入寵物姓名: ";
+    cin >> name;
+    cout << "請輸入寵物年齡: ";
+    cin >> age;
+}
+
+Pet::~Pet() {
+    cout << "執行父類別 Pet 的解構元，釋放 " << name << " 的資料。" << endl;
+}
+
+void Pet::display_pet() {
+    cout << "\n===== 寵物資料總覽 =====" << endl;
+    cout << "姓名: " << name << endl;
+    cout << "年齡: " << age << " 歲" << endl;
+}
+
+Dog::Dog() : Pet() {
+    cout << "請輸入狗狗的產仔數量: ";
+    cin >> litter_size;
+    cout << "請輸入狗狗的奔跑速度 (km/h): ";
+    cin >> run_speed;
+}
+
+Dog::~Dog() {
+    cout << "執行子類別 Dog 的解構元。" << endl;
+}
+
+void Dog::display_dog() {
+    display_pet();
+    cout << "特有屬性 [產仔數量]: " << litter_size << " 隻" << endl;
+    cout << "特有屬性 [奔跑速度]: " << run_speed << " km/h" << endl;
+    cout << "========================" << endl;
+}
+
+Bird::Bird() : Pet() {
+    cout << "請輸入鳥類的生蛋數量: ";
+    cin >> egg_count;
+    cout << "請輸入鳥類的飛行速度 (km/h): ";
+    cin >> fly_speed;
+}
+
+Bird::~Bird() {
+    cout << "執行子類別 Bird 的解構元。" << endl;
+}
+
+void Bird::display_bird() {
+    display_pet();
+    cout << "特有屬性 [生蛋數量]: " << egg_count << " 顆" << endl;
+    cout << "特有屬性 [飛行速度]: " << fly_speed << " km/h" << endl;
+    cout << "========================" << endl;
+}
+
+//Pets.h
+#pragma once
+#ifndef PETS_H
+#define PETS_H
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Pet {
+private:
+    string name;
+    int age;
+
+public:
+    Pet();           
+    virtual ~Pet();  
+    void display_pet();
+};
+
+class Dog : public Pet {
+private:
+    int litter_size;
+    float run_speed;
+
+public:
+    Dog();
+    ~Dog();
+    void display_dog();
+};
+
+class Bird : public Pet {
+private:
+    int egg_count;
+    float fly_speed;
+
+public:
+    Bird();
+    ~Bird();
+    void display_bird();
+};
+
+#endif
