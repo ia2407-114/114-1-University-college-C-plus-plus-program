@@ -1,0 +1,78 @@
+//main.cpp
+#include <iostream>
+#include "Classroom.h"
+
+int main() {
+    classroom myClass(101, "張教授", 901, "王小明");
+    myClass.data_input();
+    myClass.show();
+
+    return 0;
+}
+
+//Classroom.cpp
+#include "Classroom.h"
+#include <iostream>
+
+using namespace std;
+student::student(int s_id, string s_name) : id(s_id), name(s_name) {}
+
+teacher::teacher(int t_id, string t_name)
+    : id(t_id), name(t_name), course_id(0), course_name(""), course_credit(0) {}
+
+void teacher::data_input() {
+    cout << "請輸入課程編號: ";
+    cin >> course_id;
+    cout << "請輸入課程名稱: ";
+    cin.ignore(); 
+    getline(cin, course_name);
+    cout << "請輸入課程學分: ";
+    cin >> course_credit;
+}
+
+classroom::classroom(int t_id, string t_name, int s_id, string s_name)
+    : teacher(t_id, t_name), student(s_id, s_name) {}
+
+void classroom::show() {
+    cout << "\n===== 教室課程資訊 =====" << endl;
+    cout << "課程編號: " << course_id << endl;
+    cout << "課程名稱: " << course_name << endl;
+    cout << "課程學分: " << course_credit << endl;
+    cout << "教師姓名: " << teacher::name << " (ID: " << teacher::id << ")" << endl;
+    cout << "學生姓名: " << student::name << " (ID: " << student::id << ")" << endl;
+}
+
+//Classroom.h
+#pragma once
+#ifndef CLASSROOM_H
+#define CLASSROOM_H
+
+#include <string>
+
+class student {
+protected:
+    int id;
+    std::string name;
+public:
+    student(int s_id, std::string s_name);
+};
+
+class teacher {
+protected:
+    int id;
+    std::string name;
+    int course_id;
+    std::string course_name;
+    int course_credit;
+public:
+    teacher(int t_id, std::string t_name);
+    void data_input();
+};
+
+class classroom : public teacher, public student {
+public:
+    classroom(int t_id, std::string t_name, int s_id, std::string s_name);
+    void show();
+};
+
+#endif
