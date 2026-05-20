@@ -1,0 +1,104 @@
+主程式
+#include "Classroom.h"
+
+int main() {
+    Classroom myClassroom;
+     
+    myClassroom.data_input();
+       
+    myClassroom.show();
+
+    return 0;
+}
+CLASSROOM實作
+#include "Classroom.h"
+#include <iostream>
+
+Classroom::Classroom() : Student(), Teacher() {
+    
+}
+
+void Classroom::show() {
+  
+    std::cout << "教室內的課堂資訊\n";
+       
+    std::cout << "課程編號: " << course_id << std::endl;
+    std::cout << "課程名稱: " << course_name << std::endl;
+    std::cout << "學分數  : " << course_credit << " 學分" << std::endl;   
+
+    
+    std::cout << "任課老師: " << Teacher::name << " (員工編號: " << Teacher::id << ")" << std::endl;
+    std::cout << "修課學生: " << Student::name << " (學生學號: " << Student::id << ")" << std::endl;    
+}
+CLASSROOM標頭
+#include "Student.h"
+#include "Teacher.h"
+
+
+class Classroom : public Student, public Teacher {
+
+public:
+    Classroom(); 
+    void show(); 
+};
+STUDENT實作
+#include "Student.h"
+#include <iostream>
+
+Student::Student() {
+    std::cout << "輸入學生資料 \n";
+    std::cout << "請輸入學生編號: ";
+    std::cin >> id;
+    std::cout << "請輸入學生姓名: ";
+    std::cin >> name;
+}
+STUDENT標頭
+#include <string>
+
+class Student {
+protected:
+    int id;           
+    std::string name; 
+
+public:
+   
+    Student();
+};
+TEACHER實作
+#include "Teacher.h"
+#include <iostream>
+
+Teacher::Teacher() {
+    std::cout << "輸入教師資料 \n";
+    std::cout << "請輸入教師編號: ";
+    std::cin >> id;
+    std::cout << "請輸入教師姓名: ";
+    std::cin >> name;
+}
+
+void Teacher::data_input() {
+    std::cout << "輸入課程資料 \n";
+    std::cout << "請輸入課程編號: ";
+    std::cin >> course_id;
+    std::cout << "請輸入課程名稱: ";
+    std::cin >> course_name;
+    std::cout << "請輸入學分數: ";
+    std::cin >> course_credit;
+}
+TEACHER標頭
+#include <string>
+
+class Teacher {
+protected:
+    int id;                     
+    std::string name;            
+    int course_id;              
+    std::string course_name;     
+    int course_credit;           
+
+public:
+    
+    Teacher();
+
+    void data_input();
+};
