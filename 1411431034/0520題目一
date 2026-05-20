@@ -1,0 +1,122 @@
+//main
+#include "shape_classes.h"
+
+int main()
+{
+    cube my_cube;         // 建立長方體物件
+
+    my_cube.data_input(); // 輸入長、寬、高並計算
+    my_cube.area();       // 顯示名稱與計算結果
+
+    return 0;
+}
+
+
+
+//實作
+#include "shape_classes.h"
+
+// --- shape 實作 ---
+void shape::area()
+{
+    cout << name << "的體積為：" << shape_area << endl;
+}
+
+// 用來讓子類別可以間接設定 shape 的私有成員
+void shape::set_shape_data(string n, float a)
+{
+    name = n;
+    shape_area = a;
+}
+
+
+// --- rectangle 實作 ---
+void rectangle::data_input()
+{
+    cout << "請輸入長方形的長：";
+    cin >> length;
+    cout << "請輸入長方形的寬：";
+    cin >> width;
+}
+
+// 讓子類別 cube 可以拿得到私有的 length
+float rectangle::get_length()
+{
+    return length;
+}
+
+// 讓子類別 cube 可以拿得到私有的 width
+float rectangle::get_width()
+{
+    return width;
+}
+
+
+// --- cube 實作 ---
+void cube::data_input()
+{
+    // 呼叫上層類別的 data_input() 來輸入長與寬
+    rectangle::data_input();
+
+    cout << "請輸入長方體的高：";
+    cin >> height;
+
+    // 因為變數全部都是私有的，不能直接 length * width * height 
+    // 必須透過父親的 get 函式拿到數值，計算完後，再透過祖父的 set 函式存回去
+    float volume = rectangle::get_length() * rectangle::get_width() * height;
+
+    // 將名稱與計算結果傳回最上層的 shape 儲存
+    shape::set_shape_data("長方體", volume);
+}
+
+
+
+
+//介面
+#ifndef SHAPE_CLASSES_H
+#define SHAPE_CLASSES_H
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// 1. 祖父類別
+class shape
+{
+private:
+    string name;        // 私有：圖形名稱
+    float shape_area;   // 私有：圖形面積/體積
+
+public:
+    void area();        // 顯示函式
+    void set_shape_data(string n, float a); // 新增：供子類別設定私有變數的介面
+};
+
+// 2. 父親類別
+class rectangle : public shape
+{
+private:
+    float length;       // 私有：長方形的長
+    float width;        // 私有：長方形的寬
+
+public:
+    void data_input();  // 輸入長寬
+    float get_length(); // 新增：供子類別讀取私有長度的介面
+    float get_width();  // 新增：供子類別讀取私有寬度的介面
+};
+
+// 3. 孩子類別
+class cube : public rectangle
+{
+private:
+    float height;       // 私有：長方體的高
+
+public:
+    void data_input();  // 輸入高與計算體積
+};
+
+#endif
+
+
+
+
