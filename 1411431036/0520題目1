@@ -1,0 +1,121 @@
+主程式
+#include "Cube.h"
+
+int main() {
+ 
+    Cube myCube("長方形底座");
+
+    myCube.data_input();
+
+    myCube.calculate_volume();
+
+    return 0;
+}
+SHAPE實作
+#include "Shape.h"
+#include <iostream>
+
+Shape::Shape(std::string n) {
+    name = n;
+    shape_area = 0.0f;
+}
+
+void Shape::area(float a) {
+    shape_area = a;
+    std::cout << "\n圖形名稱: " << name << std::endl;
+    std::cout << "底圖形面積: " << shape_area << " 平方單位" << std::endl;
+}
+
+std::string Shape::getName() {
+    return name;
+}
+SHAPE標頭
+#pragma once
+#include <string>
+
+class Shape {
+private:
+    std::string name;
+
+protected:
+    float shape_area; 
+
+public:
+    Shape(std::string n);
+    void area(float a);
+    std::string getName(); 
+};
+RECTANGLE實作
+#include "Rectangle.h"
+#include <iostream>
+
+
+Rectangle::Rectangle(std::string n) : Shape(n) {
+    length = 0.0f;
+    width = 0.0f;
+}
+
+void Rectangle::data_input() {
+    std::cout << "請輸入" << getName() << "的長: ";
+    std::cin >> length;
+    std::cout << "請輸入" << getName() << "的寬: ";
+    std::cin >> width;
+}
+
+float Rectangle::getArea() {
+    return length * width;
+}
+RECTANGLE標頭
+#pragma once
+#include "Shape.h"
+
+
+class Rectangle : public Shape {
+
+protected:
+    float length;
+    float width;
+
+public:
+    Rectangle(std::string n);
+    void data_input(); 
+    float getArea();   
+};
+CUBE實作
+#include "Cube.h"
+#include <iostream>
+
+Cube::Cube(std::string n) : Rectangle(n) {
+    height = 0.0f;
+}
+
+void Cube::data_input() {
+    
+    Rectangle::data_input();
+
+    std::cout << "請輸入長方體的高: ";
+    std::cin >> height;
+}
+
+void Cube::calculate_volume() {
+    
+    float base_area = getArea();
+       
+    Shape::area(base_area);
+
+    
+    float volume = base_area * height;
+    std::cout << "長方體的體積: " << volume << " 立方單位" << std::endl;
+}
+CUBE標頭
+#include "Rectangle.h"
+
+class Cube : public Rectangle {
+private:
+    float height;
+
+public:
+    Cube(std::string n);
+    void data_input();         
+    void calculate_volume();   
+};
