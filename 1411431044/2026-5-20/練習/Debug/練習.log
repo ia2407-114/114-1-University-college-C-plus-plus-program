@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\User\source\repos\2026-5-20\練習\Source.cpp(13,10): error C2182: 'area': 類型 'void' 的使用不合法
+C:\Users\User\source\repos\2026-5-20\練習\Source.cpp(38,5): error C2504: 'rectangle': 基底類別未定義
+C:\Users\User\source\repos\2026-5-20\練習\Source.cpp(6): fatal error C1075: '{': 找不到任何相符的語彙基元

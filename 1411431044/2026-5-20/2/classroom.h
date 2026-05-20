@@ -1,0 +1,36 @@
+#ifndef CLASSROOM_H
+#define CLASSROOM_H
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class student {
+protected:
+    int id;
+    string name;
+
+public:
+    student(); 
+};
+
+
+class teacher {
+protected:
+    int id;
+    string name;
+    string course_id;
+    string course_name;
+    int course_credit;
+
+public:
+    teacher();         
+    void data_input(); 
+};
+
+class classroom : public teacher, public student {
+public:
+    void show(); 
+};
+
+#endif#pragma once
