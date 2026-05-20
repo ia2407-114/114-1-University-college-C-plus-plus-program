@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// 1. 基底類別：student
+class student {
+protected:
+    int id;
+    string name;
+
+public:
+    // 使用建構子函數輸入學生資料
+    student() {
+        cout << "==== 輸入學生資料 ====\n";
+        cout << "請輸入學生編號: ";
+        cin >> id;
+        cout << "請輸入學生姓名: ";
+        cin >> name;
+    }
+};
+
+// 2. 基底類別：teacher
+class teacher {
+protected:
+    int id;
+    string name;
+    string course_id;
+    string course_name;
+    int course_credit;
+
+public:
+    // 使用建構子函數輸入老師基本資料，並初始化學分為 0
+    teacher() : course_credit(0) {
+        cout << "==== 輸入教師資料 ====\n";
+        cout << "請輸入教師編號: ";
+        cin >> id;
+        cout << "請輸入教師姓名: ";
+        cin >> name;
+    }
+
+    // 成員函式：輸入課程相關資料
+    void data_input() {
+        cout << "==== 輸入課程資料 ====\n";
+        cout << "請輸入課程編號: ";
+        cin >> course_id;
+        cout << "請輸入課程名稱: ";
+        cin >> course_name;
+        cout << "請輸入課程學分: ";
+        cin >> course_credit;
+    }
+};
+
+// 3. 衍生類別：classroom (同時繼承 teacher 及 student)
+class classroom : public teacher, public student {
+public:
+    // 顯示 classroom 內的所有資料
+    void show() {
+        cout << "\n========= 教室資料網頁/報表 =========" << endl;
+        // 課程資料
+        cout << "課程編號: " << course_id << endl;
+        cout << "課程名稱: " << course_name << endl;
+        cout << "課程學分: " << course_credit << endl;
+        
+        // 老師與學生資料（利用 類別名稱:: 區隔同名的變數）
+        cout << "教師姓名: " << teacher::name << " (編號: " << teacher::id << ")" << endl;
+        cout << "學生姓名: " << student::name << " (編號: " << student::id << ")" << endl;
+        cout << "=====================================" << endl;
+    }
+};
+
+int main() {
+    // 宣告物件時，會自動依序執行 teacher 和 student 的建構子（要求輸入基本資料）
+    classroom my_room;
+    
+    // 呼叫輸入課程資料
+    my_room.data_input();
+    
+    // 顯示結果
+    my_room.show();
+
+    return 0;
+}
