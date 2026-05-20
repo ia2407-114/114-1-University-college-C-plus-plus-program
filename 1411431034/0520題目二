@@ -1,0 +1,146 @@
+//main
+#include "classroom_system.h"
+
+int main()
+{
+    classroom room1;      // 建立同時繼承學生與老師的教室物件 (自動呼叫雙方建構子)
+    room1.data_input();   // 輸入課程相關資料
+    room1.show();         // 顯示所有綜合資料
+
+    return 0;
+}
+
+
+
+
+//實作檔
+#include "classroom_system.h"
+
+// --- student 實作 ---
+student::student()
+{
+    cout << "實作一名學生:\n";
+    cout << "學生編號:";
+    cin >> id;
+    cout << "學生姓名:";
+    cin >> name;
+}
+
+int student::get_student_id() { 
+    return id; 
+}
+string student::get_student_name() { 
+    return name; 
+}
+
+
+// --- teacher 實作 ---
+teacher::teacher()
+{
+    cout << "\n實作一名教師:\n";
+    cout << "教師編號:";
+    cin >> id;
+    cout << "教師姓名:";
+    cin >> name;
+}
+
+void teacher::data_input()
+{
+    cout << "課程編號:";
+    cin >> course_id;
+    cout << "課程名稱:";
+    cin >> course_name;
+    cout << "學分:";
+    cin >> course_credit;
+}
+
+int teacher::get_teacher_id() { 
+    return id; 
+}
+string teacher::get_teacher_name() { 
+    return name; 
+}
+int teacher::get_course_id() { 
+    return course_id; 
+}
+string teacher::get_course_name() { 
+    return course_name; 
+}
+int teacher::get_course_credit() { 
+    return course_credit; 
+}
+
+
+// --- classroom 實作 ---
+void classroom::show()
+{
+    cout << "\n教室內課程與人員資訊" << endl;
+    // 透過 teacher 的公有函式取得私有資料
+    cout << "課程編號:" << teacher::get_course_id() << endl;
+    cout << "課程名稱:" << teacher::get_course_name() << endl;
+    cout << "課程學分:" << teacher::get_course_credit() << endl;
+    cout << "教師姓名:" << teacher::get_teacher_name() << " (編號:" << teacher::get_teacher_id() << ")" << endl;
+
+    // 透過 student 的公有函式取得私有資料
+    cout << "學生姓名:" << student::get_student_name() << " (編號:" << student::get_student_id() << ")" << endl;
+ 
+}
+
+
+
+
+//介面檔
+#ifndef CLASSROOM_SYSTEM_H
+#define CLASSROOM_SYSTEM_H
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// 1. 學生類別
+class student
+{
+private:
+    int id;         // 私有：學生編號
+    string name;    // 私有：學生姓名
+
+public:
+    student();      // 建構子原型 (用來輸入資料)
+
+    // 新增公有介面，讓子類別能讀取私有變數
+    int get_student_id();
+    string get_student_name();
+};
+
+// 2. 教師類別
+class teacher
+{
+private:
+    int id;                 // 私有：教師編號
+    string name;            // 私有：教師姓名
+    int course_id;          // 私有：課程編號
+    string course_name;     // 私有：課程名稱
+    int course_credit;      // 私有：學分
+
+public:
+    teacher();              // 建構子原型 (用來輸入基本資料)
+    void data_input();      // 教師的課程資料輸入
+
+    // 新增公有介面，讓子類別能讀取私有變數
+    int get_teacher_id();
+    string get_teacher_name();
+    int get_course_id();
+    string get_course_name();
+    int get_course_credit();
+};
+
+// 3. 教室類別 (同時繼承 student 與 teacher)
+class classroom : public student, public teacher
+{
+public:
+    void show();            // 顯示教室內的所有資訊
+};
+
+#endif
+
+
