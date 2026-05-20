@@ -1,0 +1,103 @@
+#ifndef CLASSROOM_H
+#define CLASSROOM_H
+
+#include <string>
+using namespace std;
+
+class student {
+protected:
+    string id;
+    string name;
+
+public:
+    student(); 
+};
+
+
+class teacher {
+protected:
+    string id;
+    string name;
+    string course_id;
+    string course_name;
+    int course_credit;
+
+public:
+    teacher(); 
+    void data_input(); 
+};
+
+
+class classroom : public student, public teacher {
+public:
+    classroom(); 
+    void show(); 
+};
+
+#endif
+
+
+#include <iostream>
+#include "classroom.h"
+using namespace std;
+
+
+student::student() {
+    cout << "輸入學生資料 " << endl;
+    cout << "輸入學生學號 : ";
+    cin >> id;
+    cout << "輸入學生姓名 : ";
+    cin >> name;
+}
+
+
+teacher::teacher() {
+
+    cout << "輸入教師資料" << endl;
+    cout << "請輸入教師編號: ";
+    cin >> id;
+    cout << "請輸入教師姓名: ";
+    cin >> name;
+}
+
+void teacher::data_input() {
+    cout << "輸入資料" << endl;
+    cout << "輸入課程編號: ";
+    cin >> course_id;
+    cout << "輸入課程名稱: ";
+    cin >> course_name;
+    cout << "輸入課程學分: ";
+    cin >> course_credit;
+}
+
+
+classroom::classroom() : student(), teacher() {
+    
+}
+
+void classroom::show() {
+   
+    cout << "課程資訊" << endl;
+    cout << "課程編號: " << course_id << endl;
+    cout << "課程名稱: " << course_name << endl;
+    cout << "課程學分: " << course_credit << " 學分" << endl;
+    
+    cout << "人員資訊" << endl;
+    cout << "任課教師: " << teacher::name << " (id: " << teacher::id << ")" << endl;
+    cout << "修課學生: " << student::name << " (id: " << student::id << ")" << endl;
+    
+}
+
+
+#include <iostream>
+#include "classroom.h"
+using namespace std;
+
+int main() {
+    classroom my_room;
+
+    my_room.data_input();  
+    my_room.show();
+
+    return 0;
+}

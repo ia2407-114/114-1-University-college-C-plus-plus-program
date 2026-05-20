@@ -1,0 +1,109 @@
+#ifndef SHAPES_H
+#define SHAPES_H
+
+#include <string>
+using namespace std;
+
+class Shape {
+protected:
+    string name;
+    double shape_area; 
+
+public:
+    Shape(); 
+    void area(); 
+};
+
+class Rectangle : public Shape {
+protected:
+    double length;
+    double width;
+
+public:
+    Rectangle(); 
+    void data_input(); 
+};
+
+class Cube : public Rectangle {
+private:
+    double height;
+    double volume; 
+
+public:
+    Cube(); 
+    void data_input(); 
+    void display_volume(); 
+};
+
+#endif
+
+
+#include <iostream>
+#include "shapes.h"
+using namespace std;
+
+Shape::Shape() {
+    name = "a";
+    shape_area = 0.0;
+}
+
+void Shape::area() {
+    cout << "\n面積資訊" << endl;
+    cout << "圖形名稱: " << name << endl;
+    cout << "底面積: " << shape_area << endl;
+}
+
+
+Rectangle::Rectangle() : Shape() {
+    name = "長方形";
+    length = 0.0;
+    width = 0.0;
+}
+
+void Rectangle::data_input() {
+    cout << "請輸入長方形的長: ";
+    cin >> length;
+    cout << "請輸入長方形的寬: ";
+    cin >> width;
+
+    shape_area = length * width;
+}
+
+
+Cube::Cube() : Rectangle() {
+    name = "長方體";
+    height = 0.0;
+    volume = 0.0;
+}
+
+void Cube::data_input() {
+    
+    Rectangle::data_input();
+
+    cout << "請輸入長方體的高: ";
+    cin >> height;
+    volume = shape_area * height;
+}
+
+void Cube::display_volume() {
+    
+    Shape::area();
+    cout << "長方體的高: " << height << endl;
+    cout << "長方體的體積為: " << volume << endl;
+}
+
+
+#include <iostream>
+#include "shapes.h"
+using namespace std;
+
+int main() {
+    
+    Cube my_cube;
+    cout << "長方體結果" << endl;
+
+    my_cube.data_input();
+    my_cube.display_volume();
+
+    return 0;
+}
