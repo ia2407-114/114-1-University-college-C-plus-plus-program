@@ -1,0 +1,108 @@
+//001
+//主程式
+#include <iostream>
+#include "Shape.h" 
+
+int main() {
+    // 建立 cube 物件 
+    cube myCube;
+
+    // 啟動多層級的資料輸入與體積計算流程
+    myCube.data_input();
+
+    return 0;
+}
+
+//介面
+#ifndef SHAPE_H
+#define SHAPE_H
+
+#include <string>
+
+//基礎類別
+class shape {
+public:
+    void area() const; 
+
+
+    void setName(std::string n);
+    std::string getName() const;
+    void setArea(double a);
+    double getArea() const;
+
+private:
+    std::string name;
+    double shape_area;
+};
+
+//衍伸類別
+class rectangle : public shape {
+public:
+    void data_input(); 
+
+private:
+    double length;
+    double width;
+};
+
+//衍伸類別
+class cube : public rectangle {
+public:
+    void data_input(); 
+
+private:
+    double height;
+};
+
+#endif
+
+//實作
+#include <iostream>
+#include <string>
+#include "Shape.h" 
+
+using namespace std;
+
+//
+void shape::area() const {
+    cout << getName() << " 的底面積為：" << getArea() << endl;
+}
+
+void shape::setName(string n) { name = n; }
+string shape::getName() const { return name; }
+void shape::setArea(double a) { shape_area = a; }
+double shape::getArea() const { return shape_area; }
+
+//
+void rectangle::data_input() {
+    setName("長方形");
+    cout << "--- " << getName() << " 資料輸入 ---" << endl;
+    cout << "請輸入長 (length): ";
+    cin >> length;
+    cout << "請輸入寬 (width): ";
+    cin >> width;
+
+    // 透過 Set 函式修改基礎類別私有成員
+    setArea(length * width);
+}
+
+//
+void cube::data_input() {
+    // 調用父類別的實作以重用程式碼
+    rectangle::data_input();
+
+    setName("長方體");
+    cout << "請輸入" << getName() << "的高 (height): ";
+    cin >> height;
+
+    // 透過 Get 函式取得底面積並計算體積
+    double volume = getArea() * height;
+
+    cout << "\n===== 計算結果 =====" << endl;
+    area(); // 呼叫基礎(祖父)類別
+    cout << getName() << " 的高度為：" << height << endl;
+    cout << getName() << " 的最終體積為：" << volume << endl;
+}
+
+
+//002
