@@ -16,7 +16,7 @@ int main()
 //實作
 #include "shape_classes.h"
 
-// --- shape 實作 ---
+//shape 實作
 void shape::area()
 {
     cout << name << "的體積為：" << shape_area << endl;
@@ -30,7 +30,7 @@ void shape::set_shape_data(string n, float a)
 }
 
 
-// --- rectangle 實作 ---
+// rectangle 實作
 void rectangle::data_input()
 {
     cout << "請輸入長方形的長：";
@@ -52,7 +52,7 @@ float rectangle::get_width()
 }
 
 
-// --- cube 實作 ---
+// cube 實作
 void cube::data_input()
 {
     // 呼叫上層類別的 data_input() 來輸入長與寬
