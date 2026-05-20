@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// 1. 基底類別：shape
+class shape {
+protected:
+    string name;
+    double shape_area;
+
+public:
+    // 【修改】加入建構元，將 shape_area 初始化為 0
+    shape() : shape_area(0.0) {}
+
+    // 顯示結果的函式
+    void area() {
+        cout << "\n圖形名稱: " << name << endl;
+        cout << "計算結果(體積): " << shape_area << endl;
+    }
+};
+
+// 2. 衍生類別：rectangle (繼承自 shape)
+class rectangle : public shape {
+protected:
+    double length;
+    double width;
+
+public:
+    // 【修改】加入建構元，將 length 和 width 初始化為 0
+    rectangle() : length(0.0), width(0.0) {}
+
+    // 輸入長與寬
+    void data_input() {
+        name = "長方體";
+        cout << "請輸入長方形的長: ";
+        cin >> length;
+        cout << "請輸入長方形的寬: ";
+        cin >> width;
+    }
+};
+
+// 3. 衍生類別：cube (繼承自 rectangle)
+class cube : public rectangle {
+private:
+    double height;
+
+public:
+    // 【修改】加入建構元，將 height 初始化為 0
+    cube() : height(0.0) {}
+
+    // 覆寫/延伸 data_input 函式
+    void data_input() {
+        // 先呼叫父類別的 data_input() 來輸入長和寬
+        rectangle::data_input();
+
+        // 輸入長方體的高
+        cout << "請輸入長方體的高: ";
+        cin >> height;
+
+        // 計算體積
+        shape_area = length * width * height;
+    }
+};
+
+int main() {
+    cube my_cube;
+    my_cube.data_input();
+    my_cube.area();
+
+    return 0;
+}
