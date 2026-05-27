@@ -1,0 +1,80 @@
+主程式
+#include <iostream>
+#include "Shape.h" 
+
+using namespace std;
+
+int main() {
+    
+    Cone cone(3, 5);
+    Sphere sphere(3);
+    Cylinder cylinder(3, 5);
+
+    
+    Shape* a1 ;
+
+    
+    a1 = &cone;
+    cout << "圓錐體體積: " << a1->Volume() << endl;
+        
+    a1 = &sphere;
+    cout << "球體體積: " << a1->Volume() << endl;
+       
+    a1 = &cylinder;
+    cout << "圓柱體體積: " << a1->Volume() << endl;
+
+    return 0;
+}
+實作檔
+#include "Shape.h"
+
+Cone::Cone(double r, double h) : radius(r), height(h) {}
+double Cone::Volume() const {
+    return (1.0 / 3.0) * 3.14159 * radius * radius * height;
+}
+
+Sphere::Sphere(double r) : radius(r) {}
+double Sphere::Volume() const {
+    return (4 / 3) * 3.14159 * radius * radius * radius;
+}
+
+Cylinder::Cylinder(double r, double h) : radius(r), height(h) {}
+double Cylinder::Volume() const {
+    return 3.14159265 * radius * radius * height;
+}
+介面檔
+#ifndef Shape_H
+#define Shape_H
+
+class Shape {
+public:
+    virtual double Volume() const = 0;  
+};
+
+class Cone : public Shape {
+private:
+    double radius;
+    double height;
+public:
+    Cone(double r, double h);
+    double Volume() const override; 
+};
+
+class Sphere : public Shape {
+private:
+    double radius;
+public:
+    Sphere(double r);
+    double Volume() const override; 
+};
+
+class Cylinder : public Shape {
+private:
+    double radius;
+    double height;
+public:
+    Cylinder(double r, double h);
+    double Volume() const override; 
+};
+
+#endif 
