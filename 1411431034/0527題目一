@@ -1,0 +1,83 @@
+//main
+#include <iostream>
+#include "Shape.h" // 導入介面，主程式才能看見類別定義
+using namespace std;
+int main() {
+	Shape* a1;
+	cone a(5,3);
+	Sphere b(4);
+	cylinder c(5, 3);
+	a1 = &a;
+	cout << "圓錐體體積：" << a1->volume() << endl;
+	a1 = &b;
+	cout << "球體體積：" << a1->volume() << endl;
+	a1 = &c;
+	cout << "圓柱體體積：" << a1->volume() << endl;
+	return 0;
+}
+
+
+//實作
+#include "Shape.h" // 導入剛才建立的介面檔
+
+// cone 實作
+cone::cone(double r, double h) : radius(r), height(h) {}
+double cone::volume() const {
+    return (1.0 / 3) * 3.14159 * radius * radius * height;
+}
+
+// Sphere 實作
+Sphere::Sphere(double r) : radius(r) {}
+double Sphere::volume() const {
+    return (4.0 / 3) * 3.14159 * radius * radius * radius;
+}
+
+// cylinder 實作
+cylinder::cylinder(double r, double h) : radius(r), height(h) {}
+double cylinder::volume() const {
+    return 3.14159 * radius * radius * height;
+}
+
+
+
+//介面
+#ifndef SHAPE_H
+#define SHAPE_H
+
+// 抽象基礎類別
+class Shape {
+public:
+    virtual double volume() const = 0;
+    virtual ~Shape() {} //虛擬解構子
+};
+
+// 圓錐體
+class cone : public Shape {
+private:
+    double radius;
+    double height;
+public:
+    cone(double r, double h);
+    double volume() const override;
+};
+
+// 球體
+class Sphere : public Shape {
+private:
+    double radius;
+public:
+    Sphere(double r);
+    double volume() const override;
+};
+
+// 圓柱體
+class cylinder : public Shape {
+private:
+    double radius;
+    double height;
+public:
+    cylinder(double r, double h);
+    double volume() const override;
+};
+
+#endif
