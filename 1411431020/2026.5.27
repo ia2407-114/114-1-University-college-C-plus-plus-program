@@ -1,63 +1,19 @@
-// 1. 抽象類別：Shap [1, 2, 12]
-class Shap {
-public:
-    // 題目要求：純虛擬函數 Volume [1, 3, 13]
-    // 加上 "= 0" 使其成為純虛擬函數，Shap 類別因此成為抽象類別
-    virtual double Volume() const = 0; 
+//001
+//main
+#include <iostream>
+#include <iomanip>
+#include "Shape.h"
 
-    // 虛擬解構子：確保透過基類指標刪除衍生類別物件時能正確運作 [1, 12, 14, 15]
-    virtual ~Shap() {} 
-};
-
-// 2. 衍生類別：圓錐體體積 (Cone) [1, 16, 17]
-class Cone : public Shap {
-public:
-    Cone(double r, double h) : radius(r), height(h) {}
-    
-    // 實作純虛擬函數：(1/3) * PI * r^2 * h
-    virtual double Volume() const override {
-        return (1.0 / 3.0) * PI * pow(radius, 2) * height;
-    }
-private:
-    double radius;
-    double height;
-};
-
-// 3. 衍生類別：球體體積 (Sphere) [8, 10]
-class Sphere : public Shap {
-public:
-    Sphere(double r) : radius(r) {}
-    
-    // 實作純虛擬函數：(4/3) * PI * r^3
-    virtual double Volume() const override {
-        return (4.0 / 3.0) * PI * pow(radius, 3);
-    }
-private:
-    double radius;
-};
-
-// 4. 衍生類別：圓柱體體積 (Cylinder)
-class Cylinder : public Shap {
-public:
-    Cylinder(double r, double h) : radius(r), height(h) {}
-    
-    // 實作純虛擬函數：PI * r^2 * h
-    virtual double Volume() const override {
-        return PI * pow(radius, 2) * height;
-    }
-private:
-    double radius;
-    double height;
-};
+using namespace std;
 
 int main() {
-    // 設定輸出格式為小數點後兩位 [1, 18]
+   
     cout << fixed << setprecision(2);
 
-    // 題目要求：建立一個物件指標 a1 [1, 19-21]
-    Shap* a1 = nullptr; 
+   
+    Shap* a1 = nullptr;
 
-    // 建立各個衍生類別的物件 [1, 17]
+    // 建立各個衍生類別的物件
     Cone myCone(3.0, 10.0);         // 半徑3, 高10
     Sphere mySphere(5.0);           // 半徑5
     Cylinder myCylinder(3.0, 10.0); // 半徑3, 高10
@@ -77,4 +33,71 @@ int main() {
     cout << "圓柱體體積: " << a1->Volume() << endl;
 
     return 0;
+}
+//介面
+#ifndef SHAP_H
+#define SHAP_H
+
+
+class Shap {
+public:
+    // 純虛擬函數，使此類別成為抽象類別
+    virtual double Volume() const = 0;
+
+    // 虛擬解構子
+    virtual ~Shap() {}
+};
+
+// 2. 衍生類別：圓錐體體積 (Cone)
+class Cone : public Shap {
+public:
+    Cone(double r, double h);
+    virtual double Volume() const override;
+private:
+    double radius;
+    double height;
+};
+
+// 3. 衍生類別：球體體積 (Sphere)
+class Sphere : public Shap {
+public:
+    Sphere(double r);
+    virtual double Volume() const override;
+private:
+    double radius;
+};
+
+// 4. 衍生類別：圓柱體體積 (Cylinder)
+class Cylinder : public Shap {
+public:
+    Cylinder(double r, double h);
+    virtual double Volume() const override;
+private:
+    double radius;
+    double height;
+};
+
+#endif
+//實作
+#include <cmath>
+#include "Shape.h"
+
+const double PI = 3.14159; // 定義常數 PI [15.4, 369]
+
+// --- Cone 實作 ---
+Cone::Cone(double r, double h) : radius(r), height(h) {}
+double Cone::Volume() const {
+    return (1.0 / 3.0) * PI * std::pow(radius, 2) * height;
+}
+
+// --- Sphere 實作 ---
+Sphere::Sphere(double r) : radius(r) {}
+double Sphere::Volume() const {
+    return (4.0 / 3.0) * PI * std::pow(radius, 3);
+}
+
+// --- Cylinder 實作 ---
+Cylinder::Cylinder(double r, double h) : radius(r), height(h) {}
+double Cylinder::Volume() const {
+    return PI * std::pow(radius, 2) * height;
 }
