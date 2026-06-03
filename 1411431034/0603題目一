@@ -1,0 +1,101 @@
+//main
+
+#include "planes.h"
+
+int main() {
+    bombplane bomb1;
+    bomb1.create_flight_object("轟炸機");
+    bomb1.create_bombplane();
+    bomb1.display();
+    return 0;
+}
+
+//實作檔
+
+#include <iostream>
+#include "planes.h"
+using namespace std;
+
+void flight_object::create_flight_object(string obj) {
+    cout << "建立飛行物的資料\n實作一架" << obj << "\n名稱:"; cin >> name;
+    cout << "編號:"; cin >> id; cout << "駕駛員人數:"; cin >> pilot;
+    cout << "煤油量(公升):"; cin >> kerosene;
+}
+void airliner::create_airliner() {
+    cout << "乘客人數:"; 
+    cin >> passenger;
+    cout << "服務人員的數目:"; 
+    cin >> service_person;
+    cout << "製造者:"; 
+    cin >> manufacturer;
+}
+void airliner::display() {
+    cout << "\t顯示大型客機的資料\n名稱:" << name
+        << "\n編號:" << id 
+        << "\n駕駛員人數:" << pilot 
+        << "\n煤油量(公升):" << kerosene 
+        << "\n乘客人數:" << passenger
+        << "\n服務人員的數目:" << service_person
+        << "\n製造者:" << manufacturer << endl;
+}
+void battleplane::create_battleplane() { cout << "製造者:"; 
+    cin >> manufacturer; 
+}
+void battleplane::display() {
+    cout << "\n顯示衍生類別battleplane物件的資料\n戰鬥機名稱:" << name 
+        << "\n編號:" << id
+        << "\n駕駛員人數:" << pilot 
+        << "\n煤油量(公升):" << kerosene 
+        << "\n武器名稱:" << weapon 
+        << "\n製造者:" << manufacturer << endl;
+}
+void bombplane::create_bombplane() {
+    cout << "乘客人數:"; 
+    cin >> passenger; 
+    cout << "武器名稱:"; 
+    cin >> weapon; 
+    cout << "製造者:"; 
+    cin >> manufacturer;
+}
+void bombplane::display() {
+    cout << "\n顯示轟炸機的資料\n名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot << "\n煤油量(公升):" << kerosene << "\n乘客人數:" << passenger << "\n武器名稱:" << weapon << "\n製造者:" << manufacturer << endl;
+}
+
+//介面檔
+
+#ifndef PLANES_H
+#define PLANES_H
+
+#include <string>
+using namespace std;
+
+class flight_object {
+public:
+    string name; int id; int pilot; float kerosene; string manufacturer;
+    void create_flight_object(string obj);
+    virtual void display() = 0;
+};
+
+class airliner : public virtual flight_object {
+protected:
+    int passenger; int service_person;
+public:
+    void create_airliner();
+    void display() override;
+};
+
+class battleplane : public virtual flight_object {
+protected:
+    string weapon;
+public:
+    void create_battleplane();
+    void display() override;
+};
+
+class bombplane : public airliner, public battleplane {
+public:
+    void create_bombplane();
+    void display() override;
+};
+
+#endif
