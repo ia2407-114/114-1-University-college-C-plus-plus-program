@@ -1,0 +1,123 @@
+//main
+
+#include <iostream>
+#include <fstream>  // 引入檔案讀寫
+#include "planes.h"
+using namespace std;
+
+int main() {
+    bombplane bomb1;
+    bomb1.create_flight_object("轟炸機");
+    bomb1.create_bombplane();
+
+    // 1. 輸出到螢幕上 (不用帶參數，因為預設就是 cout)
+    bomb1.display();
+
+    // 2. 宣告輸出檔案串流，並開啟 "bomb.txt"
+    ofstream outfile("bomb.txt");
+    if (outfile.fail()) {
+        cout << "錯誤：無法建立或開啟 bomb.txt 檔案！" << endl;
+        return 1;
+    }
+
+    // 3. 將資料輸出到檔案 (把剛剛建立好的檔案串流傳進去)
+    bomb1.display(outfile);
+
+    // 4. 關閉檔案
+    outfile.close();
+    cout << "\n[提示] 轟炸機的資料已成功存入 bomb.txt 檔案中！" << endl;
+
+    return 0;
+}
+
+//實作檔
+
+#include <iostream>
+#include "planes.h"
+using namespace std;
+
+// === 1. flight_object 實作 ===
+void flight_object::create_flight_object(string obj) {
+    cout << "建立飛行物的資料\n實作一架" << obj << "\n名稱:"; cin >> name;
+    cout << "編號:"; cin >> id; cout << "駕駛員人數:"; cin >> pilot;
+    cout << "煤油量(公升):"; 
+    cin >> kerosene;
+}
+
+// === 2. airliner 實作 ===
+void airliner::create_airliner() {
+    cout << "乘客人數:"; 
+    cin >> passenger;
+    cout << "服務人員的數目:"; 
+    cin >> service_person;
+    cout << "製造者:"; 
+    cin >> manufacturer;
+}
+void airliner::display(ostream& os) {
+    os << "\t顯示大型客機的資料\n名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot << "\n煤油量(公升):" << kerosene << "\n乘客人數:" << passenger << "\n服務人員的數目:" << service_person << "\n製造者:" << manufacturer << endl;
+}
+
+// === 3. battleplane 實作 ===
+void battleplane::create_battleplane() { 
+    cout << "製造者:"; 
+    cin >> manufacturer; 
+}
+void battleplane::display(ostream& os) {
+    os << "\n顯示衍生類別battleplane物件的資料\n戰鬥機名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot << "\n煤油量(公升):" << kerosene << "\n武器名稱:" << weapon << "\n製造者:" << manufacturer << endl;
+}
+
+// === 4. bombplane 實作 ===
+void bombplane::create_bombplane() {
+    cout << "乘客人數:"; cin >> passenger; cout << "武器名稱:"; cin >> weapon; cout << "製造者:"; cin >> manufacturer;
+}
+// 這裡的 os 可以是 cout (螢幕) 也可以是 outfile (檔案)
+void bombplane::display(ostream& os) {
+    os << "\n顯示轟炸機的資料\n";
+    os << "名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot
+        << "\n煤油量(公升):" << kerosene << "\n乘客人數:" << passenger
+        << "\n武器名稱:" << weapon << "\n製造者:" << manufacturer << endl;
+}
+
+//介面檔
+
+#ifndef PLANES_H
+#define PLANES_H
+
+#include <string>
+#include <iostream> // 為了使用 ostream
+using namespace std;
+
+// 1. 飛行物體類別 (抽象基底類別)
+class flight_object {
+public:
+    string name; int id; int pilot; float kerosene; string manufacturer;
+    void create_flight_object(string obj);
+    virtual void display(ostream& os = cout) = 0; // 純虛擬函數，預設輸出到螢幕
+};
+
+// 2. 大型客機類別 (虛擬繼承)
+class airliner : public virtual flight_object {
+protected:
+    int passenger; int service_person;
+public:
+    void create_airliner();
+    void display(ostream& os = cout) override;
+};
+
+// 3. 戰鬥機類別 (虛擬繼承)
+class battleplane : public virtual flight_object {
+protected:
+    string weapon;
+public:
+    void create_battleplane();
+    void display(ostream& os = cout) override;
+};
+
+// 4. 轟炸機類別 (多重繼承)
+class bombplane : public airliner, public battleplane {
+public:
+    void create_bombplane();
+    void display(ostream& os = cout) override;
+};
+
+#endif
