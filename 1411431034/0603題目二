@@ -38,8 +38,12 @@ using namespace std;
 
 // === 1. flight_object 實作 ===
 void flight_object::create_flight_object(string obj) {
-    cout << "建立飛行物的資料\n實作一架" << obj << "\n名稱:"; cin >> name;
-    cout << "編號:"; cin >> id; cout << "駕駛員人數:"; cin >> pilot;
+    cout << "建立飛行物的資料\n實作一架" << obj << "\n名稱:"; 
+    cin >> name;
+    cout << "編號:"; 
+    cin >> id; 
+    cout << "駕駛員人數:"; 
+    cin >> pilot;
     cout << "煤油量(公升):"; 
     cin >> kerosene;
 }
@@ -54,7 +58,13 @@ void airliner::create_airliner() {
     cin >> manufacturer;
 }
 void airliner::display(ostream& os) {
-    os << "\t顯示大型客機的資料\n名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot << "\n煤油量(公升):" << kerosene << "\n乘客人數:" << passenger << "\n服務人員的數目:" << service_person << "\n製造者:" << manufacturer << endl;
+    os << "\t顯示大型客機的資料\n名稱:" << name 
+        << "\n編號:" << id 
+        << "\n駕駛員人數:" << pilot 
+        << "\n煤油量(公升):" << kerosene 
+        << "\n乘客人數:" << passenger 
+        << "\n服務人員的數目:" << service_person 
+        << "\n製造者:" << manufacturer << endl;
 }
 
 // === 3. battleplane 實作 ===
@@ -63,12 +73,22 @@ void battleplane::create_battleplane() {
     cin >> manufacturer; 
 }
 void battleplane::display(ostream& os) {
-    os << "\n顯示衍生類別battleplane物件的資料\n戰鬥機名稱:" << name << "\n編號:" << id << "\n駕駛員人數:" << pilot << "\n煤油量(公升):" << kerosene << "\n武器名稱:" << weapon << "\n製造者:" << manufacturer << endl;
+    os << "\n顯示衍生類別battleplane物件的資料\n戰鬥機名稱:" << name 
+        << "\n編號:" << id 
+        << "\n駕駛員人數:" << pilot 
+        << "\n煤油量(公升):" << kerosene 
+        << "\n武器名稱:" << weapon
+        << "\n製造者:" << manufacturer << endl;
 }
 
 // === 4. bombplane 實作 ===
 void bombplane::create_bombplane() {
-    cout << "乘客人數:"; cin >> passenger; cout << "武器名稱:"; cin >> weapon; cout << "製造者:"; cin >> manufacturer;
+    cout << "乘客人數:"; 
+    cin >> passenger; 
+    cout << "武器名稱:"; 
+    cin >> weapon; 
+    cout << "製造者:"; 
+    cin >> manufacturer;
 }
 // 這裡的 os 可以是 cout (螢幕) 也可以是 outfile (檔案)
 void bombplane::display(ostream& os) {
