@@ -1,0 +1,116 @@
+#include "flight.h"
+#include <iostream>
+#include <fstream>
+#include <cstdlib> // 提供 exit()
+
+using namespace std;
+
+// === flight_object 實作 ===
+void flight_object::create_flight_object(string obj)
+{
+    cout << "建立飛行物的資料\n";
+    cout << "實作一架" << obj << endl;
+    cout << "名稱:";
+    cin >> name;
+    cout << "編號:";
+    cin >> id;
+    cout << "駕駛員人數:";
+    cin >> pilot;
+    cout << "煤油量(公升):";
+    cin >> kerosene;
+}
+
+// === airliner 實作 ===
+void airliner::create_airliner()
+{
+    cout << "乘客人數:";
+    cin >> passenger;
+    cout << "服務人員的數目:";
+    cin >> service_person;
+    cout << "製造者:";
+    cin >> manufacturer;
+}
+
+void airliner::display()
+{
+    cout << "\t顯示大型客機的資料\n";
+    cout << "名稱:" << name << endl;
+    cout << "編號:" << id << endl;
+    cout << "駕駛員人數:" << pilot << endl;
+    cout << "煤油量(公升):" << kerosene << endl;
+    cout << "乘客人數:" << passenger << endl;
+    cout << "服務人員的數目:" << service_person << endl;
+    cout << "製造者:" << manufacturer << endl;
+}
+
+// === battleplane 實作 ===
+void battleplane::create_battleplane()
+{
+    cout << "製造者:";
+    cin >> manufacturer;
+}
+
+void battleplane::display()
+{
+    cout << "\n顯示衍生類別battleplane物件的資料\n";
+    cout << "戰鬥機名稱:" << name << endl;
+    cout << "編號:" << id << endl;
+    cout << "駕駛員人數:" << pilot << endl;
+    cout << "煤油量(公升):" << kerosene << endl;
+    cout << "武器名稱:" << weapon << endl;
+    cout << "製造者:" << manufacturer << endl;
+}
+
+// === bombplane 實作 ===
+void bombplane::create_bombplane()
+{
+    cout << "乘客人數:";
+    cin >> passenger;
+    cout << "武器名稱:";
+    cin >> weapon;
+    cout << "製造者:";
+    cin >> manufacturer;
+}
+
+void bombplane::display()
+{
+    cout << "\n顯示轟炸機的資料\n";
+    cout << "名稱:" << name << endl;
+    cout << "編號:" << id << endl;
+    cout << "駕駛員人數:" << pilot << endl;
+    cout << "煤油量(公升):" << kerosene << endl;
+    cout << "乘客人數:" << passenger << endl;
+    cout << "武器名稱:" << weapon << endl;
+    cout << "製造者:" << manufacturer << endl;
+}
+
+void bombplane::write()
+{
+    ofstream appendfile;
+    cout << "開啟bomb.txt文字檔，並新增資料於檔尾\n";
+
+    appendfile.open("bomb.txt", ios_base::app);
+    if (appendfile.fail())
+    {
+        cout << "bomb.txt檔案無法開啟!\n";
+        exit(1);
+    }
+
+    string data = "名稱:" + name +
+        "\n編號:" + to_string(id) +
+        "\n駕駛員人數:" + to_string(pilot) +
+        "\n煤油量(公升):" + to_string(kerosene) +
+        "\n乘客人數:" + to_string(passenger) +
+        "\n武器名稱:" + weapon +
+        "\n製造者:" + manufacturer;
+
+    appendfile << data << "\n-----------------------\n";
+
+    if (appendfile.fail())
+    {
+        cout << "寫入失敗\n";
+        exit(1);
+    }
+
+    appendfile.close();
+}
