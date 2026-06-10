@@ -1,0 +1,142 @@
+// date.h
+#ifndef DATE_H
+#define DATE_H
+
+class Date
+{
+    friend void printDate(const class PET&); 
+
+public:
+    explicit Date(int = 1900, int = 1, int = 1);
+    void setDate(int, int, int);
+    void setYear(int);
+    void setMonth(int);
+    void setDay(int);
+    unsigned int getYear() const;
+    unsigned int getMonth() const;
+    unsigned int getDay() const;
+    void printUniversal() const;
+    void printStandard() const;
+
+private:
+    unsigned int year;
+    unsigned int month;
+    unsigned int day;
+};
+
+#endif
+
+// date.cpp
+#include <iostream>
+#include <iomanip>
+#include "date.h"
+using namespace std;
+
+Date::Date(int year, int month, int day) { setDate(year, month, day); }
+void Date::setDate(int y, int m, int d) { setYear(y); setMonth(m); setDay(d); }
+void Date::setYear(int y) { year = (y >= 1 && y < 9999) ? y : 1900; }
+void Date::setMonth(int m) { month = (m > 0 && m < 13) ? m : 1; }
+void Date::setDay(int d) { day = (d > 0 && d < 32) ? d : 1; }
+unsigned int Date::getYear() const { return year; }
+unsigned int Date::getMonth() const { return month; }
+unsigned int Date::getDay() const { return day; }
+
+void Date::printUniversal() const {
+    cout << "  西元" << setfill('0') << setw(2) << getYear() << ":"
+         << setw(2) << getMonth() << ":" << setw(2) << getDay();
+}
+
+void Date::printStandard() const {
+    cout << (year < 1911 ? "民國前 " : "民國 ") << (year > 1911 ? year - 1911 : 1911 - year)
+         << "/" << setfill('0') << setw(2) << getMonth() << "/" << setw(2) << getDay();
+}
+
+// pet.h
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+#include "date.h"
+
+class PET
+{
+    friend void printDate(const PET&);
+
+public:
+    PET(const std::string&, const std::string&, const Date&, const Date&);
+    void print() const;
+    ~PET();
+
+private:
+    std::string firstName;
+    std::string category;
+    const Date birthDate; 
+    const Date adoptDate; 
+};
+
+#endif
+
+// pet.cpp
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+PET::PET(const string& first, const string& last, const Date& dateOfBirth, const Date& dateOfHire)
+    : firstName(first), category(last), birthDate(dateOfBirth), adoptDate(dateOfHire)
+{
+    cout << "PET object constructor: " << firstName << ' ' << category << endl;
+}
+
+void PET::print() const {
+    cout << category << ", " << firstName << "  Adopted: ";
+    adoptDate.printStandard();
+    cout << "  Birthday: ";
+    birthDate.printStandard();
+    cout << endl;
+}
+
+PET::~PET() {
+    cout << "\n PET object destructor: " << category << ", " << firstName << endl;
+}
+
+void printDate(const PET& p) {
+    cout << "\n[Friend Function Output]" << endl;
+    cout << "寵物名字: " << p.firstName << " (" << p.category << ")" << endl;
+
+    cout << "出生日期: " << p.birthDate.year << "年" 
+         << p.birthDate.month << "月" << p.birthDate.day << "日" << endl;
+         
+    cout << "領養日期: " << p.adoptDate.year << "年" 
+         << p.adoptDate.month << "月" << p.adoptDate.day << "日" << endl;
+    cout << "------------------------\n" << endl;
+}
+
+// main.cpp
+#include <iostream>
+#include "pet.h"
+using namespace std;
+
+void printDate(const PET&);
+
+int main()
+{
+    Date birth(2019, 7, 24);
+    Date adopt(2021, 12, 21);
+
+    PET pet1("Bob", "Dog", birth, adopt);
+    PET pet2("Fat", "Parrot", birth, adopt);
+
+    cout << "\n>> 使用成員函數印出:" << endl;
+    pet1.print();
+
+    cout << "\n>> 使用友元函數 (Friend Function) 印出:" << endl;
+    printDate(pet1); // 呼叫獨立函數
+    printDate(pet2);
+
+    return 0;
+}
+
+
+
+
+
