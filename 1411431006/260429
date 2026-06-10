@@ -1,3 +1,5 @@
+// 題目1. 修改上述檔案中的類別(介面與實作檔)，將一個獨立函數printDate()設定為friend function，再呼叫此函數印出物件的生日與領養日
+
 // date.h
 #ifndef DATE_H
 #define DATE_H
