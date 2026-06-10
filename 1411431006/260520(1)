@@ -1,0 +1,71 @@
+// 題目1:（多層繼承）寫一程式，定義一shape類別，且其成員變數為name 與shape_area，及成員函式為area()，分別表示圖形的名稱與圖形的面積，及顯示圖形的面積。接著定義shape類別的衍生類別rectangle，且其成員變數為length與width，及成員函式為data_input()，分別表示長方形的長與寬，及輸入長方形的長與寬。
+接著定義rectangle類別的衍生類別cube，且其成員變數為height及成員函式為data_input()，分別表示長方體的高及輸入長方體的高並計算體積。
+程式執行時，輸入長方體形的長、寬及高，輸出長方體的體積。
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class shape {
+protected:
+    string name;
+    double shape_area;
+
+public:
+
+    shape(string n) {
+        name = n;
+        shape_area = 0;
+    }
+
+    void area() {
+        cout << name << " 的計算結果為: " << shape_area << endl;
+    }
+};
+
+class rectangle : public shape {
+protected:
+    double length;
+    double width;
+
+public:
+
+    rectangle() : shape("長方形") {
+        length = 0;
+        width = 0;
+    }
+
+    void data_input() {
+        cout << "請輸入長方形的長: ";
+        cin >> length;
+        cout << "請輸入長方形的寬: ";
+        cin >> width;
+    }
+};
+
+class cube : public rectangle {
+private:
+    double height;
+
+public:
+    cube() : rectangle() {
+        name = "長方體";
+        height = 0;
+    }
+
+    void data_input() {
+        rectangle::data_input();
+        cout << "請輸入長方體的高: ";
+        cin >> height;
+        shape_area = length * width * height;
+    }
+};
+
+int main() {
+    cube my_cube;
+    my_cube.data_input();
+    my_cube.area();
+    return 0;
+}
+
