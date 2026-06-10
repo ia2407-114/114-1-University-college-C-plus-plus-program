@@ -1,0 +1,104 @@
+//main
+
+#include "animal_io.h"
+
+int main()
+{
+	const std::string filename = "animal.txt";
+
+	// 1. 執行寫入功能
+	writeAnimalData(filename);
+
+	// 2. 執行讀取並輸出功能
+	readAnimalData(filename);
+
+	return 0;
+}
+
+//實作檔
+
+#include "animal_io.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+// 實作寫入檔案的功能
+void writeAnimalData(const string& filename)
+{
+	// 做為寫入檔案之用
+	ofstream writefile;
+
+	// 以寫入模式開啟檔案
+	writefile.open(filename, ios_base::out);
+	if (writefile.fail())
+	{
+		cout << filename << "檔案無法開啟!\n";
+		exit(1);
+	}
+
+	writefile << "動物\t年齡\t身高\n";
+	int i;
+	string name;
+	int age, height;
+	for (i = 1; i <= 3; i++)
+	{
+		cout << "輸入第" << i
+			<< "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+		cin >> name >> age >> height;
+		writefile << name << '\t' << age << '\t' << height << '\n';
+		if (writefile.fail())
+		{
+			cout << "寫入失敗\n";
+			break;
+		}
+	}
+
+	writefile.close();
+	if (writefile.fail())
+	{
+		cout << filename << "檔案無法關閉!\n";
+		exit(1);
+	}
+}
+
+// 實作讀取檔案並輸出的功能
+void readAnimalData(const string& filename)
+{
+	cout << "\n""\t""檔案內容""\n";
+
+	// 宣告型態為 ifstream 的資料輸入串流物件變數 readfile
+	ifstream readfile;
+
+	// 以讀取模式開啟檔案
+	readfile.open(filename, ios_base::in);
+	if (readfile.fail())
+	{
+		cout << filename << "檔案無法開啟以進行讀取!\n";
+		exit(1);
+	}
+
+	string line;
+	// 使用 getline 逐行讀取檔案內容，直到檔案結束
+	while (getline(readfile, line))
+	{
+		cout << line << endl; // 將讀取到的每一行輸出到螢幕
+	}
+
+	// 關閉讀取串流
+	readfile.close();
+}
+
+//介面檔
+
+#ifndef ANIMAL_IO_H
+#define ANIMAL_IO_H
+
+#include <string>
+
+// 宣告寫入動物資料的函式
+void writeAnimalData(const std::string& filename);
+
+// 宣告讀取並顯示動物資料的函式
+void readAnimalData(const std::string& filename);
+
+#endif // ANIMAL_IO_H#pragma once
