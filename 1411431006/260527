@@ -1,0 +1,98 @@
+// main.cpp
+
+#include <iostream>
+#include <iomanip>
+#include "ShapesImpl.h"
+
+using namespace std;
+
+int main() {
+    Shape* a1 = nullptr;
+
+    cout << fixed << setprecision(2) << "--- 體績計算結果 ---" << endl;
+
+    a1 = new Cone(5.0, 10.0);
+    cout << "圓錐體體積: " << a1->Volume() << endl;
+    delete a1;
+
+    a1 = new Sphere(5.0);
+    cout << "球體體積: " << a1->Volume() << endl;
+    delete a1;
+
+    a1 = new Cylinder(5.0, 10.0);
+    cout << "圓柱體體積: " << a1->Volume() << endl;
+    delete a1;
+
+    return 0;
+}
+
+// shape.h
+#ifndef SHAPE_H
+#define SHAPE_H
+
+class Shape {
+public:
+    virtual double Volume() const = 0;
+
+    virtual ~Shape() {}
+};
+
+#endif
+
+// shapesimpl.cpp
+#include "ShapesImpl.h"
+#include <cmath>
+
+const double PI = 3.1415926535;
+
+Cone::Cone(double r, double h) : radius(r), height(h) {}
+double Cone::Volume() const {
+    return (1.0 / 3.0) * PI * std::pow(radius, 2) * height;
+}
+
+Sphere::Sphere(double r) : radius(r) {}
+double Sphere::Volume() const {
+    return (4.0 / 3.0) * PI * std::pow(radius, 3);
+}
+
+Cylinder::Cylinder(double r, double h) : radius(r), height(h) {}
+double Cylinder::Volume() const {
+    return PI * std::pow(radius, 2) * height;
+}
+
+// shapesimpl.h
+#ifndef SHAPES_IMPL_H
+#define SHAPES_IMPL_H
+
+#include "Shape.h"
+
+// 圓錐體
+class Cone : public Shape {
+private:
+    double radius, height;
+public:
+    Cone(double r, double h);
+    virtual double Volume() const override;
+};
+
+// 球體
+class Sphere : public Shape {
+private:
+    double radius;
+public:
+    Sphere(double r);
+    virtual double Volume() const override;
+};
+
+// 圓柱體
+class Cylinder : public Shape {
+private:
+    double radius, height;
+public:
+    Cylinder(double r, double h);
+    virtual double Volume() const override;
+};
+
+#endif
+
+
