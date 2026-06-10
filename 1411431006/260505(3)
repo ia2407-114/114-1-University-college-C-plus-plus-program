@@ -1,0 +1,123 @@
+// 題目3. 利用範例3.cpp的類別中，建立一個二元運算子多載，a-b可以將矩陣a的元素減去矩陣b的內容之後印出，矩陣元素的形態要使用float或double。請分成以介面檔與實作檔的方式撰寫。
+
+// Matrix.h
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+class Matrix {
+public:
+    int row, column;
+    float **element;
+
+    Matrix(int m, int n);
+    Matrix(char name, int m, int n);
+    ~Matrix();
+
+    Matrix operator!();
+    Matrix operator++(int);
+
+    Matrix operator-(const Matrix& x);
+
+    void display();
+};
+
+#endif
+
+// Matrix.cpp
+#include "Matrix.h"
+
+using namespace std;
+
+Matrix::Matrix(int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+}
+
+Matrix::Matrix(char name, int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+
+    cout << "輸入一 " << m << "x" << n << " 矩陣 " << name << endl;
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            cout << name << "[" << i << "][" << j << "]=";
+            cin >> element[i][j];
+        }
+    }
+}
+
+Matrix::~Matrix() {
+    for (int i = 0; i < row; i++) delete[] element[i];
+    delete[] element;
+}
+
+Matrix Matrix::operator-(const Matrix& x) {
+    Matrix temp(this->row, this->column);
+    for (int i = 0; i < this->row; i++) {
+        for (int j = 0; j < this->column; j++) {
+            temp.element[i][j] = this->element[i][j] - x.element[i][j];
+        }
+    }
+    return temp;
+}
+
+Matrix Matrix::operator!() {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++)
+        for (int j = 0; j < column; j++)
+            temp.element[i][j] = sqrt(this->element[i][j]);
+    return temp;
+}
+
+Matrix Matrix::operator++(int) {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            temp.element[i][j] = this->element[i][j];
+            this->element[i][j] = pow(this->element[i][j], 2);
+        }
+    }
+    return temp;
+}
+
+void Matrix::display() {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++)
+            cout << fixed << setprecision(2) << element[i][j] << "\t";
+        cout << endl;
+    }
+}
+
+// main.cpp
+
+#include <iostream>
+#include "Matrix.h"
+
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "--- 題目 3：二元運算子 a - b (矩陣相減) 測試 ---\n";
+    cout << "請輸入矩陣 A 與 B 的列數(row): "; cin >> r;
+    cout << "請輸入矩陣 A 與 B 的行數(column): "; cin >> c;
+
+    Matrix a('A', r, c);
+    Matrix b('B', r, c);
+
+    cout << "\n矩陣 A - 矩陣 B 的結果為：\n";
+    Matrix result = a - b; // 呼叫 operator-
+    result.display();
+
+    return 0;
+}
+
+
+
+
+
