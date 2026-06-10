@@ -1,0 +1,100 @@
+// 題目1. 利用範例1.cpp的類別中，建立一個前序一元運算子多載，!a可以將矩陣a的元素開平方根之後印出，矩陣元素的形態要使用float或double。請分成以介面檔與實作檔的方式撰寫。
+
+// Matrix.h
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include <iostream>
+#include <cmath> 
+
+class Matrix {
+public:
+    int row, column;
+    float **element; 
+
+    Matrix(int m, int n);
+    Matrix(char name, int m, int n);
+    ~Matrix();
+
+    Matrix operator!();
+
+    void display();
+};
+
+#endif
+
+// Matrix.cpp
+#include "Matrix.h"
+#include <iomanip>
+
+using namespace std;
+
+Matrix::Matrix(int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+}
+
+Matrix::Matrix(char name, int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+
+    cout << "輸入一 " << m << "x" << n << " 矩陣 " << name << endl;
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            cout << name << "[" << i << "][" << j << "]=";
+            cin >> element[i][j];
+        }
+    }
+}
+
+Matrix::~Matrix() {
+    for (int i = 0; i < row; i++) delete[] element[i];
+    delete[] element;
+}
+
+Matrix Matrix::operator!() {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            temp.element[i][j] = sqrt(this->element[i][j]);
+        }
+    }
+    return temp;
+}
+
+void Matrix::display() {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            cout << fixed << setprecision(2) << element[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+// main.cpp
+#include <iostream>
+#include "Matrix.h"
+
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "--- 題目 1：前序運算子 ! (平方根) 測試 ---\n";
+    cout << "輸入矩陣的列數(row): ";
+    cin >> r;
+    cout << "輸入矩陣的行數(column): ";
+    cin >> c;
+
+    Matrix a('A', r, c);
+
+    cout << "\n執行 !A (開平方根) 的結果為：\n";
+    Matrix result = !a; // 呼叫 operator!()
+    result.display();
+
+    return 0;
+}
+
+
+
