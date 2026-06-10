@@ -1,0 +1,112 @@
+// 題目2. 承上題，在Matrix中再加入一個後序一元運算子多載，a++可以計算出矩陣a的每個元素的2次方之後印出，矩陣元素的形態要使用float或double。請分成以介面檔與實作檔的方式撰寫。
+
+// Matrix.h
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+class Matrix {
+public:
+    int row, column;
+    float **element;
+
+    Matrix(int m, int n);
+    Matrix(char name, int m, int n);
+    ~Matrix();
+
+    // 題目 1：前序一元運算子 (開平方根)
+    Matrix operator!();
+
+    // 題目 2：後序一元運算子 (元素 2 次方)
+    // 括號內的 int 是為了區分後序運算子的語法規定
+    Matrix operator++(int);
+
+    void display();
+};
+
+#endif
+
+// Matrix.cpp
+#include "Matrix.h"
+
+using namespace std;
+
+Matrix::Matrix(int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+}
+
+Matrix::Matrix(char name, int m, int n) : row(m), column(n) {
+    element = new float*[row];
+    for (int i = 0; i < row; i++)
+        element[i] = new float[column];
+
+    cout << "輸入一 " << m << "x" << n << " 矩陣 " << name << endl;
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            cout << name << "[" << i << "][" << j << "]=";
+            cin >> element[i][j];
+        }
+    }
+}
+
+Matrix::~Matrix() {
+    for (int i = 0; i < row; i++) delete[] element[i];
+    delete[] element;
+}
+
+Matrix Matrix::operator!() {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++)
+        for (int j = 0; j < column; j++)
+            temp.element[i][j] = sqrt(this->element[i][j]);
+    return temp;
+}
+
+Matrix Matrix::operator++(int) {
+    Matrix temp(row, column);
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            temp.element[i][j] = this->element[i][j];
+            this->element[i][j] = pow(this->element[i][j], 2);
+        }
+    }
+    return temp;
+}
+
+void Matrix::display() {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++)
+            cout << fixed << setprecision(2) << element[i][j] << "\t";
+        cout << endl;
+    }
+}
+
+// main.cpp
+#include <iostream>
+#include "Matrix.h"
+
+using namespace std;
+
+int main() {
+    int r, c;
+    cout << "--- 題目 2：後序運算子 a++ (2 次方) 測試 ---\n";
+    cout << "列數: "; cin >> r;
+    cout << "行數: "; cin >> c;
+
+    Matrix a('A', r, c);
+
+    cout << "\n執行 a++ (後序運算子)：\n";
+    a++; 
+
+    cout << "矩陣 A 現在的內容 (已計算 2 次方)：\n";
+    a.display();
+
+    return 0;
+}
+
+
