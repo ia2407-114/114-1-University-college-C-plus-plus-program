@@ -1,0 +1,107 @@
+// time.h
+#ifndef TIME_H
+#define TIME_H
+
+#include <iostream>
+using namespace std;
+
+class Time
+{
+    friend ostream &operator<<(ostream &, const Time &);
+
+public:
+    Time(int h = 0, int m = 0, int s = 0);
+
+    Time &operator++();      // 前置 ++
+    Time operator++(int);    // 後置 ++
+
+private:
+    int hour;
+    int minute;
+    int second;
+
+    void helpIncrement();
+};
+
+#endif
+
+// time.cpp
+
+#include "Time.h"
+
+// 建構子
+Time::Time(int h, int m, int s)
+{
+    hour = h;
+    minute = m;
+    second = s;
+}
+
+// 前置 ++
+Time &Time::operator++()
+{
+    helpIncrement();
+    return *this;
+}
+
+// 後置 ++
+Time Time::operator++(int)
+{
+    Time temp = *this;
+    helpIncrement();
+    return temp;
+}
+
+// 時間增加 1 秒
+void Time::helpIncrement()
+{
+    second++;
+
+    if (second >= 60)
+    {
+        second = 0;
+        minute++;
+
+        if (minute >= 60)
+        {
+            minute = 0;
+            hour++;
+
+            if (hour >= 24)
+            {
+                hour = 0;
+            }
+        }
+    }
+}
+
+// 輸出格式
+ostream &operator<<(ostream &output, const Time &t)
+{
+    output << t.hour << ":"
+           << t.minute << ":"
+           << t.second;
+
+    return output;
+}
+
+// main.cpp
+#include <iostream>
+#include "Time.h"
+
+using namespace std;
+
+int main()
+{
+    Time time1(8, 24, 36);
+
+    cout << "time1 = " << time1 << endl;
+
+    cout << "time1++ = " << time1++ << endl;
+
+    cout << "after time1++ = " << time1 << endl;
+
+    cout << "++time1 = " << ++time1 << endl;
+
+    return 0;
+}
