@@ -1,0 +1,91 @@
+#ifndef ANIMAL_H
+#define ANIMAL_H
+#include <string>
+#include <fstream>
+
+class Animal {
+private:
+    std::ofstream writefile; 
+    std::string filename;    
+
+public:
+    Animal(const std::string& file);
+
+    ~Animal();
+
+    void openFile();              
+    void writeTitle();
+    void inputAndWrite(int count);
+    void closeFile();             
+};
+
+#endif
+
+
+
+#include "animal.h"
+#include <iostream>
+#include <iomanip> 
+#include <cstdlib> 
+
+using namespace std;
+
+
+Animal::Animal(const string& file) : filename(file) {}
+
+Animal::~Animal() {
+    if (writefile.is_open()) {
+        writefile.close();
+    }
+}
+
+void Animal::openFile() {
+    writefile.open(filename, ios_base::out);
+    if (writefile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+}
+
+void Animal::writeTitle() {
+    
+    writefile << "動物\t年齡\t身高\n";
+}
+
+void Animal::inputAndWrite(int count) {
+    string name;
+    int age, height;
+
+    for (int i = 1; i <= count; i++) {
+        cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name >> age >> height;
+        writefile << name << '\t' << age << '\t' << height << '\n';
+
+        if (writefile.fail()) {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+}
+
+void Animal::closeFile() {
+    writefile.close();
+    if (writefile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+
+#include "animal.h"
+
+int main() {
+    Animal manager("animal.txt");
+   
+    manager.openFile();      
+    manager.writeTitle();
+    manager.inputAndWrite(3); 
+    manager.closeFile();      
+    return 0;
+}

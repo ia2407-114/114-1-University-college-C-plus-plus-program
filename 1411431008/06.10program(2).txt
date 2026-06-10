@@ -1,0 +1,153 @@
+#ifndef ANIMALS_H
+#define ANIMALS_H
+
+#include <string>
+#include <fstream>
+
+class Animal {
+private:
+    std::string filename;    
+
+public:
+    Animal(const std::string& file);
+    ~Animal();
+
+    
+    void inputAndWrite(int count);
+
+    
+    void Average(int count); 
+    void printAll();           
+};
+
+#endif
+
+
+
+
+#include "Animal.h"
+#include <iostream>
+#include <fstream>
+#include <cstdlib> 
+
+using namespace std;
+
+Animal::Animal(const string& file) : filename(file) {}
+Animal::~Animal() {}
+
+void Animal::inputAndWrite(int count) {
+    ofstream writefile;
+    writefile.open(filename, ios_base::out);
+    if (writefile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    writefile << "動物\t年齡\t身高\n";
+
+    string name;
+    int age, height;
+    for (int i = 1; i <= count; i++) {
+        cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name >> age >> height;
+
+        writefile << name << '\t' << age << '\t' << height << '\n';
+        if (writefile.fail()) {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+
+    writefile.close();
+    if (writefile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+void Animal::Average(int count) {
+    fstream read_writefile;
+
+    
+    read_writefile.open(filename, ios_base::in | ios_base::out);
+    if (read_writefile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    string name;
+    int age, height;
+
+ 
+    getline(read_writefile, name);
+
+    float total_age = 0, total_height = 0;
+    for (int i = 1; i <= count; i++) {
+        read_writefile >> name >> age >> height;
+        if (read_writefile.fail()) {
+            cout << "讀取失敗\n";
+            break;
+        }
+        total_age = total_age + age;
+        total_height = total_height + height;
+    }
+
+    float avg_age = total_age / (float)count;
+    float avg_height = total_height / (float)count;
+     
+    cout.precision(1);
+    cout.setf(ios::fixed);
+
+    read_writefile.precision(1);
+    read_writefile.setf(ios::fixed);
+
+    read_writefile.clear();
+    read_writefile.seekg(0, ios::end);
+
+    
+    read_writefile << "平均年齡:" << avg_age << "\t平均身高:" << avg_height << '\n';
+
+    read_writefile.close();
+    if (read_writefile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+void Animal::printAll() {
+    ifstream readfile;
+    readfile.open(filename, ios_base::in);
+    if (readfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    cout << "\n檔案內容\n";
+    string line;
+    
+    while (getline(readfile, line)) {
+        cout << line << endl;
+    }
+
+    readfile.close();
+}
+
+
+
+
+#include "Animal.h"
+
+int main() {
+
+    Animal manager("animal.txt");
+
+    manager.inputAndWrite(3);
+
+    manager.Average(3);
+
+    manager.printAll();
+
+    return 0;
+}
