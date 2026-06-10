@@ -1,0 +1,151 @@
+主程式
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <fstream>
+#include "Animal.h"
+using namespace std;
+
+int main() {
+    Animal pet;
+    string filename = "animal.txt";
+       
+    if (pet.openWriteFile(filename) == 0) {
+        cout << "檔案無法開啟!\n";
+        exit(1);
+    }
+    pet.writeHeader();
+
+    string name;
+    int age, height;
+    for (int i = 1; i <= 3; i++) {
+        cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name >> age >> height;
+        pet.writeData(name, age, height);
+    }
+    pet.closeWriteFile();
+
+    ifstream infile(filename);
+    if (infile.fail()) {
+        cout << "讀取失敗!\n";
+        exit(1);
+    }
+
+    string skip_name, skip_age, skip_height;
+    infile >> skip_name >> skip_age >> skip_height; // 把第一行的「動物 年齡 身高」讀走
+
+    float total_age = 0, total_height = 0;
+    for (int i = 1; i <= 3; i++) {
+        infile >> name >> age >> height;
+        total_age += age;
+        total_height += height;
+    }
+    infile.close();
+
+    
+    float avg_age = total_age / 3.0;
+    float avg_height = total_height / 3.0;
+    pet.appendAverage(avg_age, avg_height);
+
+    
+    pet.printFileContent(filename);
+
+    return 0;
+}
+實作檔
+#include "Animal.h"
+#include <iostream>
+#include <iomanip> 
+using namespace std;
+
+
+int Animal::openWriteFile(string filename) {
+    writefile.open(filename, ios_base::out);
+    return writefile.fail() ? 0 : 1;
+}
+
+
+int Animal::openReadFile(string filename) {
+    readfile.open(filename, ios_base::in);
+    return readfile.fail() ? 0 : 1;
+}
+
+
+int Animal::closeWriteFile() {
+    writefile.close();
+    return writefile.fail() ? 0 : 1;
+}
+
+
+int Animal::closeReadFile() {
+    readfile.close();
+    return readfile.fail() ? 0 : 1;
+}
+
+
+void Animal::writeHeader() {
+    writefile << setw(10) << "動物"
+        << setw(10) << "年齡"
+        << setw(10) << "身高" << "\n";
+}
+
+
+int Animal::writeData(string name, int age, int height) {
+    writefile << setw(10) << name
+        << setw(10) << age
+        << setw(10) << height << "\n";
+    return writefile.fail() ? 0 : 1;
+}
+
+
+void Animal::appendAverage(float avg_age, float avg_height) {
+    
+    ofstream appfile;
+    appfile.open("animal.txt", ios_base::app);
+    if (!appfile.fail()) {        
+        appfile.precision(1);
+        appfile.setf(ios::fixed);
+        appfile << "平均年齡:" << avg_age << "\t平均身高:" << avg_height << "\n";
+        appfile.close();
+    }
+}
+
+
+void Animal::printFileContent(string filename) {
+    ifstream infile(filename);
+    if (!infile.fail()) {
+        string line;               
+        while (getline(infile, line)) {
+            cout << line << endl;
+        }
+        infile.close();
+    }
+}
+標頭檔
+#ifndef ANIMAL_H
+#define ANIMAL_H
+
+#include <string>
+#include <fstream>
+using namespace std;
+
+class Animal {
+private:
+    ofstream writefile; 
+    ifstream readfile;  
+
+public:
+    
+    int openWriteFile(string filename);
+    int openReadFile(string filename);
+    int closeWriteFile();
+    int closeReadFile();
+
+   
+    void writeHeader(); 
+    int writeData(string name, int age, int height); 
+    void appendAverage(float avg_age, float avg_height); 
+    void printFileContent(string filename); 
+};
+
+#endif
