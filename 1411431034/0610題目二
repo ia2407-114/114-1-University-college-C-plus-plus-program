@@ -1,0 +1,151 @@
+//main
+
+#include "animal_io.h"
+
+int main()
+{
+	const std::string filename = "animal.txt";
+
+	// 1. 執行寫入功能（讓使用者輸入3隻動物資料）
+	writeAnimalData(filename);
+
+	// 2. 執行讀取、計算平均、輸出到螢幕，並追加寫入到 animal.txt 檔尾
+	readAnimalData(filename);
+
+	return 0;
+}
+
+//實作檔
+
+#include "animal_io.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+// 實作寫入原始動物資料的功能
+void writeAnimalData(const string& filename)
+{
+	ofstream writefile;
+
+	// 以寫入模式開啟檔案（會覆蓋舊檔，建立新標頭）
+	writefile.open(filename, ios_base::out);
+	if (writefile.fail())
+	{
+		cout << filename << "檔案無法開啟!\n";
+		exit(1);
+	}
+
+	writefile << "動物\t年齡\t身高\n";
+
+	string name;
+	int age, height;
+	for (int i = 1; i <= 3; i++)
+	{
+		cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+		cin >> name >> age >> height;
+		writefile << name << '\t' << age << '\t' << height << '\n';
+		if (writefile.fail())
+		{
+			cout << "寫入失敗\n";
+			break;
+		}
+	}
+
+	writefile.close();
+	if (writefile.fail())
+	{
+		cout << filename << "檔案無法關閉!\n";
+		exit(1);
+	}
+}
+
+// 實作讀取、計算平均、輸出並寫入檔尾的功能
+void readAnimalData(const string& filename)
+{
+	// 使用 fstream 以同時支援讀取(in)與寫入(out)模式開啟
+	fstream read_writefile;
+	read_writefile.open(filename, ios_base::in | ios_base::out);
+
+	if (read_writefile.fail())
+	{
+		cout << filename << "檔案無法開啟以進行讀寫!\n";
+		exit(1);
+	}
+
+	cout << "\n\t""檔案原始內容""\n";
+
+	string header;
+	// 讀取第一行的標頭（動物	年齡	身高）
+	getline(read_writefile, header);
+	cout << header << endl;
+
+	string name;
+	float age, height;
+	float total_age = 0, total_height = 0;
+	int count = 0;
+
+	// 讀取資料並計算總和
+	for (int i = 1; i <= 3; i++)
+	{
+		read_writefile >> name >> age >> height;
+		if (read_writefile.fail())
+		{
+			cout << "讀取資料失敗或已達檔案末尾\n";
+			break;
+		}
+		// 列印讀取到的資料
+		cout << name << "\t" << age << "\t" << height << "\n";
+
+		total_age += age;
+		total_height += height;
+		count++;
+	}
+
+	// 設定顯示小數點後一位
+	cout.precision(1);
+	cout.setf(ios::fixed);
+
+	// 計算平均值（防呆：確保 count 不為 0）
+	float avg_age = (count > 0) ? (total_age / count) : 0;
+	float avg_height = (count > 0) ? (total_height / count) : 0;
+
+	// 1. 輸出結果到螢幕上
+	cout << "平均年齡:" << avg_age << "\t平均身高:" << avg_height << '\n';
+
+	// 2. 將檔案指標移到檔尾，準備寫入計算結果
+	read_writefile.seekg(0, ios::end);
+
+	// 將平均值寫入檔案
+	read_writefile << "平均年齡:" << avg_age << "\t平均身高:" << avg_height << '\n';
+
+	// 清除串流狀態並關閉檔案
+	read_writefile.clear();
+	read_writefile.close();
+
+	if (read_writefile.fail())
+	{
+		cout << filename << "檔案無法關閉!\n";
+		exit(1);
+	}
+	else
+	{
+		cout << "\n系統提示：平均計算結果已成功寫入 " << filename << " 檔尾！\n";
+	}
+}
+
+//介面檔
+
+#ifndef ANIMAL_IO_H
+#define ANIMAL_IO_H
+
+#include <string>
+
+// 宣告寫入動物資料的函式
+void writeAnimalData(const std::string& filename);
+
+// 宣告讀取、計算平均並顯示與寫入的函式
+void readAnimalData(const std::string& filename);
+
+#endif // ANIMAL_IO_H
