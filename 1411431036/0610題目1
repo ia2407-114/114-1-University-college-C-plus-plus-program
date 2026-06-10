@@ -1,0 +1,103 @@
+主程式
+#include <iostream>
+#include <string>
+#include <cstdlib> 
+#include "Animal.h" 
+using namespace std;
+
+int main() {
+    Animal pet; 
+
+    if (pet.openFile("animal.txt") == 0) {
+        cout << "animal.txt檔案無法開啟!\n";
+        exit(1);
+    }
+
+    pet.writeHeader();
+
+    string name;
+    int age, height;
+
+    for (int i = 1; i <= 3; i++) {
+        cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name >> age >> height;
+
+        
+        if (pet.writeData(name, age, height) == 0) {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+
+    
+    if (pet.closeFile() == 0) {
+        cout << "animal.txt檔案無法關閉!\n";
+        exit(1);
+    }
+
+    cout << "資料已格式化寫入\n";
+    return 0;
+}
+實作檔
+#include "Animal.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int Animal::openFile(string filename) {
+    writefile.open(filename, ios_base::out);
+    if (writefile.fail()) {
+        return 0; 
+    }
+    return 1;    
+}
+
+void Animal::writeHeader() {
+    
+    writefile << setw(10) << "動物"
+        << setw(10) << "年齡"
+        << setw(10) << "身高" << "\n";
+}
+
+int Animal::writeData(string name, int age, int height) {
+    writefile << setw(10) << name
+        << setw(10) << age
+        << setw(10) << height << "\n";
+
+    if (writefile.fail()) {
+        return 0; 
+    }
+    return 1;     
+}
+
+int Animal::closeFile() {
+    writefile.close();
+    if (writefile.fail()) {
+        return 0; 
+    }
+    return 1;    
+}
+標頭檔
+#ifndef ANIMAL_H
+#define ANIMAL_H
+
+#include <string>
+#include <fstream>
+using namespace std;
+
+class Animal {
+private:
+    ofstream writefile; 
+
+public:
+    
+    int openFile(string filename);
+
+    void writeHeader();
+       
+    int writeData(string name, int age, int height);
+
+    int closeFile();
+};
+
+#endif
