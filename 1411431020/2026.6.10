@@ -1,0 +1,237 @@
+//001
+//介面
+#ifndef ANIMAL_H
+#define ANIMAL_H
+
+#include <string>
+#include <fstream>
+
+class Animal {
+public:
+    Animal(); // 建構子
+
+    // 從鍵盤格式化輸入資料
+    void inputFromKeyboard(int index);
+
+    // 將資料寫入檔案串流
+    void writeToFile(std::ofstream &outfile) const;
+
+    // 從檔案讀取資料成員 (用於計算平均)
+    bool readFromFile(std::fstream &file);
+
+    // 取得資料成員的存取函式
+    int getAge() const { return age; }
+    int getHeight() const { return height; }
+
+private:
+    std::string name;
+    int age;
+    int height;
+};
+
+#endif
+//實作
+#include "Animal.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// 初始化成員變數
+Animal::Animal() : age(0), height(0) {}
+
+// 實作鍵盤輸入邏輯
+void Animal::inputFromKeyboard(int index) {
+    cout << "輸入第" << index << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+    cin >> name >> age >> height;
+}
+
+// 實作寫入檔案邏輯
+void Animal::writeToFile(ofstream &outfile) const {
+    outfile << name << '\t' << age << '\t' << height << '\n';
+}
+
+// 實作從檔案讀取邏輯
+bool Animal::readFromFile(fstream &file) {
+    if (file >> name >> age >> height) {
+        return true;
+    }
+    return false;
+}
+//main
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <cstdlib>
+#include "Animal.h"
+
+using namespace std;
+
+int main() {
+    const int COUNT = 3;
+    Animal animals[COUNT];
+
+    // --- 第一部分：寫入檔案 ---
+    ofstream writefile;
+    writefile.open("animal.txt", ios::out); // 開啟檔案
+
+    if (writefile.fail()) {
+        cerr << "animal.txt 檔案無法開啟!\n";
+        exit(1);
+    }
+
+    writefile << "動物\t年齡\t身高\n"; // 寫入標頭
+
+    for (int i = 0; i < COUNT; i++) {
+        animals[i].inputFromKeyboard(i + 1);
+        animals[i].writeToFile(writefile);
+        
+        if (writefile.fail()) {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+
+    writefile.close(); // 關閉寫入串流 
+
+    // --- 第二部分：讀取、計算並附加資料 ---
+    fstream read_writefile;
+    read_writefile.open("animal.txt", ios::in | ios::out);
+
+    if (read_writefile.fail()) {
+        cerr << "animal.txt 檔案無法開啟!\n";
+        exit(1);
+    }
+
+    string header;
+    getline(read_writefile, header); // 跳過標頭行
+
+    float total_age = 0, total_height = 0;
+    Animal temp;
+    int j = 0;
+    while (j < COUNT && temp.readFromFile(read_writefile)) {
+        total_age += temp.getAge();
+        total_height += temp.getHeight();
+        j++;
+    }
+
+    // 設定螢幕顯示格式：固定小數點一位
+    cout << fixed << setprecision(1);
+    cout << "平均年齡:" << total_age / COUNT
+         << "\t平均身高:" << total_height / COUNT << '\n';
+
+    // 將檔案指標移到檔尾以進行附加
+    read_writefile.clear(); // 清除 EOF 狀態 
+    read_writefile.seekg(0, ios::end);
+
+    read_writefile << "平均年齡:" << total_age / COUNT
+                   << "\t平均身高:" << total_height / COUNT << '\n';
+
+    read_writefile.close();
+    
+    if (read_writefile.fail()) {
+        cerr << "animal.txt 檔案無法關閉!\n";
+        exit(1);
+    }
+
+    return 0;
+}
+
+/*
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+int main()
+{
+// 做為寫入檔案之用
+    ofstream writefile;
+
+
+    writefile.open("animal.txt", ios_base::out);
+    if (writefile.fail())
+    {
+        cout << "animal.txt檔案無法開啟!\n";
+        exit(1);
+    }
+
+    writefile << "動物\t年齡\t身高\n";
+    int i;
+    string name1;
+    int age1, height1;
+    for (i = 1; i <= 3; i++)
+    {
+        cout << "輸入第" << i
+            << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name1 >> age1 >> height1;
+        writefile << name1 << '\t' << age1 << '\t' << height1 << '\n';
+        if (writefile.fail())
+        {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+    writefile.clear();
+    writefile.close();
+    if (writefile.fail())
+    {
+        cout << "animal.txt檔案無法關閉!\n";
+        exit(1);
+    }
+
+
+        // 做為讀取/寫入檔案之用
+    fstream read_writefile;
+
+
+    read_writefile.open("animal.txt", ios_base::in | ios_base::out);
+    if (read_writefile.fail())
+    {
+        cout << "animal.txt檔案無法開啟!\n";
+        exit(1);
+    }
+    string name;
+    int age, height;
+
+    getline(read_writefile, name);
+
+    float total_age = 0, total_height = 0;
+    int j;
+    for (j = 1; j <= 3; j++)
+    {
+        read_writefile >> name >> age >> height;
+        if (read_writefile.fail())
+        {
+            cout << "讀取失敗\n";
+            break;
+        }
+        total_age = total_age + age;
+        total_height = total_height + height;
+    }
+
+    cout.precision(1);
+    cout.setf(ios::fixed);
+    // 設定顯示小數一位
+
+    cout << "平均年齡:" << total_age / 3
+        << "\t平均身高:" << total_height / 3 << '\n';
+
+    // 將read_writefile串流的檔案指標移到檔尾 
+    read_writefile.seekg(0, ios::end);
+
+    read_writefile << "平均年齡:" << total_age / 3
+        << "\t平均身高:" << total_height / 3 << '\n';
+
+    // 清除read_writefile串流的狀態      
+    read_writefile.clear();
+    read_writefile.close();
+    if (read_writefile.fail())
+    {
+        cout << "animal.txt檔案無法關閉!\n";
+        exit(1);
+    }
+
+    return 0;
+}
+*/
