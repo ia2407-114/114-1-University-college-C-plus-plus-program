@@ -1,0 +1,137 @@
+//main.cpp
+
+#include "AnimalManager.h"
+#include <iostream>
+
+int main() {
+    AnimalManager manager("animal.txt");
+
+    manager.inputAndWriteFormat(3);
+
+    manager.processAverageAndDisplayAll();
+
+    return 0;
+}
+
+
+//AnimalManager.cpp
+
+#include "AnimalManager.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip> 
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+AnimalManager::AnimalManager(const string& fname) : filename(fname) {}
+
+void AnimalManager::inputAndWriteFormat(int count) {
+    ofstream writefile;
+
+    writefile.open(filename, ios_base::out);
+    if (writefile.fail()) {
+        cerr << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    writefile << left << setw(12) << "動物"
+        << setw(12) << "年齡"
+        << setw(12) << "身高" << "\n";
+
+    string name1;
+    int age1, height1;
+
+    for (int i = 1; i <= count; i++) {
+        cout << "輸入第" << i << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+        cin >> name1 >> age1 >> height1;
+
+        writefile << left << setw(12) << name1
+            << setw(12) << age1
+            << setw(12) << height1 << "\n";
+
+        if (writefile.fail()) {
+            cout << "寫入失敗\n";
+            break;
+        }
+    }
+
+    writefile.clear();
+    writefile.close();
+}
+
+void AnimalManager::processAverageAndDisplayAll() {
+    fstream read_writefile;
+
+    read_writefile.open(filename, ios_base::in | ios_base::out | ios_base::app);
+    if (read_writefile.fail()) {
+        cerr << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    string name1;
+    int age1, height1;
+    float total_age = 0, total_height = 0;
+    int j = 0;
+
+    string header;
+    getline(read_writefile, header);
+
+    for (j = 1; j <= 3; j++) {
+        read_writefile >> name1 >> age1 >> height1;
+        if (read_writefile.fail()) {
+            cout << "讀取失敗\n";
+            break;
+        }
+        total_age = total_age + age1;
+        total_height = total_height + height1;
+    }
+
+    read_writefile.clear();
+
+    cout.precision(1);
+    cout.setf(ios::fixed);
+
+    read_writefile.seekg(0, ios::end);
+
+    read_writefile << fixed << setprecision(1); 
+    read_writefile << "平均年齡:" << total_age / 3
+        << "\t平均身高:" << total_height / 3 << '\n';
+
+
+    read_writefile.clear();
+    read_writefile.seekg(0, ios::beg); 
+
+    cout << "\n===== 螢幕列印：檔案完整內容 =====\n";
+    string line;
+    while (getline(read_writefile, line)) {
+        cout << line << "\n";
+    }
+    cout << "==================================\n";
+
+    read_writefile.clear();
+    read_writefile.close();
+}
+
+
+//AnimalManager.h
+
+#pragma once
+#ifndef ANIMAL_MANAGER_H
+#define ANIMAL_MANAGER_H
+
+#include <string>
+
+class AnimalManager {
+private:
+    std::string filename; 
+
+public:
+    AnimalManager(const std::string& fname);
+    void inputAndWriteFormat(int count);
+    void processAverageAndDisplayAll();
+};
+
+#endif
