@@ -1,0 +1,155 @@
+主程式
+#include <iostream>
+#include "cinema.h"
+
+using namespace std;
+
+int main() {
+    const char* filename = "movie.bin";
+    const int totalRecords = 5; 
+
+    
+    writeMovieData(filename, totalRecords);
+
+    
+    displayMovieList(filename);
+
+    
+    cout << "\n輸入電影名稱序號: ";
+    int no;
+    cin >> no;
+
+    
+    displaySingleMovie(filename, no);
+
+    return 0;
+}
+實作檔
+#include "cinema.h"
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+
+using namespace std;
+
+
+void writeMovieData(const char* filename, int count) {
+    ofstream writebinaryfile;
+
+    writebinaryfile.open(filename, ios_base::out | ios_base::binary);
+    if (writebinaryfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    struct cinema movie;
+    cout << "建立電影資訊 (共 " << count << " 筆) ===\n";
+    for (int i = 0; i < count; ++i) {
+        cout << "\n第 " << i + 1 << " 筆資料";
+        cout << "\n電影名稱: ";
+        cin >> movie.name;
+        cout << "上映日期: ";
+        cin >> movie.date;
+        cout << "上映廳處: ";
+        cin >> movie.place;
+        cout << "票價: ";
+        cin >> movie.price;
+
+       
+        writebinaryfile.write((char*)&movie, sizeof(struct cinema));
+    }
+
+    writebinaryfile.close();
+    if (writebinaryfile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+void displayMovieList(const char* filename) {
+    ifstream readbinaryfile;
+
+    readbinaryfile.open(filename, ios_base::in | ios_base::binary);
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    struct cinema movie;
+    cout << "\n電影資訊清單\n";
+    int i = 1;
+
+    while (true) {
+        readbinaryfile.read((char*)&movie, sizeof(struct cinema));
+
+        if (!readbinaryfile.eof()) {
+            cout << i << ". 電影名稱: " << movie.name << '\n';
+        }
+        else {
+            break;
+        }
+        i++;
+    }
+
+    readbinaryfile.clear();
+    readbinaryfile.close();
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+void displaySingleMovie(const char* filename, int no) {
+    ifstream readbinaryfile;
+
+    readbinaryfile.open(filename, ios_base::in | ios_base::binary);
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    struct cinema movie;
+
+    
+    readbinaryfile.seekg(sizeof(struct cinema) * (no - 1), ios::beg);
+
+    
+    readbinaryfile.read((char*)&movie, sizeof(struct cinema));
+
+    if (!readbinaryfile.eof()) {
+        cout << "\n第 " << no << " 筆電影的資訊 \n";
+        cout << "電影名稱: " << movie.name << '\t'
+            << "上映日期: " << movie.date << '\n'
+            << "上映廳處: " << movie.place << '\t'
+            << "票價: " << movie.price << '\n';
+    }
+    else {
+        cout << "\n查無此電影資料!\n";
+    }
+
+    readbinaryfile.clear();
+    readbinaryfile.close();
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+標頭檔
+#ifndef CINEMA_H
+#define CINEMA_H
+
+
+struct cinema {
+    char name[10];  
+    char date[9];   
+    char place[7];  
+    int price;      
+};
+
+void writeMovieData(const char* filename, int count);
+void displayMovieList(const char* filename);
+void displaySingleMovie(const char* filename, int no);
+
+#endif 
