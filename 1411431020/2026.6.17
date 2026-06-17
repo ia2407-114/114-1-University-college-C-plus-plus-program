@@ -1,0 +1,228 @@
+    //001
+    //main
+#include "Cinema.h"
+
+int main() {
+    CinemaManager manager;
+    const char* dbFile = "movie.bin";
+
+    //從鍵盤讀取 5 筆資料
+    manager.inputAndSave(dbFile, 5);
+    manager.loadAndPrint(dbFile);
+
+    return 0;
+}
+
+    //介面
+#ifndef CINEMA_H
+#define CINEMA_H
+
+#include <string>
+
+//結構定義
+struct cinema {
+    char name[7];  // 電影名稱
+    char date[8];   // 上映日期
+    char place[9];  // 上映廳處
+    int price;      // 票價
+};
+
+class CinemaManager {
+public:
+    // 從鍵盤讀取指定筆數的資料並存入二進制檔案
+    void inputAndSave(const char* fileName, int count);
+
+    // 從檔案讀取資料並逐一印出至螢幕
+    void loadAndPrint(const char* fileName);
+};
+
+#endif
+
+    //實作
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include "Cinema.h"
+
+
+using namespace std;
+
+
+void CinemaManager::inputAndSave(const char* fileName, int count ){
+    // 以二進制寫入模式開啟檔案
+    ofstream outfile(fileName, ios::out | ios::binary);
+
+    if (!outfile) {
+        cerr << fileName << " 檔案無法開啟進行寫入！" << endl;
+        return;
+    }
+
+    cinema movie;
+    for (int i = 1; i <= count; ++i) {
+        cout << "\n建立第 " << i << " 筆電影資訊:" << endl;
+        cout << "電影名稱 (限10字): "; cin >> movie.name;
+        cout << "上映日期 (YYYYMMDD): "; cin >> movie.date;
+        cout << "上映廳處: "; cin >> movie.place;
+        cout << "票價: "; cin >> movie.price;
+
+        // 寫入
+        outfile.write(reinterpret_cast<char*>(&movie), sizeof(cinema));
+    }
+
+    outfile.close();
+    cout << "\n" << count << " 筆資料已成功存入 " << fileName << endl;
+}
+
+// 實作讀取
+void CinemaManager::loadAndPrint(const char* fileName) {
+    // 開啟檔案
+    ifstream infile(fileName, ios::in | ios::binary);
+
+    if (!infile) {
+        cerr << fileName << " 檔案無法開啟進行讀取！" << endl;
+        return;
+    }
+
+    cinema movie;
+    cout << "\n===== 電影資訊列表 =====" << endl;
+    cout << left << setw(12) << "名稱" << setw(10) << "日期"
+        << setw(10) << "廳處" << "票價" << endl;
+
+    // 讀取
+    while (infile.read(reinterpret_cast<char*>(&movie), sizeof(cinema))) {
+        cout << left << setw(12) << movie.name
+            << setw(10) << movie.date
+            << setw(10) << movie.place
+            << movie.price << endl;
+    }
+
+    infile.close();
+}
+
+
+
+
+
+    //002
+    //main
+#include "movie.h"
+
+int main() {
+    CinemaManager manager;
+    const char* dbFile = "movie.bin";
+
+    // 第一階段：讀取 5 筆資料並儲存
+    manager.inputAndSave(dbFile, 5);
+
+    // 第二階段：印出編號與名稱
+    manager.listMovieNames(dbFile);
+
+    // 第三階段：根據編號印出完整資料
+    manager.showDetail(dbFile);
+
+    return 0;
+}
+
+    //介面
+#ifndef MOVIE_H
+#define MOVIE_H
+
+#include <string>
+
+// 結構定義 
+struct cinema {
+    char name[7];  // 電影名稱
+    char date[8];   // 上映日期 (YYYYMMDD)
+    char place[9];  // 上映廳處
+    int price;      // 票價
+};
+
+class CinemaManager {
+public:
+    // 1. 從鍵盤讀取 5 筆資料並寫入二進制檔
+    void inputAndSave(const char* fileName, int count);
+
+    // 2. 印出所有資料編號與電影名稱 
+    void listMovieNames(const char* fileName);
+
+    // 3. 詢問並印出指定序號的完整內容
+    void showDetail(const char* fileName);
+};
+
+#endif
+
+    //實作
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include "movie.h"
+
+using namespace std;
+
+// 實作鍵盤輸入並存入二進制檔
+void CinemaManager::inputAndSave(const char* fileName, int count) {
+    ofstream outfile(fileName, ios::out | ios::binary);
+    if (!outfile) {
+        cerr << "無法開啟檔案進行寫入！" << endl;
+        return;
+    }
+
+    cinema movie;
+    cout << "--- 請輸入 " << count << " 筆電影資訊 ---" << endl;
+    for (int i = 0; i < count; ++i) {
+        cout << "\n第 " << i + 1 << " 筆資料:" << endl;
+        cout << "電影名稱 (限10字): "; cin >> movie.name;
+        cout << "上映日期 (YYYYMMDD): "; cin >> movie.date;
+        cout << "上映廳處: "; cin >> movie.place;
+        cout << "票價: "; cin >> movie.price;
+
+        // 寫入檔案
+        outfile.write(reinterpret_cast<char*>(&movie), sizeof(cinema));
+    }
+    outfile.close();
+}
+
+// 實作清單顯示：僅顯示編號與名稱
+void CinemaManager::listMovieNames(const char* fileName) {
+    ifstream infile(fileName, ios::in | ios::binary);
+    if (!infile) return;
+
+    cinema movie;
+    int index = 1;
+    cout << "\n===== 電影清單 =====" << endl;
+    cout << setw(5) << "編號" << "  " << "電影名稱" << endl;
+
+
+    while (infile.read(reinterpret_cast<char*>(&movie), sizeof(cinema))) {
+        cout << setw(5) << index++ << "  " << movie.name << endl;
+    }
+    infile.close();
+}
+
+
+void CinemaManager::showDetail(const char* fileName) {
+    ifstream infile(fileName, ios::in | ios::binary);
+    if (!infile) return;
+
+    int no;
+    cout << "\n請輸入要查看完整內容的資料編號: ";
+    cin >> no;
+
+
+    infile.seekg(sizeof(cinema) * (no - 1), ios::beg);
+
+    cinema movie;
+    if (infile.read(reinterpret_cast<char*>(&movie), sizeof(cinema))) {
+        cout << "\n--- 資料完整內容 ---" << endl;
+        cout << "電影名稱: " << movie.name << endl;
+        cout << "上映日期: " << movie.date << endl;
+        cout << "上映廳處: " << movie.place << endl;
+        cout << "票價: " << movie.price << endl;
+    }
+    else {
+        cout << "錯誤：查無此編號之資料！" << endl;
+    }
+    infile.close();
+}
+
+
