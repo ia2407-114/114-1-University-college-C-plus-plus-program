@@ -1,0 +1,96 @@
+//main.cpp
+
+#include "AnimalManager.h"
+
+int main() {
+
+    AnimalManager manager;
+
+    manager.inputAnimals();
+
+    manager.saveToFile("animal.txt");
+
+    return 0;
+}
+
+//AnimalManager.cpp
+
+#include "AnimalManager.h"
+#include <iostream>
+#include <fstream>         
+#include <iomanip>         
+#include <cstdlib>         
+
+using namespace std;
+
+
+void AnimalManager::inputAnimals() {
+    for (int i = 0; i < 3; i++) {
+        cout << "輸入第" << (i + 1) << "種動物名稱，年齡及身高(以空白鍵作區隔):\n";
+
+        if (!(cin >> animals[i].name >> animals[i].age >> animals[i].height)) {
+            cout << "輸入格式錯誤，程式中斷。\n";
+            exit(1);
+        }
+    }
+}
+
+void AnimalManager::saveToFile(const string& filename) {
+
+    ofstream writefile; 
+
+    writefile.open(filename, ios_base::out);
+    if (writefile.fail()) {
+        cout << filename << " 檔案無法開啟!\n";
+        exit(1);
+    }
+
+    writefile << left << setw(15) << "動物"
+        << setw(10) << "年齡"
+        << setw(10) << "身高" << "\n";
+
+    for (int i = 0; i < 3; i++) {
+        writefile << left << setw(15) << animals[i].name
+            << setw(10) << animals[i].age
+            << setw(10) << animals[i].height << "\n";
+
+        if (writefile.fail()) {
+            cout << "檔案寫入中途失敗！\n";
+            break;
+        }
+    }
+
+    writefile.close();
+    if (writefile.fail()) {
+        cout << filename << " 檔案無法關閉!\n";
+        exit(1);
+    }
+
+    cout << "\n資料已成功格式化並儲存至 " << filename << " !\n";
+}
+
+
+//AnimalManager.h
+
+#ifndef ANIMAL_MANAGER_H
+#define ANIMAL_MANAGER_H
+
+#include <string>
+
+struct Animal {
+    std::string name;  
+    int age;           
+    int height;       
+};
+
+class AnimalManager {
+private:
+    Animal animals[3];
+
+public:
+    void inputAnimals();
+
+    void saveToFile(const std::string& filename);
+};
+
+#endif 
