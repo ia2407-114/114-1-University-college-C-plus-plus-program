@@ -1,0 +1,118 @@
+#ifndef CINEMA_H
+#define CINEMA_H
+
+#include <fstream>
+
+
+struct cinema {
+    char name[10];
+    char date[9];
+    char place[7];  
+    int price;     
+};
+
+class CinemaManager {
+private:
+    const char* filename;
+
+public:  
+    CinemaManager(const char* fname);
+
+    void writeFile(int count);
+
+    void readAndPrint();
+};
+
+#endif
+
+
+
+#include "Cinema.h"
+#include <iostream>
+
+using namespace std;
+
+
+CinemaManager::CinemaManager(const char* fname) : filename(fname) {}
+
+void CinemaManager::writeFile(int count) {
+    ofstream writebinaryfile;
+
+    
+    writebinaryfile.open(filename, ios_base::out | ios_base::binary);
+    if (writebinaryfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    cout << "電影資訊\n";
+    struct cinema movie;
+
+    for (int i = 0; i < count; i++) {
+        cout << "\n第 " << i + 1 << " 筆電影名稱:";
+        cin >> movie.name;
+        cout << "\n上映日期:";
+        cin >> movie.date;
+        cout << "\n上映廳處:";
+        cin >> movie.place;
+        cout << "\n票價:";
+        cin >> movie.price;
+
+        writebinaryfile.write((char*)&movie, sizeof(struct cinema));
+    }
+
+    writebinaryfile.close();
+    if (writebinaryfile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+void CinemaManager::readAndPrint() {
+    ifstream readbinaryfile;
+
+    readbinaryfile.open(filename, ios_base::in | ios_base::binary);
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法開啟!\n";
+        exit(1);
+    }
+
+    cout << "\n電影資訊\n";
+    struct cinema movie;
+
+    while (1) {
+        readbinaryfile.read((char*)&movie, sizeof(struct cinema));
+
+        if (!readbinaryfile.eof()) {
+            cout << "電影名稱:" << movie.name << '\t'
+                << "上映日期:" << movie.date << '\n'
+                << "上映廳處:" << movie.place << '\t'
+                << "票價:" << movie.price << "\n\n";
+        }
+        else {
+            break;
+        }
+    }
+
+    readbinaryfile.clear();
+    readbinaryfile.close();
+    if (readbinaryfile.fail()) {
+        cout << filename << "檔案無法關閉!\n";
+        exit(1);
+    }
+}
+
+
+
+#include "Cinema.h"
+
+int main() {
+    CinemaManager manager("movie.bin");
+
+    manager.writeFile(5);
+    
+    manager.readAndPrint();
+
+    return 0;
+}
