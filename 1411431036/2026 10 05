@@ -1,1 +1,159 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#define MAX 10
+
+
+void insert_both(void); 
+void delete_both(void); 
+void list_both(void);   
+void flushBuffer(void); 
+
+
+char queue_item[MAX][20];
+int front = MAX - 1, rear = MAX - 1, tag = 0;
+
+
+char stack_item[MAX][20];
+int top = -1;
+
+int main(void)
+{
+    char option;
+    while (1) {
+        printf("\n ************************************\n");
+        printf("   <1> 加入 (Push & Enqueue)\n");
+        printf("   <2> 刪除 (Pop & Dequeue)\n");
+        printf("   <3> 輸出佇列與堆疊內容\n");
+        printf("   <4> 結束 (Quit)\n");
+        printf(" ************************************\n");
+        printf(" 請輸入選項: ");
+        option = getchar();
+        flushBuffer();
+
+        switch (option) {
+        case '1':
+            insert_both();
+            break;
+        case '2':
+            delete_both();
+            break;
+        case '3':
+            list_both();
+            break;
+        case '4':
+            printf(" 程式結束\n");
+            exit(0);
+        default:
+            printf("\n 選項錯誤!\n 請輸入 1, 2, 3, 或 4\n");
+        }
+    }
+    return 0;
+}
+
+
+void insert_both(void)
+{
+    char input_str[20];
+
+    
+    if ((front == rear && tag == 1) || top >= MAX - 1) {
+        printf("\n 資料已滿，無法新增字串!\n");
+        return;
+    }
+
+    printf("\n 請輸入一字串: ");
+    scanf_s("%s", input_str, (unsigned int)sizeof(input_str));
+    flushBuffer();
+
+    
+    rear = (rear + 1) % MAX;
+    strcpy_s(queue_item[rear], input_str);
+    if (front == rear) {
+        tag = 1;
+    }
+
+    
+    top++;
+    strcpy_s(stack_item[top], input_str);
+
+    printf(" [%s] 已成功加入佇列與堆疊!\n", input_str);
+}
+
+
+void delete_both(void)
+{
+    printf("\n === 刪除執行結果 ===\n");
+
+    
+    if (front == rear && tag == 0) {
+        printf(" 佇列是空的，無法刪除!\n");
+    }
+    else {
+        front = (front + 1) % MAX;
+        printf(" 佇列刪除 (FIFO): %s 已被刪除\n", queue_item[front]);
+        if (front == rear) {
+            tag = 0;
+        }
+    }
+
+    
+    if (top < 0) {
+        printf(" 堆疊是空的，無法刪除!\n");
+    }
+    else {
+        printf(" 堆疊刪除 (LIFO): %s 已被刪除\n", stack_item[top]);
+        top--;
+    }
+}
+
+
+void list_both(void)
+{
+    int count, i, num;
+     
+    
+    printf("\n [環形佇列]\n");
+    if (front == rear && tag == 0) {
+        printf(" 佇列無資料\n");
+    }
+    else {
+        printf(" ------------------\n");
+        count = 0;
+        i = (front + 1) % MAX;
+        while (i != rear) {
+            printf("  %-20s\n", queue_item[i]);
+            num = (i + 1) % MAX;
+            i = num;
+            count++;
+        }
+        printf("  %-20s\n", queue_item[i]);
+        count++;
+        printf(" ------------------\n");
+        printf("  共有 %d 個字串\n", count);
+    }
+
+    
+    printf("\n [堆疊]\n");
+    if (top < 0) {
+        printf(" 堆疊無資料\n");
+    }
+    else {
+        printf(" ------------------\n");
+        count = 0;
+        for (i = top; i >= 0; i--) {
+            printf("  %-20s\n", stack_item[i]);
+            count++;
+        }
+        printf(" ------------------\n");
+        printf("  共有 %d 個字串\n", count);
+    }
+    printf(" ====================================\n");
+}
+
+void flushBuffer(void)
+{
+    while (getchar() != '\n')
+        continue;
+}
